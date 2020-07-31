@@ -1,4 +1,4 @@
-"""django_heroku_test URL Configuration
+"""dublin_bus URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -15,17 +15,34 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from pages.views import HomeView
 from django.views.i18n import JavaScriptCatalog
+from pages.views import PredictionView, \
+    HomeView, \
+    AutocompleteView, \
+    StopsOnRoute, \
+    DisplayRoutesView, \
+    ClosestStopsView, \
+    TrafficView, \
+    error_404_view
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
+    path('autocomplete_stop/', AutocompleteView.as_view(), name='autocomplete_stop'),
+    path('routes/', DisplayRoutesView.as_view(), name='routes'),
+    path('stops/', StopsOnRoute.as_view(), name='stops'),
+    path('predict/', PredictionView.as_view(), name='predict'),
+    path('closest/', ClosestStopsView.as_view(), name='closest'),
+    path('traffic/', TrafficView.as_view(), name='traffic'),
+    path('404/', error_404_view, name='404'),
 ]
-
 urlpatterns += [
     re_path(r'^jsi18n/$',
             JavaScriptCatalog.as_view(packages=['pages.jscripti18n']),
             name='javascript-catalog'),
 ]
+
+handler404 = 'pages.views.error_404_view'
+
+handler500 = 'pages.views.error_500_view'
