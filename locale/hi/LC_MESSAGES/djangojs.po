@@ -1,0 +1,73 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-27 12:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\web_app\static\javascript\favourites.js:60
+msgid "Please Select source and destination ."
+msgstr "कृपया स्रोत और गंतव्य चुनें!"
+
+#: .\web_app\static\javascript\favourites.js:71
+msgid "You have no favourites saved!"
+msgstr "कोई पसंदीदा चिह्नित नहीं"
+
+#: .\web_app\static\javascript\favourites.js:78
+msgid "You have no recent searches!"
+msgstr "आपकी कोई हालिया खोज नहीं है"
+
+#: .\web_app\static\javascript\favourites.js:86
+msgid "<h3>Recent Searches</h3>"
+msgstr "हाल की खोजें "
+
+#: .\web_app\static\javascript\favourites.js:125
+#: .\web_app\static\javascript\favourites.js:131
+msgid "Stop "
+msgstr "बस स्टैंड का नाम"
+
+#: .\web_app\static\javascript\modals.js:36
+msgid "<h2>Steps:</h2>"
+msgstr "कदम"
+
+#: .\web_app\static\javascript\modals.js:66
+msgid "Start from: "
+msgstr "प्रस्थान - "
+
+#: .\web_app\static\javascript\modals.js:71
+msgid "Line ID: "
+msgstr "बस नंबर - "
+
+#: .\web_app\static\javascript\modals.js:75
+msgid "Departs at: "
+msgstr "समय का विभाजन "
+
+#: .\web_app\static\javascript\modals.js:79
+msgid " Arrives to: "
+msgstr "पर आगमन "
+
+#: .\web_app\static\javascript\modals.js:84
+msgid "Stops: "
+msgstr "यात्रा के दौरान बस स्टैंड - "
+
+#: .\web_app\static\javascript\routes.js:150
+#: .\web_app\static\javascript\routes.js:156
+msgid "Inbound"
+msgstr "कहाँ से कहाँ तक"
+
+#: .\web_app\static\javascript\routes.js:151
+#: .\web_app\static\javascript\routes.js:155
+msgid "Outbound"
+msgstr "कहाँ से कहाँ तक"

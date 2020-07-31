@@ -1,0 +1,71 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-30 12:40+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\web_app\dublin_bus\settings.py:123
+msgid "简体中文"
+msgstr "सरलीकृत चीनी"
+
+#: .\web_app\dublin_bus\settings.py:124
+msgid "English"
+msgstr "अंग्रेज़ी"
+
+#: .\web_app\dublin_bus\settings.py:125
+msgid "繁体中文"
+msgstr "परंपरागत चीनी"
+
+#: .\web_app\dublin_bus\settings.py:126
+msgid "Hindi"
+msgstr "हिन्दी"
+
+#: .\web_app\templates\home.html:88
+msgid "Search"
+msgstr "खोज करो"
+
+#: .\web_app\templates\home.html:92
+msgid "Routes"
+msgstr "मार्ग"
+
+#: .\web_app\templates\home.html:95
+msgid "Favs"
+msgstr "पसंदीदा मार्ग"
+
+#: .\web_app\templates\home.html:98
+msgid "Info"
+msgstr "सूचना"
+
+#: .\web_app\templates\home.html:118
+msgid "From stop"
+msgstr "कहाँ से"
+
+#: .\web_app\templates\home.html:133
+msgid "To stop"
+msgstr "कहाँ तक"
+
+#: .\web_app\templates\home.html:152
+msgid "Plan Route"
+msgstr "योजना मार्ग"
+
+#: .\web_app\templates\home.html:168
+msgid "Enter Route"
+msgstr "मार्ग दर्ज करें"
+
+#: .\web_app\templates\home.html:169
+msgid "Inbound"
+msgstr "कहाँ से कहाँ तक"
