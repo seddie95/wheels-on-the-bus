@@ -7,6 +7,7 @@ from django.views.generic import View
 import json
 import urllib.parse
 
+
 # Raw SQL Queries
 def get_stop_id(latitude, longitude, line_id):
     """Function to return the stop id based on a longitude"""
@@ -14,7 +15,7 @@ def get_stop_id(latitude, longitude, line_id):
         SELECT line_id,direction,stop_id,stop_name,latitude,longitude, SQRT(
         POW(69.1 * (latitude - %s), 2) +
         POW(69.1 * (%s - longitude) * COS(latitude / 57.3), 2)) AS distance
-        FROM bus_data.bus_locations
+        FROM bus_locations
         where line_id =%s
         HAVING distance < 1 ORDER BY distance limit 1;
                   ''', [latitude, longitude, line_id])
@@ -26,7 +27,7 @@ def get_closest_stops(latitude, longitude):
     stops = BusLocations.objects.raw('''SELECT line_id,direction,stop_id,stop_name,latitude,longitude, SQRT(
         POW(69.1 * (latitude - %s), 2) +
         POW(69.1 * (%s - longitude) * COS(latitude / 57.3), 2)) AS distance
-        FROM bus_data.bus_locations group by stop_id
+        FROM bus_locations group by stop_id
         HAVING distance < 1 ORDER BY distance limit 10;
                   ''', [latitude, longitude])
 
@@ -47,7 +48,7 @@ def get_weather(time_stamp):
     """Function to return the weather based on a timestamp"""
     weather = Weather.objects.raw('''with diff as
                (select *, abs(%s - t.time) diff
-                 from bus_data.weather as t
+                 from weather as t
                  )
               select *
                from diff d
@@ -69,11 +70,11 @@ def get_direction(departure, arrival, line_id):
     select sequence,line_id,direction,stop_id,
     stop_name,latitude,longitude,count(*) as magnitude
             from
-            (SELECT  * FROM bus_data.bus_locations
+            (SELECT  * FROM bus_locations
             where stop_id = %s
             and line_id = %s
             union
-            SELECT distinct * FROM bus_data.bus_locations
+            SELECT distinct * FROM bus_locations
             where stop_id = %s
             and line_id = %s) as a
             GROUP BY direction
@@ -83,7 +84,7 @@ def get_direction(departure, arrival, line_id):
 
 
 def get_all_stops(line_id, direction):
-    data = BusLocations.objects.raw('''SELECT * FROM bus_data.bus_locations
+    data = BusLocations.objects.raw('''SELECT * FROM bus_locations
              where line_id =%s 
              and direction =%s
              group by sequence
@@ -99,7 +100,7 @@ def get_series_of_stops(departure, line_id, num_stops, direction):
         from (select sequence, line_id, direction, stop_id, stop_name,
                      max(case when stop_id = %s then sequence end) 
                      over (partition by line_id) as the_sequence
-              from bus_data.bus_locations bl
+              from bus_locations bl
               where line_id = %s and direction =%s order by sequence
              ) bl
         where sequence >= the_sequence and
@@ -140,7 +141,6 @@ class DisplayRoutesView(View):
 
 class StopsOnRoute(View):
     def post(self, request):
-
         response = json.loads(request.body)
 
         # Parse the response
