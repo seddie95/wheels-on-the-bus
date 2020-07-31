@@ -86,12 +86,12 @@ WSGI_APPLICATION = 'django_heroku_test.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bus_data',
         'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'USER': 'steve',
-        'PASSWORD': 'password',
+        'PORT': '5432',
+        'USER': 'postgres',
+        'PASSWORD': 'Dublinbus123!',
     }
 }
 
