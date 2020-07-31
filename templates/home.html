@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-{% extends 'base.html' %} {% load static %}{% block head %} {% load i18n %}
+{% extends 'base.html' %} {% load staticfiles %}{% block head %} {% load i18n %}
 
 <!-- jQuerystylesheet url -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" crossorigin="anonymous" />
@@ -19,10 +19,10 @@
 <link rel="stylesheet"  href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"  crossorigin="anonymous" />
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="{% static '/css/style.css' %}" />
+<link rel="stylesheet" href="{% staticfiles '/css/style.css' %}" />
 
 <!-- PWA manifest file -->
-<link rel="manifest" href="{% static '/manifest/manifest.json' %}" />
+<link rel="manifest" href="{% staticfiles '/manifest/manifest.json' %}" />
 
 <!--load google map according to language selector-->
 {% get_current_language as LANGUAGE_CODE %}
@@ -46,18 +46,18 @@ document.head.appendChild(map_script);
 <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
 <!--Local javascript files-->
 
-<script src="{% static '/javascript/weather.js' %}"></script>
-<script src="{% static '/javascript/modals.js' %}"></script>
-<script src="{% static '/javascript/map.js' %}"></script>
-<script src="{% static '/javascript/time.js' %}"></script>
-<script src="{% static '/javascript/autocomplete.js' %}"></script>
-<script src="{% static '/javascript/onload_functions.js' %}"></script>
-<script src="{% static '/javascript/favourites.js' %}"></script>
-<script src="{% static '/javascript/tabs.js' %}"></script>
-<script src="{% static '/javascript/menu.js' %}"></script>
-<script src="{% static '/javascript/routes.js' %}"></script>
-<script src="{% static '/javascript/resize_transitions.js' %}"></script>
-<script src="{% static '/javascript/information.js' %}"></script>
+<script src="{% staticfiles '/javascript/weather.js' %}"></script>
+<script src="{% staticfiles '/javascript/modals.js' %}"></script>
+<script src="{% staticfiles '/javascript/map.js' %}"></script>
+<script src="{% staticfiles '/javascript/time.js' %}"></script>
+<script src="{% staticfiles '/javascript/autocomplete.js' %}"></script>
+<script src="{% staticfiles '/javascript/onload_functions.js' %}"></script>
+<script src="{% staticfiles '/javascript/favourites.js' %}"></script>
+<script src="{% staticfiles '/javascript/tabs.js' %}"></script>
+<script src="{% staticfiles '/javascript/menu.js' %}"></script>
+<script src="{% staticfiles '/javascript/routes.js' %}"></script>
+<script src="{% staticfiles '/javascript/resize_transitions.js' %}"></script>
+<script src="{% staticfiles '/javascript/information.js' %}"></script>
 
 {% endblock head %} {% block body %}
 
@@ -208,10 +208,10 @@ document.head.appendChild(map_script);
                             >
                         </li>
                         <l1
-                            ><a href="https://www.dublinbus.ie/" target="_blank"><img src="/static/images/dublinbus.png" alt="DublinBusIcon" /></a
+                            ><a href="https://www.dublinbus.ie/" target="_blank"><img src="/staticfiles/images/dublinbus.png" alt="DublinBusIcon" /></a
                         ></l1>
                         <l1
-                            ><a href="https://www.leapcard.ie/Home/index.html" target="_blank"><img src="/static/images/leapCard.jpg" alt="LeapCardIcon" /></a
+                            ><a href="https://www.leapcard.ie/Home/index.html" target="_blank"><img src="/staticfiles/images/leapCard.jpg" alt="LeapCardIcon" /></a
                         ></l1>
                     </ul>
                 </div>
