@@ -35,8 +35,7 @@ function initMap() {
         controlSize: 25,
     });
 
-    // display the traffic data
-    setTraffic();
+
 }
 
 //=================================================================================================
@@ -495,49 +494,6 @@ function displayMarkers(stops) {
 
         infowindow.open(map, marker);
     });
-}
-
-//============================================================================================================
-
-//Function to retrieve the traffic data and display on the map
-function setTraffic() {
-    // Obtain the traffic data from the database
-    $.get(baseUrl + "traffic/", function (data) {
-        // Display the response on the map
-        data.forEach(getTraffic);
-    });
-
-    // Function to  display traffic markers and info-windows
-    function getTraffic(incident) {
-        // Parse the response
-        let coordinates = incident.coordinates;
-        let start = incident.start;
-        let end = incident.end;
-        let title = incident.description;
-        let icon = "/static/images/traffic.png";
-
-        // create a marker for the traffic incidents
-        let marker = createMarker(coordinates, title, icon);
-
-        // add markers to list of markers
-        markers.push(marker);
-
-        // Add an event listener to display the incident description
-        google.maps.event.addListener(marker, "click", function () {
-            if (infowindow) {
-                infowindow.close();
-            }
-
-            //Display the start and end if applicable
-            if (start !== "") {
-                infowindow.setContent(`<div id="infowindow"><h2>${title}</h2>
-                <p>from: ${start}<br>
-            To: ${end}</p></div>`);
-            }
-
-            infowindow.open(map, marker);
-        });
-    }
 }
 
 //==============================================================
