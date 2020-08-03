@@ -135,7 +135,7 @@ function displayStopsModal(obj, route_info) {
         let line_id = route_info["line_id"];
 
         route_selected = `<li id='${line_id}'><span class="transport_container">
-        <img src='/static/images/bus.svg/' id='bus_icon'>${line_id}</span>
+        <img src='/static/images/bus.svg' id='bus_icon'>${line_id}</span>
         <span class="route_text"></span></li>`;
 
         $("#route_selected").html(route_selected);

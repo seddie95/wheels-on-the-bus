@@ -172,15 +172,15 @@ function fetch_data(myData) {
                             // Set the icon and border colour based on agency
                             switch (agency) {
                                 case "Luas":
-                                    icon = "/static/images/luas.png/";
+                                    icon = "/static/images/luas.png";
                                     border_id = "luas";
                                     break;
                                 case "Irish Rail":
-                                    icon = "/static/images/dart.svg/";
+                                    icon = "/static/images/dart.svg";
                                     border_id = "rail";
                                     break;
                                 default:
-                                    icon = "/static/images/bus.svg/";
+                                    icon = "/static/images/bus.svg";
                                     lowercase_line_id = transit_details["line"]["short_name"];
                                     line_id = lowercase_line_id.toUpperCase();
                             }
@@ -465,7 +465,7 @@ function displayMarkers(stops) {
                 let bus = buses[i];
 
                 bus_list += `<li><span class="transport_container">
-                                <img src='/static/images/bus.svg/' id='bus_icon'> 
+                                <img src='/static/images/bus.svg' id='bus_icon'> 
                                 ${bus.route}</span>
                                 ${bus.destination}<span id="arrival_time">${bus.duetime}`;
 

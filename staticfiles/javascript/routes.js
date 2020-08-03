@@ -39,7 +39,7 @@ $(document).ready(function () {
 
                     // Add the route info to route_list
                     routes_list += `<li id='${route_id}'><span class="transport_container">
-                                    <img src='/static/images/bus.svg/' id='bus_icon'>${route_id}</span>
+                                    <img src='/static/images/bus.svg' id='bus_icon'>${route_id}</span>
                                     <div class="line_wrap"><span class="route_text">${start} - </span><span class="route_text">${end}</span><div/></li>`;
                 }
                 routes_list += `</ul>`;
