@@ -95,17 +95,17 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'bus_data',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#         'USER': 'steve',
-#         'PASSWORD': 'password',
-#     }
-# }
-
+# RDS database credentials
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bus_data',
+        'HOST': 'dublin-bus-db.cyn6ycrg3wxh.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'USER': 'bus_admin',
+        'PASSWORD': 'Dublinbus123!',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
