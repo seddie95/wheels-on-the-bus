@@ -45,19 +45,23 @@ function displayDirectionsModal(bus_data, index) {
                 // Get the real time arrival times for the stops
                 let url = `https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=${stop_id}`;
 
-                $.get(url, function (data) {
-                    let buses = data.results;
+                fetch(url)
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        buses.forEach(function (bus) {
+                            let route = bus.route;
+                            if (route === line_id && bus_times.length < 3) {
+                                bus_times.push(" " + bus.duetime);
+                            }
+                        });
+                        $(`#arrival_${stop_id}`).html(`<br><br>Leaves in: <strong>${bus_times.toString()} min</strong>`);
+                    })
+                    .catch(function (error) {
+                        console.error("Difficulty fetching real time arrival data:", error);
+                    })
 
-                    buses.forEach(function (bus) {
-                        let route = bus.route;
-
-                        if (route === line_id && bus_times.length < 3) {
-                            bus_times.push(" " + bus.duetime);
-                        }
-                    });
-
-                    $(`#arrival_${stop_id}`).html(`<br><br>Leaves in: <strong>${bus_times.toString()} min</strong>`);
-                });
             }
 
             text +=
@@ -110,7 +114,6 @@ function displayStopsModal(obj, route_info) {
     try {
         // Get the stops_modal
         var stops_modal = document.getElementById("stops_modal");
-        console.log(stops_modal);
 
         // Get the span element that enables the modal to be closed
         var stops_span = document.getElementsByClassName("close")[1];
