@@ -7,7 +7,6 @@ from django.views.generic import View
 import json
 import urllib.parse
 
-
 # Raw SQL Queries
 def get_stop_id(latitude, longitude, line_id):
     """Function to return the stop id based on a longitude"""
@@ -141,6 +140,7 @@ class DisplayRoutesView(View):
 
 class StopsOnRoute(View):
     def post(self, request):
+
         response = json.loads(request.body)
 
         # Parse the response
