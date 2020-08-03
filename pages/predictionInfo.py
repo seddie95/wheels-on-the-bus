@@ -1,12 +1,13 @@
 from datetime import datetime
 import pickle
 
+
 def check_weather(weather):
-    switcher={
-        "Clear":1, "Clouds":2, "Drizzle":3,
-        "Fog":4, "Mist":5, "Rain":6, "Smoke":7, "Snow":8
+    switcher = {
+        "Clear": 1, "Clouds": 2, "Drizzle": 3,
+        "Fog": 4, "Mist": 5, "Rain": 6, "Smoke": 7, "Snow": 8
     }
-    return switcher.get(weather,2)
+    return switcher.get(weather, 2)
 
 
 def check_peak_time(hour):
@@ -50,6 +51,7 @@ def check_rain(weather):
     else:
         return 0
 
+
 def getSuffix(direction):
     if (direction == 'Inbound'):
         return "dir2"
@@ -69,13 +71,13 @@ def get_predict_info(request):
     weather = request['description']
     depTime = datetime.fromtimestamp(request['departure_timestamp'])
     selecteddate = str(depTime.date())
-    weekday = int(depTime.weekday())+1
+    weekday = int(depTime.weekday()) + 1
     month = depTime.month
     hour = depTime.hour
 
     # mapping dictionary
-    with open(f'pages/lineStopMapping'+getSuffix(direction)+'.pkl','rb') as read:
-            mapping = pickle.load(read)
+    with open(f'pages/lineStopMapping' + getSuffix(direction) + '.pkl', 'rb') as read:
+        mapping = pickle.load(read)
 
     publicHoliday = check_public_holiday(selecteddate)
     schoolHoliday = check_school_holiday(month)
@@ -84,8 +86,9 @@ def get_predict_info(request):
     isRain = check_rain(weather)
     weather_main = check_weather(weather)
 
-    #input list of the model
-    misc = [publicHoliday, schoolHoliday, temp, pressure, windSpeed , weather_main, weekday, month, hour, peakTime, isWeekend, isRain]
+    # input list of the model
+    misc = [publicHoliday, schoolHoliday, temp, pressure, windSpeed, weather_main, weekday, month, hour, peakTime,
+            isWeekend, isRain]
 
     # destination/arrival information
     try:
@@ -105,8 +108,8 @@ def get_predict_info(request):
     except KeyError:
         return "Unavailable"
 
-    inputValues_source = misc +  sourceStopIDx
-    inputValues_dest = misc  + destStopIDx
+    inputValues_source = misc + sourceStopIDx
+    inputValues_dest = misc + destStopIDx
 
     with open(f'pages/PickelFiles/{line}_{getSuffix(direction)}.pkl', "rb") as read:
         mp = pickle.load(read)
@@ -118,10 +121,8 @@ def get_predict_info(request):
 
     timeDest = mp.predict([inputValues_dest])[0]
 
-
-
     travelTime = timeDest - timeSource
-    if travelTime <0:
+    if travelTime < 0:
         travelTime = 0
 
     return int(round((travelTime) / 60, 0))
