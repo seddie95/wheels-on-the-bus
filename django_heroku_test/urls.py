@@ -22,8 +22,8 @@ from pages.views import PredictionView, \
     StopsOnRoute, \
     DisplayRoutesView, \
     ClosestStopsView, \
-    TrafficView, \
     error_404_view
+# TrafficView, \
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
@@ -34,7 +34,7 @@ urlpatterns = [
     path('stops/', StopsOnRoute.as_view(), name='stops'),
     path('predict/', PredictionView.as_view(), name='predict'),
     path('closest/', ClosestStopsView.as_view(), name='closest'),
-    path('traffic/', TrafficView.as_view(), name='traffic'),
+    # path('traffic/', TrafficView.as_view(), name='traffic'),
     path('404/', error_404_view, name='404'),
 ]
 urlpatterns += [

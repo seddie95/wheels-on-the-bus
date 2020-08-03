@@ -7,28 +7,58 @@ from django.views.generic import View
 import json
 import urllib.parse
 
+
 # Raw SQL Queries
 def get_stop_id(latitude, longitude, line_id):
     """Function to return the stop id based on a longitude"""
-    data = BusLocations.objects.raw('''
-        SELECT line_id,direction,stop_id,stop_name,latitude,longitude, SQRT(
-        POW(69.1 * (latitude - %s), 2) +
-        POW(69.1 * (%s - longitude) * COS(latitude / 57.3), 2)) AS distance
-        FROM bus_locations
-        where line_id =%s
-        HAVING distance < 1 ORDER BY distance limit 1;
-                  ''', [latitude, longitude, line_id])
+    data = BusLocations.objects.raw('''select
+    *
+from
+    (
+        SELECT
+            *,(
+                3959 * acos(
+                    cos(radians(%s)) * cos(radians(latitude)) *
+                     cos(radians(longitude) - radians(%s)) + 
+                     sin(radians(%s)) * sin(radians(latitude))
+                )
+            ) AS distance
+        FROM
+            bus_locations
+    ) al
+where
+    line_id = %s
+    and distance < 5
+ORDER BY
+    distance
+LIMIT
+    1''', [latitude, longitude, latitude, line_id])
     return str(data[0].stop_id)
 
 
 def get_closest_stops(latitude, longitude):
     """Function to return the five closest stops to the users location"""
-    stops = BusLocations.objects.raw('''SELECT line_id,direction,stop_id,stop_name,latitude,longitude, SQRT(
-        POW(69.1 * (latitude - %s), 2) +
-        POW(69.1 * (%s - longitude) * COS(latitude / 57.3), 2)) AS distance
-        FROM bus_locations group by stop_id
-        HAVING distance < 1 ORDER BY distance limit 10;
-                  ''', [latitude, longitude])
+    stops = BusLocations.objects.raw('''select
+    *
+from
+    (
+        SELECT
+            *,(
+                3959 * acos(
+                    cos(radians(%s)) * cos(radians(latitude)) *
+                     cos(radians(longitude) - radians(%s)) + 
+                     sin(radians(%s)) * sin(radians(latitude))
+                )
+            ) AS distance
+        FROM
+            bus_locations
+    ) al
+where
+     distance < 5
+ORDER BY
+    distance
+LIMIT
+    10''', [latitude, longitude, latitude])
 
     stop_list = []
     for i in range(len(stops)):
@@ -65,28 +95,62 @@ def get_weather(time_stamp):
 
 
 def get_direction(departure, arrival, line_id):
-    data = BusLocations.objects.raw('''
-    select sequence,line_id,direction,stop_id,
-    stop_name,latitude,longitude,count(*) as magnitude
-            from
-            (SELECT  * FROM bus_locations
-            where stop_id = %s
-            and line_id = %s
-            union
-            SELECT distinct * FROM bus_locations
-            where stop_id = %s
-            and line_id = %s) as a
-            GROUP BY direction
-            ORDER BY magnitude DESC
-            LIMIT 1; ''', [departure, line_id, arrival, line_id])
+    data = BusLocations.objects.raw('''select
+    line_id,
+    direction,
+    stop_id,
+    stop_name,
+    latitude,
+    longitude,
+    count(*) as magnitude
+from
+    (
+        select
+            *
+        from
+            bus_locations
+        where
+            (
+                stop_id = %s
+                and line_id = %s
+            )
+        union
+        select
+            distinct *
+        from
+            bus_locations
+        where
+            (
+                stop_id = %s
+                and line_id = %s
+            )
+    ) as a
+group by
+    line_id,
+    direction,
+    stop_id,
+    stop_name,
+    latitude,
+    longitude
+ORDER BY
+    magnitude DESC
+limit
+    1; ''', [departure, line_id, arrival, line_id])
     return data[0].direction
 
 
 def get_all_stops(line_id, direction):
     data = BusLocations.objects.raw('''SELECT * FROM bus_locations
-             where line_id =%s 
+             where line_id =%s
              and direction =%s
-             group by sequence
+             group by 
+                sequence,
+                line_id,
+                direction,
+                stop_id,
+                stop_name,
+                latitude,
+                longitude
              order by sequence;
         ''', [line_id, direction])
     return data
@@ -140,12 +204,11 @@ class DisplayRoutesView(View):
 
 class StopsOnRoute(View):
     def post(self, request):
-
         response = json.loads(request.body)
 
         # Parse the response
         line_id = response['line_id']
-        direction = response['direction']
+        direction = response['direction'].capitalize()
 
         queryset = get_all_stops(line_id, direction)
 
@@ -202,26 +265,26 @@ class ClosestStopsView(View):
         return JsonResponse(closest_stops, safe=False)
 
 
-class TrafficView(View):
-    def get(self, request, *args, **kwargs):
-        queryset = Traffic.objects.all()
-
-        incident_list = []
-
-        for incident in queryset:
-            incident_dict = {
-                "description": incident.description,
-                "start": incident.start,
-                "end": incident.end,
-                "coordinates": {
-                    "lat": incident.latitude,
-                    "lng": incident.longitude
-                }
-            }
-
-            incident_list.append(incident_dict)
-
-        return JsonResponse(incident_list, safe=False)
+# class TrafficView(View):
+#     def get(self, request, *args, **kwargs):
+#         queryset = Traffic.objects.all()
+#
+#         incident_list = []
+#
+#         for incident in queryset:
+#             incident_dict = {
+#                 "description": incident.description,
+#                 "start": incident.start,
+#                 "end": incident.end,
+#                 "coordinates": {
+#                     "lat": incident.latitude,
+#                     "lng": incident.longitude
+#                 }
+#             }
+#
+#             incident_list.append(incident_dict)
+#
+#         return JsonResponse(incident_list, safe=False)
 
 
 class PredictionView(View):
