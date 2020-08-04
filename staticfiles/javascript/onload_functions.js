@@ -12,6 +12,19 @@ $(document).ready(function () {
         event.preventDefault();
         let myData = getFormData();
 
+        if (myData == null) {
+            return;
+        }
+
+        // Location coordinate strings will only be present if stops
+        // are properly selected from the autocomplete lists
+        // Alert the user and return from the function if
+        // there are no locations to avoid the history array being populated with unusable data
+        if (myData.source_location == "" || myData.destination_location == "") {
+            alert("Please select valid source and destination stops.");
+            return;
+        }
+
         // save myData to history to list and save to local
         let history = [];
 
@@ -97,6 +110,15 @@ $(document).on("keypress", function (e) {
 //==============================================================
 //function to retrieve form data
 function getFormData() {
+    // Location coordinate strings will only be present if stops
+    // are properly selected from the autocomplete lists
+    // Alert the user and return from the function if
+    // there are no locations to avoid the history array being populated with unusable data
+    if ($("#id_source").text() == "" || $("#id_destination").text() == "") {
+        alert("Please select valid source and destination stops.");
+        return;
+    }
+
     //Obtain values from Form
     let source_name = $("#id_source").val();
     let destination_name = $("#id_destination").val();
@@ -114,7 +136,7 @@ function getFormData() {
         };
         return myData;
     } else {
-        alert("Please Select source and destination .");
+        alert("Please select source and destination.");
     }
 }
 

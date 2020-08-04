@@ -44,7 +44,7 @@ function displayDirectionsModal(bus_data, index) {
                 let bus_times = [];
                 // Get the real time arrival times for the stops
 
-                fetch(baseUrl + 'rtpi/', {
+                fetch(baseUrl + "rtpi/", {
                     method: "POST",
                     credentials: "include",
                     body: JSON.stringify(stop_id),
@@ -70,8 +70,7 @@ function displayDirectionsModal(bus_data, index) {
                     })
                     .catch(function (error) {
                         console.error("Difficulty fetching real time arrival data:", error);
-                    })
-
+                    });
             }
 
             text +=
@@ -218,6 +217,7 @@ function displayWeather(description) {
 
 //========================================================================
 
+// Function to display the languages selction modal
 $(document).ready(function () {
     // Get the modal
     var languages_modal = document.getElementById("languages_modal");

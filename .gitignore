@@ -1,2 +1,11 @@
 pages/config.py
 venv1
+
+# IDE and code editor project specific settings files
+.vscode
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
