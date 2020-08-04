@@ -20,7 +20,7 @@ from
             *,(
                 3959 * acos(
                     cos(radians(%s)) * cos(radians(latitude)) *
-                     cos(radians(longitude) - radians(%s)) + 
+                     cos(radians(longitude) - radians(%s)) +
                      sin(radians(%s)) * sin(radians(latitude))
                 )
             ) AS distance
@@ -47,7 +47,7 @@ from
             *,(
                 3959 * acos(
                     cos(radians(%s)) * cos(radians(latitude)) *
-                     cos(radians(longitude) - radians(%s)) + 
+                     cos(radians(longitude) - radians(%s)) +
                      sin(radians(%s)) * sin(radians(latitude))
                 )
             ) AS distance
@@ -144,7 +144,7 @@ def get_all_stops(line_id, direction):
     data = BusLocations.objects.raw('''SELECT * FROM bus_locations
              where line_id =%s
              and direction =%s
-             group by 
+             group by
                 sequence,
                 line_id,
                 direction,
@@ -162,7 +162,7 @@ def get_series_of_stops(departure, line_id, num_stops, direction):
     stops = BusLocations.objects.raw('''select bl.line_id,
          bl.stop_id, bl.stop_name
         from (select sequence, line_id, direction, stop_id, stop_name,
-                     max(case when stop_id = %s then sequence end) 
+                     max(case when stop_id = %s then sequence end)
                      over (partition by line_id) as the_sequence
               from bus_locations bl
               where line_id = %s and direction =%s order by sequence
@@ -241,13 +241,19 @@ class StopsOnRoute(View):
 
 class AutocompleteView(View):
     def get(self, request):
+
         term = request.GET.get('term')
         queryset = ""
 
-        if request.GET.get('term').isalpha():
-            queryset = BusStops.objects.filter(stopname__icontains=term)
-        elif request.GET.get('term').isnumeric():
-            queryset = BusStops.objects.filter(stopid__contains=term)
+        # Query column that contains full stop text and limit search results to 50
+        queryset = BusStops.objects.filter(
+            stoptext__icontains=term)[:50]
+
+        # if request.GET.get('term').isalpha():
+        #   queryset = BusStops.objects.filter( stopname__icontains=term) | BusStops.objects.filter(stopid__contains=term)
+
+        # elif request.GET.get('term').isnumeric():
+        #     queryset = BusStops.objects.filter(stopid__contains=term)
 
         stop_names = list()
 
@@ -362,18 +368,22 @@ class PredictionView(View):
                     try:
                         departure_stop_id += departure_name.split(', stop')[1]
                     except IndexError:
-                        departure_stop_id += get_stop_id(departure_latitude, departure_longitude, line_id)
+                        departure_stop_id += get_stop_id(
+                            departure_latitude, departure_longitude, line_id)
 
                     try:
                         arrival_stop_id += arrival_name.split(', stop')[1]
                     except IndexError:
-                        arrival_stop_id += get_stop_id(arrival_latitude, arrival_longitude, line_id)
+                        arrival_stop_id += get_stop_id(
+                            arrival_latitude, arrival_longitude, line_id)
 
                     # get the direction the bus is travelling
-                    direction = get_direction(departure_stop_id, arrival_stop_id, line_id)
+                    direction = get_direction(
+                        departure_stop_id, arrival_stop_id, line_id)
 
                     # Get all the stops along the route
-                    stop_list = get_series_of_stops(departure_stop_id, line_id, num_stops, direction)
+                    stop_list = get_series_of_stops(
+                        departure_stop_id, line_id, num_stops, direction)
 
                     # Add all of the stop name and id's to a the dictionary
                     prediction_inner["stops"] = stop_list
@@ -393,7 +403,8 @@ class PredictionView(View):
                     prediction_inner["travel_time"] = prediction
 
                     # Add the departure stop id
-                    prediction_inner["departure_stop_id"] = departure_stop_id.strip()
+                    prediction_inner["departure_stop_id"] = departure_stop_id.strip(
+                    )
 
                     # Add the prediction_inner dictionary to journey_inner list
                     journey_inner.append(prediction_inner)
