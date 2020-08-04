@@ -6,6 +6,7 @@ from .bus_check import bus_check
 from django.views.generic import View
 import json
 import urllib.parse
+import requests
 
 
 # Raw SQL Queries
@@ -184,6 +185,15 @@ class HomeView(View):
         # context = {'form': form}
         return render(request, "home.html")
         # return render(request, "home.html", context)
+
+
+class RTPIView(View):
+    def post(self, request):
+        stop_id = json.loads(request.body)
+        url = f'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid={stop_id}'
+        response = requests.get(url)
+
+        return JsonResponse(response.json())
 
 
 class DisplayRoutesView(View):
