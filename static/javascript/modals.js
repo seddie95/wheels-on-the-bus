@@ -43,13 +43,23 @@ function displayDirectionsModal(bus_data, index) {
             if (Number.isInteger(parseInt(stop_id))) {
                 let bus_times = [];
                 // Get the real time arrival times for the stops
-                let url = `https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=${stop_id}`;
 
-                fetch(url)
+                fetch(baseUrl + 'rtpi/', {
+                    method: "POST",
+                    credentials: "include",
+                    body: JSON.stringify(stop_id),
+                    cache: "no-cache",
+                    headers: new Headers({
+                        "X-CSRFToken": getCsrf(),
+                        Accept: "application/json",
+                        "content-type": "application/json",
+                    }),
+                })
                     .then(function (response) {
                         return response.json();
                     })
                     .then(function (data) {
+                        let buses = data.results;
                         buses.forEach(function (bus) {
                             let route = bus.route;
                             if (route === line_id && bus_times.length < 3) {

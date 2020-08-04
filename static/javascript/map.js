@@ -455,9 +455,17 @@ function displayMarkers(stops) {
         }
 
         // Get the RTPI data for the stop id
-        let url = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=" + stops.stop_id;
-
-        fetch(url)
+        fetch(baseUrl + 'rtpi/', {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(stops.stop_id),
+            cache: "no-cache",
+            headers: new Headers({
+                "X-CSRFToken": getCsrf(),
+                Accept: "application/json",
+                "content-type": "application/json",
+            }),
+        })
             .then(function (response) {
                 return response.json();
             })
