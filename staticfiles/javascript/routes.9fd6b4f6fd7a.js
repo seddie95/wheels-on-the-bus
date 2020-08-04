@@ -39,8 +39,7 @@ $(document).ready(function () {
 
                     // Add the route info to route_list
                     routes_list += `<li id='${route_id}'><span class="transport_container">
-                                    <img src='/static/images/bus.svg' id='bus_icon'>${route_id}</span>
-                                    <div class="line_wrap"><span class="route_text">${start} - </span><span class="route_text">${end}</span><div/></li>`;
+                    <img src='/static/images/bus.svg' id='bus_icon'>${route_id}</span><div class="line_wrap"><span class="route_text_start">${start} - </span><span class="route_text_end">${end}</span><div/></li>`;
                 }
                 routes_list += `</ul>`;
                 $("#routes_list").html(routes_list);
@@ -132,7 +131,7 @@ $(document).ready(function () {
         $("#route_click li").each(function () {
             //Search in all <li>
             $(this).hide(); //Hide all <li>
-            let target = $(this).text().toLowerCase(); //Tuns <li> text lowercase
+            let target = $(this).text().toLowerCase(); //Turns <li> text lowercase
             if (target.match(re)) {
                 $(this).show(); //Show <li> with matching letter/word
             }
@@ -148,9 +147,29 @@ $(document).ready(function () {
         if ($(this).text() === gettext("Inbound")) {
             $(this).text(gettext("Outbound"));
             $(this).val("Outbound");
+
+            // Swap the start and end stops on change from Inbound to Outbound route selection
+            $(".line_wrap").text(function (i, content) {
+                values = content.trim().split(" - ");
+                let start = values[1];
+                let end = values[0];
+
+                document.getElementsByClassName("route_text_start")[i].innerHTML = start + " - ";
+                document.getElementsByClassName("route_text_end")[i].innerHTML = end;
+            });
         } else {
             $(this).text(gettext("Inbound"));
             $(this).val("Inbound");
+
+            // Swap the end and start stops on change from Inbound to Outbound route selection
+            $(".line_wrap").text(function (i, content) {
+                values = content.trim().split(" - ");
+                let start = values[1];
+                let end = values[0];
+
+                document.getElementsByClassName("route_text_start")[i].innerHTML = start + " - ";
+                document.getElementsByClassName("route_text_end")[i].innerHTML = end;
+            });
         }
     });
 });

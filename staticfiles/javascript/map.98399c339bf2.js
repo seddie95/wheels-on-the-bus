@@ -27,7 +27,7 @@ function initMap() {
     directionsRenderer = new google.maps.DirectionsRenderer();
     infowindow = new google.maps.InfoWindow();
     map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 53.349804, lng: -6.26031 },
+        center: {lat: 53.349804, lng: -6.26031},
         zoom: 12.0,
         mapTypeControl: false,
         fullscreenControl: false,
@@ -35,8 +35,7 @@ function initMap() {
         controlSize: 25,
     });
 
-    // display the traffic data
-    setTraffic();
+
 }
 
 //=================================================================================================
@@ -83,7 +82,7 @@ function fetch_data(myData) {
         infowindow.close();
     }
 
-    if (polylines){
+    if (polylines) {
         deletePolylines();
     }
 
@@ -220,9 +219,11 @@ function fetch_data(myData) {
                                 "</span>";
 
                             // Ignore any errors
-                        } catch (e) {}
+                        } catch (e) {
+                        }
                     }
-                } catch (e) {}
+                } catch (e) {
+                }
                 // Append the data required for the backend
                 bus_data.push(bus_inner);
 
@@ -454,90 +455,63 @@ function displayMarkers(stops) {
         }
 
         // Get the RTPI data for the stop id
-        let url = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=" + stops.stop_id;
-        $.get(url, function (data) {
-            let buses = data.results;
-            let bus_list = `<ul class='info_window_list'>`;
-            // parse the bus data and add it to a ul
+        fetch(baseUrl + 'rtpi/', {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(stops.stop_id),
+            cache: "no-cache",
+            headers: new Headers({
+                "X-CSRFToken": getCsrf(),
+                Accept: "application/json",
+                "content-type": "application/json",
+            }),
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                let buses = data.results;
+                let bus_list = `<ul class='info_window_list'>`;
+                // parse the bus data and add it to a ul
 
-            // Get the first 5 buses from the RTPI data
-            for (let i = 0; i < buses.length && i < 5; i++) {
-                let bus = buses[i];
+                // Get the first 5 buses from the RTPI data
+                for (let i = 0; i < buses.length && i < 5; i++) {
+                    let bus = buses[i];
 
-                bus_list += `<li><span class="transport_container">
+                    bus_list += `<li><span class="transport_container">
                                 <img src='/static/images/bus.svg' id='bus_icon'> 
                                 ${bus.route}</span>
                                 ${bus.destination}<span id="arrival_time">${bus.duetime}`;
 
-                // change text depending on number of minutes
-                if (bus.duetime > 1) {
-                    bus_list += `mins`;
-                } else if (bus.duetime == 1) {
-                    bus_list += `min`;
+                    // change text depending on number of minutes
+                    if (bus.duetime > 1) {
+                        bus_list += `mins`;
+                    } else if (bus.duetime == 1) {
+                        bus_list += `min`;
+                    }
+
+                    bus_list += `</span></li>`;
                 }
 
-                bus_list += `</span></li>`;
-            }
+                bus_list += "</ul>";
 
-            bus_list += "</ul>";
-
-            // Set the content including the RTPI data
-            infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
+                // Set the content including the RTPI data
+                infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
                     <h2>${title}</h2> ${bus_list}</div>
                     <a id="walk" href="#" >Get walking route </a>`);
 
-            //display walking route to selected stop
-            $("#walk").click(function (event) {
-                event.preventDefault();
-                calculateAndDisplayRoute(pos, marker);
-            });
-        });
+                //display walking route to selected stop
+                $("#walk").click(function (event) {
+                    event.preventDefault();
+                    calculateAndDisplayRoute(pos, marker);
+                });
+            })
+            .catch(function (error) {
+                console.error("Difficulty fetching real time arrival data:", error);
+            })
 
         infowindow.open(map, marker);
     });
-}
-
-//============================================================================================================
-
-//Function to retrieve the traffic data and display on the map
-function setTraffic() {
-    // Obtain the traffic data from the database
-    $.get(baseUrl + "traffic/", function (data) {
-        // Display the response on the map
-        data.forEach(getTraffic);
-    });
-
-    // Function to  display traffic markers and info-windows
-    function getTraffic(incident) {
-        // Parse the response
-        let coordinates = incident.coordinates;
-        let start = incident.start;
-        let end = incident.end;
-        let title = incident.description;
-        let icon = "/static/images/traffic.png";
-
-        // create a marker for the traffic incidents
-        let marker = createMarker(coordinates, title, icon);
-
-        // add markers to list of markers
-        markers.push(marker);
-
-        // Add an event listener to display the incident description
-        google.maps.event.addListener(marker, "click", function () {
-            if (infowindow) {
-                infowindow.close();
-            }
-
-            //Display the start and end if applicable
-            if (start !== "") {
-                infowindow.setContent(`<div id="infowindow"><h2>${title}</h2>
-                <p>from: ${start}<br>
-            To: ${end}</p></div>`);
-            }
-
-            infowindow.open(map, marker);
-        });
-    }
 }
 
 //==============================================================

@@ -145,6 +145,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
 
+
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'django_bmemcached.memcached.BMemcached',
@@ -154,4 +155,5 @@ django_heroku.settings(locals())
 #                     'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
 #             }
 #     }
+
 # }

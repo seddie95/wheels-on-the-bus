@@ -1,6 +1,15 @@
 // Store the users favourite stops
 $(document).ready(function () {
     $("#favourites").click(function () {
+        // Source and destination coordinate strings will only be present if stops
+        // are properly selected from the autocomplete lists
+        // Alert the user and return from the function if there
+        // are no locations to avoid the favourites array being corrupted with unusable data
+        if ($("#id_source").text() == "" || $("#id_destination").text() == "") {
+            alert("Please select valid source and destination stops.");
+            return;
+        }
+
         // empty list to store all of the favourites
         let favourites = [];
 
@@ -57,7 +66,7 @@ $(document).ready(function () {
 
             // Alert user to fill in form
         } else {
-            alert(gettext("Please Select source and destination ."));
+            alert(gettext("Please select source and destination."));
         }
     });
 });
@@ -68,14 +77,25 @@ $(document).ready(function () {
     $("#load_favourites").click(function () {
         let favourites = load_local_storage("favourites");
 
-        favourites ? $("#favourites_list").html(favourites) : $("#favourites_list").html(gettext("You have no favourites saved!"));
+        if (favourites) {
+            $("#favourites_list").html(favourites);
+        } else {
+            $("#favourites_list").html(gettext("You have no favourites saved!"));
+            $("#favourites_list").css({ padding: "20px 0px 0px 20px" });
+        }
     });
 });
 //=======================================================================================
 // Load the users recent routes
 $(document).ready(function () {
     let history = load_local_storage("history");
-    history ? $("#recent").html(history) : $("#recent").html(gettext("You have no recent searches!"));
+
+    if (history) {
+        $("#recent").html(history);
+    } else {
+        $("#recent").html(gettext("You have no recent searches!"));
+        $("#recent").css({ padding: "20px 0px 0px 20px" });
+    }
 });
 
 //==============================================================================
@@ -83,7 +103,7 @@ $(document).ready(function () {
 function load_local_storage(item) {
     let title;
     if (item == "history") {
-        title = gettext("<h3>Recent Searches</h3>");
+        title = "<h3 tabindex = '0' aria-label='Recent Searches List'>Recent Searches</h3>";
     } else if (item == "favourites") {
         title = "";
     }

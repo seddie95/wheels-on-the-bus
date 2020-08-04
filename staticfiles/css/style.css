@@ -189,6 +189,7 @@ header {
 
 .button_group {
     margin-top: 3px;
+    float: left;
 }
 
 .button {
@@ -269,6 +270,15 @@ header {
     background-color: white;
 }
 
+#checkbox_label:focus {
+    outline: none;
+}
+
+#checkbox_label:focus .line {
+    width: 29px;
+    background-color: white;
+}
+
 .line {
     height: 4px;
     width: 23px;
@@ -283,10 +293,6 @@ header {
 .line_1,
 .line_3 {
     width: 20px;
-}
-
-#checkbox_label:focus {
-    outline: none;
 }
 
 .label {
@@ -357,6 +363,7 @@ header {
 .list_group a {
     color: black;
     text-decoration: none;
+    width: 100%;
 }
 
 #route_options {
@@ -461,10 +468,9 @@ button[role="tab"] {
 }
 
 .ui-menu .ui-menu-item-wrapper {
-    padding: 10px;
+    padding: 10px 10px 0px 20px;
     min-height: 50px;
     display: flex;
-    align-items: center;
     flex-direction: column;
     justify-content: center;
 }
@@ -866,14 +872,14 @@ button[role="tab"] {
 }
 
 #switch_directions {
-    margin: 21px 0px 0px 0px;
+    margin: -63px 0px 0px 0px;
     padding: 6px;
     float: right;
 }
 
 @media only screen and (max-width: 320px) {
     #switch_directions {
-        margin: 21px 26px 0px 0px;
+        margin: -63px 26px 0px 0px;
     }
 }
 
@@ -923,7 +929,7 @@ button[role="tab"] {
 }
 
 #direction_button {
-    width: 100px;
+    min-width: 100px;
     margin-top: 10px;
     margin-bottom: 5px;
 }
@@ -935,6 +941,7 @@ button[role="tab"] {
 .routes_list li {
     cursor: pointer;
     padding-left: 20px;
+    padding-right: 20px;
 }
 
 .routes_list li:hover {
@@ -971,7 +978,14 @@ div.flatpickr-calendar.hasTime.noCalendar.animate.showTimeInput.arrowTop.open {
     top: 0;
 }
 
-.route_text {
+.route_text_start {
+    display: block;
+    line-height: 27px;
+    min-width: 200px;
+    white-space: normal;
+}
+
+.route_text_end {
     display: block;
     line-height: 27px;
     min-width: 200px;
@@ -1037,6 +1051,10 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     }
 }
 #languages_modal {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+#languages_modal .modal_content {
     height: 203px;
 }
 
