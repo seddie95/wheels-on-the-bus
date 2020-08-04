@@ -13,6 +13,7 @@ class Routes(models.Model):
 class BusStops(models.Model):
     stopid = models.IntegerField(primary_key=True)
     stopname = models.TextField(blank=True, null=True)
+    stoptext = models.TextField(blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
 

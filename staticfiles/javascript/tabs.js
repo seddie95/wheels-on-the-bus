@@ -64,3 +64,19 @@ function loadSearchTab(parsed_dict) {
 
     grandparent.parentNode.querySelector(`#${target.getAttribute("aria-controls")}`).removeAttribute("hidden");
 }
+
+// Change tabs font-size if required on load of the document
+$(document).ready(function () {
+    if ($("#tabs").width() > $("#header").width()) {
+        $(".tab").css("font-size", "16px");
+    } else {
+        $(".tab").css("font-size", "20px");
+    }
+});
+
+// Change tabs font-size if required on resize of the window
+$(window).resize(function () {
+    if ($("#tabs").width() > $("#header").width()) {
+        $(".tab").css("font-size", "16px");
+    }
+});
