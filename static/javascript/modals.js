@@ -14,6 +14,8 @@ function displayDirectionsModal(bus_data, index) {
         modal.style.width = side_bar.offsetWidth + "px";
         modal.style.display = "block";
 
+        modal.focus();
+
         // The modal is closed when the x button is clicked
         span.onclick = function () {
             modal.style.display = "none";
@@ -26,15 +28,21 @@ function displayDirectionsModal(bus_data, index) {
             }
         };
 
+        window.addEventListener("keydown", function (e) {
+            if (e.keyCode === 27) {
+                modal.style.display = "none";
+            }
+        });
+
         let weather_icon = displayWeather(data[0].description);
 
         // Data is
-        var text = `<div id='weather_data'>
+        var text = `<div id='weather_data' tabindex='0'>
             <img id='weather_icon' src='${weather_icon}'>
             <span id='centered'>${data[0].temperature}°c</span>
             </div>`;
 
-        text += gettext("<h2>Steps:</h2>") + "<ul id='journey_info'>";
+        text += gettext("<h2 tabindex='0'>Steps:</h2>") + "<ul id='journey_info' tabindex='0'>";
 
         for (let i = 0; i < data.length; i++) {
             let line_id = data[i].line_id;
@@ -132,6 +140,8 @@ function displayStopsModal(obj, route_info) {
         stops_modal.style.width = side_bar.offsetWidth + "px";
         stops_modal.style.display = "block";
 
+        stops_modal.focus();
+
         // The modal is closed when the x button is clicked
         stops_span.onclick = function () {
             stops_modal.style.display = "none";
@@ -143,6 +153,12 @@ function displayStopsModal(obj, route_info) {
                 stops_modal.style.display = "none";
             }
         };
+
+        window.addEventListener("keydown", function (e) {
+            if (e.keyCode === 27) {
+                stops_modal.style.display = "none";
+            }
+        });
 
         let line_id = route_info["line_id"];
 
@@ -161,7 +177,7 @@ function displayStopsModal(obj, route_info) {
         for (let i = 0; i < stop_data.length; i++) {
             let stop_name = stop_data[i]["stop_name"];
 
-            stops_list += "<li>" + stop_name + "</li>";
+            stops_list += "<li tabindex=0>" + stop_name + "</li>";
         }
         stops_list += "</ul>";
         $("#stops_list").html(stops_list);
@@ -247,3 +263,15 @@ $(document).ready(function () {
         }
     };
 });
+
+window.onresize = function () {
+    var stops_modal = document.getElementById("stops_modal");
+    var directions_modal = document.getElementById("directions_modal");
+    var languages_modal = document.getElementById("languages_modal");
+
+    var header = document.getElementById("header");
+
+    stops_modal.style.width = header.offsetWidth + "px";
+    directions_modal.style.width = header.offsetWidth + "px";
+    languages_modal.style.width = header.offsetWidth + "px";
+};

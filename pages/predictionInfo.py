@@ -97,7 +97,7 @@ def get_predict_info(request):
         destStopIDx[destinationIdx] = 1
 
     except KeyError:
-        return "Unavailable"
+        return "Unavailable "
 
     # source/departure information
     try:
@@ -106,7 +106,7 @@ def get_predict_info(request):
         sourceStopIDx[sourceIdx] = 1
 
     except KeyError:
-        return "Unavailable"
+        return "Unavailable "
 
     inputValues_source = misc + sourceStopIDx
     inputValues_dest = misc + destStopIDx

@@ -115,7 +115,7 @@
                             autocomplete="off"
                             required=""
                             id="id_source"
-                            style="padding-left: 38px; margin-bottom: -30px;"
+                            style="padding-left: 38px; margin-bottom: -30px;border:none;"
                             aria-label="Search starting stop."
                         />
                         <button class="voice" id="btn1" aria-label="Search starting stop by voice">
@@ -132,7 +132,7 @@
                             autocomplete="off"
                             required=""
                             id="id_destination"
-                            style="padding-left: 38px; margin-bottom: -30px;"
+                            style="padding-left: 38px; margin-bottom: -30px;border:none;"
                             aria-label="Search destination stop."
 
                         />
@@ -159,7 +159,8 @@
             </div>
             <div id="form_output"></div>
 
-            <div id="route_options" class="list_group"></div>
+            <div id="route_options" class="list_group">
+            </div>
 
             <div id="scroll_container" class="scroll_container">
                 <div id="recent" class="list_group"></div>
@@ -175,6 +176,7 @@
             <div id="route_background">
                 <div id="routes_list" class="routes_list"></div>
             </div>
+
         </div>
 
         <!-- Favourites tab content -->
@@ -185,7 +187,7 @@
 
         <!-- Information tab content -->
         <div id="info" role="tabpanel" tabindex="0" aria-labelledby="load_information" hidden>
-            <div><p>INFORMATION</p>
+            <div>
 
                 <!--Weather Information-->
                 <div class="weatherWidget"></div>
@@ -224,17 +226,17 @@
 
 
 <!-- Directions modal -->
-<div id="directions_modal" class="modal">
-    <div class="modal_content">
-        <span class="close">&times;</span>
+<div id="directions_modal" class="modal"  tabindex="0">
+    <div class="modal_content"  role="dialog" aria-label="Directions" tabindex="0">
+        <button class="close" aria-label="Close dialog" >&times;</button>
         <div id="directions_list" class="directions_list"></div>
     </div>
 </div>
 
 <!-- Stops modal -->
-<div id="stops_modal" class="modal">
-    <div class="modal_content">
-        <span class="close">&times;</span>
+<div id="stops_modal" class="modal" tabindex="0">
+    <div class="modal_content" role="dialog" aria-label="Stops" tabindex="0">
+        <button class="close" aria-label="Close dialog">&times;</button>
         <div id="route_selected" class="route_selected"></div>
         <div id="stops_list" class="stops_list"></div>
     </div>
@@ -266,5 +268,5 @@
     </form>
 </div>
 
-
 {% endblock body %}
+
