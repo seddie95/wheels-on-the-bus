@@ -765,6 +765,9 @@ button[role="tab"] {
 .stops_list li:hover {
     background-color: #e0dfdc;
 }
+.stops_list li:focus {
+    background-color: #e0dfdc;
+}
 
 .stops_list li:before {
     content: "";

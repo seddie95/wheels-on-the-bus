@@ -160,7 +160,6 @@
             <div id="form_output"></div>
 
             <div id="route_options" class="list_group">
-                <h3>Route Options</h3>
             </div>
 
             <div id="scroll_container" class="scroll_container">
@@ -227,17 +226,17 @@
 
 
 <!-- Directions modal -->
-<div id="directions_modal" class="modal">
-    <div class="modal_content">
-        <span class="close">&times;</span>
+<div id="directions_modal" class="modal"  tabindex="0">
+    <div class="modal_content"  role="dialog" aria-label="Directions" tabindex="0">
+        <button class="close" aria-label="Close dialog" >&times;</button>
         <div id="directions_list" class="directions_list"></div>
     </div>
 </div>
 
 <!-- Stops modal -->
-<div id="stops_modal" class="modal">
-    <div class="modal_content">
-        <span class="close">&times;</span>
+<div id="stops_modal" class="modal" tabindex="0">
+    <div class="modal_content" role="dialog" aria-label="Stops" tabindex="0">
+        <button class="close" aria-label="Close dialog">&times;</button>
         <div id="route_selected" class="route_selected"></div>
         <div id="stops_list" class="stops_list"></div>
     </div>

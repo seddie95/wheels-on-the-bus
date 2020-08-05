@@ -140,7 +140,7 @@ function fetch_data(myData) {
                     let unnamed = true;
                     let leg = routes[i]["legs"][0];
                     var bus_inner = [];
-                    route_option += `<li><a href='#' id='routeIndex'>`;
+                    route_option += `<li tabindex='0'><a href='#' id='routeIndex' tabindex="-1">`;
 
                     for (let j = 0; j < leg["steps"].length; j++) {
                         try {
@@ -267,14 +267,18 @@ function fetch_data(myData) {
                 })
                 .then(function (obj) {
                     // The bus_data array and the index of the li clicked are passed
-                    $("#route_options li").click(function () {
-                        let index = $(this).index();
+                    var enterKeyCode = 13;
+                    $(document).on("click keyup", "#route_options li", function (event) {
+                        if (event.type == "click" || event.keyCode == enterKeyCode) {
+                            // $("#route_options li").click(function () {
+                            let index = $(this).index();
 
-                        // Change the route on the map
-                        changeRoute(index);
+                            // Change the route on the map
+                            changeRoute(index);
 
-                        // Display the modal for the route
-                        displayDirectionsModal(obj, index);
+                            // Display the modal for the route
+                            displayDirectionsModal(obj, index);
+                        }
                     });
                 })
 
