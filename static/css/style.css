@@ -189,7 +189,7 @@ header {
 /* 4.1 Buttons */
 
 .button_group {
-    margin-top: 3px;
+    margin-top: 15px;
     float: left;
 }
 
@@ -539,7 +539,7 @@ button[role="tab"] {
     line-height: 1.5;
     color: black;
     background-clip: padding-box;
-    border: 1px solid black;
+    border: none;
     border-radius: 0.25rem;
     white-space: nowrap;
 }
@@ -568,7 +568,7 @@ button[role="tab"] {
     line-height: 1.5;
     color: black;
     background-clip: padding-box;
-    border: 1px solid black;
+    border: none;
     border-radius: 0.25rem;
     border-radius: 0.25rem;
     white-space: nowrap;
@@ -629,7 +629,7 @@ button[role="tab"] {
     color: black;
     display: block;
     background-clip: padding-box;
-    border: 1px solid black;
+    border: none;
     border-radius: 0.25rem;
     min-width: 100px;
 }
@@ -1211,9 +1211,12 @@ p {
 }
 
 #route_select {
-    background-color: #1f567c;
+    background-color: #4285f4;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
+}
+#route_select:hover{
+    background-color: lightseagreen;
 }
 
 #route_select:focus {
@@ -1224,6 +1227,10 @@ p {
 
 .fa-heart {
     color: white;
+}
+
+.fa-heart:hover {
+    color: red;
 }
 
 #direction_button {
