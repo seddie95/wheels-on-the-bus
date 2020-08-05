@@ -27,15 +27,13 @@ function initMap() {
     directionsRenderer = new google.maps.DirectionsRenderer();
     infowindow = new google.maps.InfoWindow();
     map = new google.maps.Map(document.getElementById("map"), {
-        center: {lat: 53.349804, lng: -6.26031},
+        center: { lat: 53.349804, lng: -6.26031 },
         zoom: 12.0,
         mapTypeControl: false,
         fullscreenControl: false,
         zoomControl: true,
         controlSize: 25,
     });
-
-
 }
 
 //=================================================================================================
@@ -130,7 +128,10 @@ function fetch_data(myData) {
             let bus_data = [];
 
             // String used to create list of stops
-            let route_option = `<ul id='routeList'>`;
+            let title = "<h2 tabindex = '0' aria-label='Route Options List. Select a list item to see full route details.'>Route Options</h2>";
+            let route_option = title;
+            route_option += `<ul id='routeList' aria-label='Select a list item to see full route details'>`;
+
             const routes = response["routes"];
 
             for (let i = 0; i < routes.length; i++) {
@@ -139,7 +140,7 @@ function fetch_data(myData) {
                     let unnamed = true;
                     let leg = routes[i]["legs"][0];
                     var bus_inner = [];
-                    route_option += `<li><a href='#' id='routeIndex'>`;
+                    route_option += `<li tabindex='0'><a href='#' id='routeIndex' tabindex="-1">`;
 
                     for (let j = 0; j < leg["steps"].length; j++) {
                         try {
@@ -219,16 +220,14 @@ function fetch_data(myData) {
                                 "</span>";
 
                             // Ignore any errors
-                        } catch (e) {
-                        }
+                        } catch (e) {}
                     }
-                } catch (e) {
-                }
+                } catch (e) {}
                 // Append the data required for the backend
                 bus_data.push(bus_inner);
 
                 // Add the Departure name
-                route_option += `<br/>${departure_name}</a></li>`;
+                route_option += `<br/> From: ${departure_name}</a></li>`;
             }
 
             // Hide the form output div so that the route options div can be shown properly
@@ -268,14 +267,18 @@ function fetch_data(myData) {
                 })
                 .then(function (obj) {
                     // The bus_data array and the index of the li clicked are passed
-                    $("#route_options li").click(function () {
-                        let index = $(this).index();
+                    var enterKeyCode = 13;
+                    $(document).on("click keyup", "#route_options li", function (event) {
+                        if (event.type == "click" || event.keyCode == enterKeyCode) {
+                            // $("#route_options li").click(function () {
+                            let index = $(this).index();
 
-                        // Change the route on the map
-                        changeRoute(index);
+                            // Change the route on the map
+                            changeRoute(index);
 
-                        // Display the modal for the route
-                        displayDirectionsModal(obj, index);
+                            // Display the modal for the route
+                            displayDirectionsModal(obj, index);
+                        }
                     });
                 })
 
@@ -455,7 +458,7 @@ function displayMarkers(stops) {
         }
 
         // Get the RTPI data for the stop id
-        fetch(baseUrl + 'rtpi/', {
+        fetch(baseUrl + "rtpi/", {
             method: "POST",
             credentials: "include",
             body: JSON.stringify(stops.stop_id),
@@ -508,7 +511,7 @@ function displayMarkers(stops) {
             })
             .catch(function (error) {
                 console.error("Difficulty fetching real time arrival data:", error);
-            })
+            });
 
         infowindow.open(map, marker);
     });

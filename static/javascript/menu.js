@@ -10,13 +10,21 @@ $(document).ready(function () {
             var sideBarWidth = positionInfo.width;
             if (sideBarWidth == 0 && bodyWidth > 270) {
                 document.getElementById("sidebar").style.width = "100%";
+                document.getElementById("stops_modal").style.width = "100%";
+                document.getElementById("directions_modal").style.width = "100%";
+
                 document.getElementById("checkbox_label").setAttribute("aria-label", "Close sidebar");
             } else if (sideBarWidth == 0 && bodyWidth <= 270) {
                 document.getElementById("sidebar").style.width = "270px";
+                document.getElementById("stops_modal").style.width = "270px";
+                document.getElementById("directions_modal").style.width = "270px";
+
                 document.getElementById("checkbox_label").setAttribute("aria-label", "Close sidebar");
             } else {
                 document.body.classList.add("nowrap");
                 document.getElementById("sidebar").removeAttribute("style");
+                document.getElementById("stops_modal").style.width = "0px";
+                document.getElementById("directions_modal").style.width = "0px";
                 document.getElementById("checkbox").checked = false;
                 document.getElementById("checkbox_label").setAttribute("aria-label", "Open sidebar");
             }

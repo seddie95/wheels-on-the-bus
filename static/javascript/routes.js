@@ -38,7 +38,7 @@ $(document).ready(function () {
                     let end = head[1];
 
                     // Add the route info to route_list
-                    routes_list += `<li id='${route_id}'><span class="transport_container">
+                    routes_list += `<li tabindex='0' id='${route_id}' data-dialog='stops_modal'><span class="transport_container">
                     <img src='/static/images/bus.svg' id='bus_icon'>${route_id}</span><div class="line_wrap"><span class="route_text_start">${start} - </span><span class="route_text_end">${end}</span><div/></li>`;
                 }
                 routes_list += `</ul>`;
@@ -51,74 +51,78 @@ $(document).ready(function () {
 });
 
 // function to select all the stops  along a chosen route
-$(document).on("click", "#route_click li", function (event) {
-    event.preventDefault();
 
-    // Remove the already existing markers
-    if (markers) {
-        deleteMarkers();
-    }
+var enterKeyCode = 13;
+$(document).on("click keyup", "#route_click li", function (event) {
+    if (event.type == "click" || event.keyCode == enterKeyCode) {
+        event.preventDefault();
 
-    let line_id = $(this).attr("id");
+        // Remove the already existing markers
+        if (markers) {
+            deleteMarkers();
+        }
 
-    var directionId;
-    if ($("#direction_button").val() == "") {
-        directionId = "Inbound";
-    } else {
-        directionId = $("#direction_button").val();
-    }
+        let line_id = $(this).attr("id");
 
-    // Get the route id and direction
-    let route_info = {
-        line_id: line_id,
-        direction: directionId,
-    };
+        var directionId;
+        if ($("#direction_button").val() == "") {
+            directionId = "Inbound";
+        } else {
+            directionId = $("#direction_button").val();
+        }
 
-    //    console.log("route_info: ",route_info);
+        // Get the route id and direction
+        let route_info = {
+            line_id: line_id,
+            direction: directionId,
+        };
 
-    const csrf = $("input[name='csrfmiddlewaretoken']").val();
-    const URL = baseUrl + "stops/";
+        //    console.log("route_info: ",route_info);
 
-    //Pass the data to the server
-    fetch(URL, {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify(route_info),
-        cache: "no-cache",
-        headers: new Headers({
-            "X-CSRFToken": csrf,
-            Accept: "application/json",
-            "content-type": "application/json",
-        }),
-    })
-        .then(function (response) {
-            return response.json();
-            // use the static data to create dictionary
+        const csrf = $("input[name='csrfmiddlewaretoken']").val();
+        const URL = baseUrl + "stops/";
+
+        //Pass the data to the server
+        fetch(URL, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(route_info),
+            cache: "no-cache",
+            headers: new Headers({
+                "X-CSRFToken": csrf,
+                Accept: "application/json",
+                "content-type": "application/json",
+            }),
         })
-        .then(function (obj) {
-            // display the markers on the map
-            obj.forEach(displayMarkers);
+            .then(function (response) {
+                return response.json();
+                // use the static data to create dictionary
+            })
+            .then(function (obj) {
+                // display the markers on the map
+                obj.forEach(displayMarkers);
 
-            // Display route on map
-            displayRoutes(obj);
+                // Display route on map
+                displayRoutes(obj);
 
-            // Zoom to the markers
-            zoomMarkers();
+                // Zoom to the markers
+                zoomMarkers();
 
-            // display the object in a modal
-            displayStopsModal(obj, route_info);
+                // display the object in a modal
+                displayStopsModal(obj, route_info);
 
-            // Display the infowindow by clicking on the list item
-            $("#stops_list li").click(function () {
-                let index = $(this).index();
-                new google.maps.event.trigger(markers[index], "click");
+                // Display the infowindow by clicking on the list item
+                $("#stops_list li").click(function () {
+                    let index = $(this).index();
+                    new google.maps.event.trigger(markers[index], "click");
+                });
+            })
+
+            // catch used to test if something went wrong when parsing or in the network
+            .catch(function (error) {
+                console.error("Difficulty fetching stops data:", error);
             });
-        })
-
-        // catch used to test if something went wrong when parsing or in the network
-        .catch(function (error) {
-            console.error("Difficulty fetching stops data:", error);
-        });
+    }
 });
 
 //Function narrow down the search for a bus route
