@@ -247,3 +247,15 @@ $(document).ready(function () {
         }
     };
 });
+
+window.onresize = function () {
+    var stops_modal = document.getElementById("stops_modal");
+    var directions_modal = document.getElementById("directions_modal");
+    var languages_modal = document.getElementById("languages_modal");
+
+    var header = document.getElementById("header");
+
+    stops_modal.style.width = header.offsetWidth + "px";
+    directions_modal.style.width = header.offsetWidth + "px";
+    languages_modal.style.width = header.offsetWidth + "px";
+};
