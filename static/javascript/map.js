@@ -27,15 +27,13 @@ function initMap() {
     directionsRenderer = new google.maps.DirectionsRenderer();
     infowindow = new google.maps.InfoWindow();
     map = new google.maps.Map(document.getElementById("map"), {
-        center: {lat: 53.349804, lng: -6.26031},
+        center: { lat: 53.349804, lng: -6.26031 },
         zoom: 12.0,
         mapTypeControl: false,
         fullscreenControl: false,
         zoomControl: true,
         controlSize: 25,
     });
-
-
 }
 
 //=================================================================================================
@@ -130,7 +128,10 @@ function fetch_data(myData) {
             let bus_data = [];
 
             // String used to create list of stops
-            let route_option = `<ul id='routeList'>`;
+            let title = "<h2 tabindex = '0' aria-label='Route Options List. Select a list item to see full route details.'>Route Options</h2>";
+            let route_option = title;
+            route_option += `<ul id='routeList' aria-label='Select a list item to see full route details'>`;
+
             const routes = response["routes"];
 
             for (let i = 0; i < routes.length; i++) {
@@ -219,16 +220,14 @@ function fetch_data(myData) {
                                 "</span>";
 
                             // Ignore any errors
-                        } catch (e) {
-                        }
+                        } catch (e) {}
                     }
-                } catch (e) {
-                }
+                } catch (e) {}
                 // Append the data required for the backend
                 bus_data.push(bus_inner);
 
                 // Add the Departure name
-                route_option += `<br/>${departure_name}</a></li>`;
+                route_option += `<br/> From: ${departure_name}</a></li>`;
             }
 
             // Hide the form output div so that the route options div can be shown properly
@@ -455,7 +454,7 @@ function displayMarkers(stops) {
         }
 
         // Get the RTPI data for the stop id
-        fetch(baseUrl + 'rtpi/', {
+        fetch(baseUrl + "rtpi/", {
             method: "POST",
             credentials: "include",
             body: JSON.stringify(stops.stop_id),
@@ -508,7 +507,7 @@ function displayMarkers(stops) {
             })
             .catch(function (error) {
                 console.error("Difficulty fetching real time arrival data:", error);
-            })
+            });
 
         infowindow.open(map, marker);
     });

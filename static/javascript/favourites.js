@@ -103,7 +103,7 @@ $(document).ready(function () {
 function load_local_storage(item) {
     let title;
     if (item == "history") {
-        title = "<h3 tabindex = '0' aria-label='Recent Searches List'>Recent Searches</h3>";
+        title = "<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>";
     } else if (item == "favourites") {
         title = "";
     }

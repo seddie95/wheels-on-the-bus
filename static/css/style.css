@@ -970,8 +970,11 @@ div.flatpickr-calendar.hasTime.noCalendar.animate.showTimeInput.arrowTop.open {
     margin-top: 5px !important;
 }
 
-.list_group h3 {
+.list_group h2 {
     background-color: #ecf0f1;
+    color: black;
+    font-weight: bolder;
+    font-size: 20px;
     line-height: 1.4;
     padding: 6px 6px 0px 15px;
     margin: 0px;
@@ -1162,12 +1165,10 @@ p {
     padding: 6px 6px 6px 6px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-/* @media screen and (max-height: 450px) {
-    #info {
-        padding-top: 15px;
-    }
-    #info a {
-        font-size: 18px;
-    }
-} */
+#stops_modal {
+    transition: 0.5s;
+}
+
+#directions_modal {
+    transition: 0.5s;
+}
