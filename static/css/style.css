@@ -1172,3 +1172,9 @@ p {
 #directions_modal {
     transition: 0.5s;
 }
+
+@media screen and (orientation: landscape) and (max-height: 450px) {
+    body {
+        display: none;
+    }
+}
