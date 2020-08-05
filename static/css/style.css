@@ -268,7 +268,6 @@ header {
 
 .toggle_button:hover .line {
     width: 29px;
-    background-color: white;
 }
 
 #checkbox_label:focus {
@@ -284,7 +283,7 @@ header {
     height: 4px;
     width: 23px;
     border-radius: 3px;
-    background-color: black;
+    background-color: white;
     margin-top: 6px;
     margin-bottom: 6px;
     display: block;
@@ -409,6 +408,12 @@ header {
 
 .tab:hover {
     color: grey;
+}
+
+.tab:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
 }
 
 button[role="tab"] {
@@ -598,15 +603,6 @@ button[role="tab"] {
 }
 
 /* 8.7 Plan route button */
-
-#route_select {
-    border: 4px solid lightgreen;
-}
-
-#route_select:hover {
-    background: lightgreen;
-    transition: all 0.4s ease 0s;
-}
 
 /* 8.8 Route options */
 
@@ -872,7 +868,6 @@ button[role="tab"] {
 
 .input_area {
     background-color: #1f567c;
-    /* height: 200px; */
     padding: 15px;
     margin: 0px;
     min-width: fit-content;
@@ -882,6 +877,14 @@ button[role="tab"] {
     margin: -63px 0px 0px 0px;
     padding: 6px;
     float: right;
+    background-color: #1f567c;
+    color: white;
+}
+
+#switch_directions:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
 }
 
 @media only screen and (max-width: 320px) {
@@ -915,10 +918,6 @@ button[role="tab"] {
     margin: 0px;
 }
 
-.fa-heart {
-    color: goldenrod;
-}
-
 #form_output {
     display: none;
     width: 100%;
@@ -933,12 +932,6 @@ button[role="tab"] {
     flex: 1 1 0;
     overflow-x: hidden;
     overflow-y: scroll;
-}
-
-#direction_button {
-    min-width: 100px;
-    margin-top: 10px;
-    margin-bottom: 5px;
 }
 
 .routes_list ul {
@@ -1016,6 +1009,8 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     background-color: white;
     border-right: 1px solid grey;
     cursor: pointer;
+    padding-left: 9px;
+    padding-right: 9px;
 }
 
 .fa-microphone {
@@ -1180,4 +1175,68 @@ p {
     body {
         display: none;
     }
+}
+
+#show_datetime {
+    background-color: #1f567c;
+    color: white;
+}
+
+#show_datetime:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+#location_button {
+    background-color: #1f567c;
+    color: white;
+}
+
+#location_button:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+#favourites {
+    background-color: #1f567c;
+    color: white;
+}
+
+#favourites:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+#route_select {
+    background-color: #1f567c;
+    color: white;
+    font-size: 20px;
+}
+
+#route_select:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.fa-heart {
+    color: white;
+}
+
+#direction_button {
+    min-width: 100px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background-color: #1f567c;
+    color: white;
+    font-size: 16px;
+}
+
+#direction_button:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
 }
