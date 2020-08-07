@@ -25,7 +25,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -81,7 +80,7 @@ WSGI_APPLICATION = 'django_heroku_test.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 
-#RDS database credentials
+# RDS database credentials
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -89,11 +88,11 @@ DATABASES = {
         'HOST': 'dublin-bus-db.cyn6ycrg3wxh.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
         'USER': 'bus_admin',
-        'PASSWORD': 'Dublinbus123!',
+        'PASSWORD': 'Dublinbus123!', 'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
