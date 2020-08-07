@@ -29,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['wheels-on-the-bus.herokuapp.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -81,17 +80,18 @@ WSGI_APPLICATION = 'django_heroku_test.wsgi.application'
 
 
 # RDS database credentials
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bus_data',
-        'HOST': 'dublin-bus-db.cyn6ycrg3wxh.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
-        'USER': 'bus_admin',
-        'PASSWORD': 'Dublinbus123!',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'bus_data',
+#         'HOST': 'dublin-bus-db.cyn6ycrg3wxh.us-east-1.rds.amazonaws.com',
+#         'PORT': '3306',
+#         'USER': 'bus_admin',
+#         'PASSWORD': 'Dublinbus123!',
+#     }
+# }
 
+DATABASES = os.getenv('DATABASE_URL')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -149,7 +149,6 @@ django_heroku.settings(locals())
 
 options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)
-
 
 CACHES = {
     'default': {
