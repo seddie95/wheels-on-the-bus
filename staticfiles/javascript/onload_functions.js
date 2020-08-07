@@ -21,7 +21,11 @@ $(document).ready(function () {
         // Alert the user and return from the function if
         // there are no locations to avoid the history array being populated with unusable data
         if (myData.source_location == "" || myData.destination_location == "") {
+            document.getElementById("route_select").setAttribute("aria-label", "Please select valid source and destination stops.");
             alert("Please select valid source and destination stops.");
+            setTimeout(function () {
+                document.getElementById("route_select").removeAttribute("aria-label");
+            }, 2000);
             return;
         }
 
@@ -115,7 +119,11 @@ function getFormData() {
     // Alert the user and return from the function if
     // there are no locations to avoid the history array being populated with unusable data
     if ($("#id_source").text() == "" || $("#id_destination").text() == "") {
+        document.getElementById("route_select").setAttribute("aria-label", "Please select valid source and destination stops.");
         alert("Please select valid source and destination stops.");
+        setTimeout(function () {
+            document.getElementById("route_select").removeAttribute("aria-label");
+        }, 2000);
         return;
     }
 
@@ -136,7 +144,11 @@ function getFormData() {
         };
         return myData;
     } else {
+        document.getElementById("route_select").setAttribute("aria-label", "Please select source and destination.");
         alert("Please select source and destination.");
+        setTimeout(function () {
+            document.getElementById("route_select").removeAttribute("aria-label");
+        }, 2000);
     }
 }
 
@@ -147,6 +159,9 @@ $(document).ready(() => {
 
         // Get the form to be filled
         let text_box = $(this).prev();
+
+        document.getElementById("btn1").setAttribute("aria-label", "");
+        document.getElementById("btn2").setAttribute("aria-label", "");
 
         // set the values for the voice recognition
         var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
@@ -179,10 +194,21 @@ $(document).ready(() => {
 
         // alert the user if an error occurred in voice recognition
         recognition.onerror = function (event) {
+            document.getElementById("btn1").setAttribute("aria-label", "Error occurred in recognition: " + event.error);
+            document.getElementById("btn2").setAttribute("aria-label", "Error occurred in recognition: " + event.error);
             alert("Error occurred in recognition: " + event.error);
+            setTimeout(function () {
+                document.getElementById("btn1").setAttribute("aria-label", "Search starting stop by voice");
+                document.getElementById("btn2").setAttribute("aria-label", "Search starting stop by voice");
+            }, 2000);
         };
 
         // Once everything is configured start recording
         recognition.start();
+
+        setTimeout(function () {
+            document.getElementById("btn1").setAttribute("aria-label", "Search starting stop by voice");
+            document.getElementById("btn2").setAttribute("aria-label", "Search starting stop by voice");
+        }, 4000);
     });
 });

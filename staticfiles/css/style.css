@@ -144,8 +144,9 @@ header {
 header {
     height: 50px;
     text-align: center;
-    background-color: lightgreen;
-    border-bottom: 3px solid grey;
+    background-color: #212f3c;
+    /* border-bottom: 3px solid grey; */
+    color: white;
 }
 
 @media only screen and (max-width: 370px) {
@@ -188,7 +189,7 @@ header {
 /* 4.1 Buttons */
 
 .button_group {
-    margin-top: 3px;
+    margin-top: 15px;
     float: left;
 }
 
@@ -267,7 +268,6 @@ header {
 
 .toggle_button:hover .line {
     width: 29px;
-    background-color: white;
 }
 
 #checkbox_label:focus {
@@ -283,7 +283,7 @@ header {
     height: 4px;
     width: 23px;
     border-radius: 3px;
-    background-color: black;
+    background-color: white;
     margin-top: 6px;
     margin-bottom: 6px;
     display: block;
@@ -397,7 +397,9 @@ header {
     margin: 0px;
     padding: 0px 15px 0px 15px;
     height: 37px;
-    border-bottom: 3px solid grey;
+    /* border-bottom: 3px solid grey; */
+    background-color: #212f3c;
+    color: white;
 }
 
 .tab {
@@ -406,6 +408,12 @@ header {
 
 .tab:hover {
     color: grey;
+}
+
+.tab:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
 }
 
 button[role="tab"] {
@@ -531,7 +539,7 @@ button[role="tab"] {
     line-height: 1.5;
     color: black;
     background-clip: padding-box;
-    border: 1px solid black;
+    border: none;
     border-radius: 0.25rem;
     white-space: nowrap;
 }
@@ -560,7 +568,7 @@ button[role="tab"] {
     line-height: 1.5;
     color: black;
     background-clip: padding-box;
-    border: 1px solid black;
+    border: none;
     border-radius: 0.25rem;
     border-radius: 0.25rem;
     white-space: nowrap;
@@ -596,15 +604,6 @@ button[role="tab"] {
 
 /* 8.7 Plan route button */
 
-#route_select {
-    border: 4px solid lightgreen;
-}
-
-#route_select:hover {
-    background: lightgreen;
-    transition: all 0.4s ease 0s;
-}
-
 /* 8.8 Route options */
 
 /* ------------- */
@@ -618,6 +617,7 @@ button[role="tab"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #1f567c;
 }
 
 #route_search {
@@ -629,7 +629,7 @@ button[role="tab"] {
     color: black;
     display: block;
     background-clip: padding-box;
-    border: 1px solid black;
+    border: none;
     border-radius: 0.25rem;
     min-width: 100px;
 }
@@ -761,6 +761,9 @@ button[role="tab"] {
 .stops_list li:hover {
     background-color: #e0dfdc;
 }
+.stops_list li:focus {
+    background-color: #e0dfdc;
+}
 
 .stops_list li:before {
     content: "";
@@ -864,8 +867,7 @@ button[role="tab"] {
 }
 
 .input_area {
-    background-color: skyblue;
-    /* height: 200px; */
+    background-color: #1f567c;
     padding: 15px;
     margin: 0px;
     min-width: fit-content;
@@ -875,6 +877,14 @@ button[role="tab"] {
     margin: -63px 0px 0px 0px;
     padding: 6px;
     float: right;
+    background-color: #1f567c;
+    color: white;
+}
+
+#switch_directions:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
 }
 
 @media only screen and (max-width: 320px) {
@@ -908,10 +918,6 @@ button[role="tab"] {
     margin: 0px;
 }
 
-.fa-heart {
-    color: goldenrod;
-}
-
 #form_output {
     display: none;
     width: 100%;
@@ -926,12 +932,6 @@ button[role="tab"] {
     flex: 1 1 0;
     overflow-x: hidden;
     overflow-y: scroll;
-}
-
-#direction_button {
-    min-width: 100px;
-    margin-top: 10px;
-    margin-bottom: 5px;
 }
 
 .routes_list ul {
@@ -966,8 +966,11 @@ div.flatpickr-calendar.hasTime.noCalendar.animate.showTimeInput.arrowTop.open {
     margin-top: 5px !important;
 }
 
-.list_group h3 {
+.list_group h2 {
     background-color: #ecf0f1;
+    color: black;
+    font-weight: bolder;
+    font-size: 20px;
     line-height: 1.4;
     padding: 6px 6px 0px 15px;
     margin: 0px;
@@ -1006,6 +1009,8 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     background-color: white;
     border-right: 1px solid grey;
     cursor: pointer;
+    padding-left: 9px;
+    padding-right: 9px;
 }
 
 .fa-microphone {
@@ -1059,7 +1064,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 }
 
 .fa-language {
-    color: black;
+    color: white;
 }
 
 #info {
@@ -1158,12 +1163,87 @@ p {
     padding: 6px 6px 6px 6px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-/* @media screen and (max-height: 450px) {
-    #info {
-        padding-top: 15px;
+#stops_modal {
+    transition: 0.5s;
+}
+
+#directions_modal {
+    transition: 0.5s;
+}
+
+@media screen and (orientation: landscape) and (max-height: 450px) {
+    body {
+        display: none;
     }
-    #info a {
-        font-size: 18px;
-    }
-} */
+}
+
+#show_datetime {
+    background-color: #1f567c;
+    color: white;
+}
+
+#show_datetime:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+#location_button {
+    background-color: #1f567c;
+    color: white;
+}
+
+#location_button:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+#favourites {
+    background-color: #1f567c;
+    color: white;
+}
+
+#favourites:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+#route_select {
+    background-color: #4285f4;
+    color: white;
+    font-size: 18px;
+}
+#route_select:hover{
+    background-color: lightseagreen;
+}
+
+#route_select:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.fa-heart {
+    color: white;
+}
+
+.fa-heart:hover {
+    color: red;
+}
+
+#direction_button {
+    min-width: 100px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background-color: #1f567c;
+    color: white;
+    font-size: 16px;
+}
+
+#direction_button:focus {
+    outline: none !important;
+    border: 2px solid white;
+    border-radius: 4px;
+}
