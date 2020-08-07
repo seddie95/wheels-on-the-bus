@@ -84,11 +84,6 @@ WSGI_APPLICATION = 'django_heroku_test.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'ssl': {
-                'ssl_disabled': True
-            }
-        },
         'NAME': 'bus_data',
         'HOST': 'dublin-bus-db.cyn6ycrg3wxh.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
@@ -96,6 +91,7 @@ DATABASES = {
         'PASSWORD': 'Dublinbus123!',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -150,6 +146,9 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
+
+options = DATABASES['default'].get('OPTIONS', {})
+options.pop('sslmode', None)
 
 
 CACHES = {
