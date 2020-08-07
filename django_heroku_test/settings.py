@@ -14,6 +14,7 @@ import os
 from django.utils.translation import gettext_lazy as _
 import django_heroku
 import json
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['wheels-on-the-bus.herokuapp.com']
 
@@ -79,19 +80,19 @@ WSGI_APPLICATION = 'django_heroku_test.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 
-# RDS database credentials
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'bus_data',
-#         'HOST': 'dublin-bus-db.cyn6ycrg3wxh.us-east-1.rds.amazonaws.com',
-#         'PORT': '3306',
-#         'USER': 'bus_admin',
-#         'PASSWORD': 'Dublinbus123!',
-#     }
-# }
+#RDS database credentials
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bus_data',
+        'HOST': 'dublin-bus-db.cyn6ycrg3wxh.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'USER': 'bus_admin',
+        'PASSWORD': 'Dublinbus123!',
+    }
+}
 
-DATABASES = os.getenv('DATABASE_URL')
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
