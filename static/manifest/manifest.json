@@ -1,8 +1,0 @@
-{
-    "name": "Wheels",
-    "short_name": "Wheels",
-    "lang": "en-GB",
-    "start_url": "/",
-    "display": "standalone",
-    "theme_color": "#52f321"
-}

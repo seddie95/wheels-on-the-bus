@@ -1,0 +1,34 @@
+{
+    "short_name": "Wheels",
+    "name": "Wheels",
+    "lang": "en",
+    "description": "Dublin Bus Journey Planner App",
+    "start_url": "/",
+    "background_color": "#212f3c",
+    "theme_color": "#212f3c",
+    "dir": "ltr",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/static/manifest/android-icon-192x192-dunplab-manifest-9808.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/static/manifest/apple-icon-180x180-dunplab-manifest-9808.png",
+            "type": "image/png",
+            "sizes": "180x180"
+        },
+        {
+            "src": "/static/manifest/favicon-32x32-dunplab-manifest-9808.png",
+            "type": "image/png",
+            "sizes": "32x32"
+        },
+        {
+            "src": "/static/manifest/favicon-16x16-dunplab-manifest-9808.png",
+            "type": "image/png",
+            "sizes": "16x16"
+        }
+    ]
+}

@@ -145,7 +145,6 @@ header {
     height: 50px;
     text-align: center;
     background-color: #212f3c;
-    /* border-bottom: 3px solid grey; */
     color: white;
 }
 
@@ -405,7 +404,6 @@ header {
     margin: 0px;
     padding: 0px 15px 0px 15px;
     height: 37px;
-    /* border-bottom: 3px solid grey; */
     background-color: #212f3c;
     color: white;
 }
@@ -677,7 +675,6 @@ button[role="tab"] {
 }
 
 #rail {
-    border-bottom: solid 5px #5ea832;
     border-bottom: solid 5px #5ea832;
 }
 
