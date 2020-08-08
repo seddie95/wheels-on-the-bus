@@ -152,7 +152,20 @@ header {
 @media only screen and (max-width: 370px) {
     header {
         text-align: left;
-        padding-left: 25px;
+        padding-left: 80px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    header {
+        text-align: left;
+        padding-left: 60px;
+    }
+}
+@media only screen and (max-width: 280px) {
+    header {
+        text-align: left;
+        padding-left: 40px;
     }
 }
 
@@ -236,11 +249,6 @@ header {
     margin-top: 5px;
 }
 
-@media only screen and (max-width: 280px) {
-    .brand_title {
-        margin-left: 0px;
-    }
-}
 @media only screen and (max-width: 250px) {
     .brand_title {
         display: none;
@@ -1049,9 +1057,8 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 @media only screen and (max-width: 600px) {
     #languages_button {
         position: absolute;
-        right: 60px;
+        left: 15px;
         top: 15px;
-        left: unset;
         margin: unset;
     }
 }
@@ -1215,7 +1222,7 @@ p {
     color: white;
     font-size: 18px;
 }
-#route_select:hover{
+#route_select:hover {
     background-color: lightseagreen;
 }
 
