@@ -19,6 +19,9 @@ $(document).ready(function () {
                 document.getElementById("checkbox_label").setAttribute("aria-label", "Close sidebar");
             } else {
                 document.getElementById("sidebar_content").style.width = document.body.clientWidth + "px";
+                setTimeout(function () {
+                    document.getElementById("sidebar_content").style.width = "100%";
+                }, 400);
                 document.getElementById("sidebar").removeAttribute("style");
                 document.getElementById("stops_modal").style.width = "0px";
                 document.getElementById("directions_modal").style.width = "0px";

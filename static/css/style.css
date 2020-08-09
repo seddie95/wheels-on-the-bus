@@ -477,11 +477,6 @@ button[role="tab"] {
     }
 }
 
-#id_source {
-    margin-top: 0px;
-    -webkit-appearance: textfield;
-}
-
 .ui-menu .ui-menu-item-wrapper {
     padding: 10px 10px 0px 20px;
     min-height: 50px;
@@ -1263,6 +1258,7 @@ input {
 }
 
 #id_source {
+    margin-top: 0px;
     padding-left: 38px;
     margin-bottom: -30px;
     border: none;
