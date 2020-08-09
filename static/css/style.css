@@ -185,7 +185,7 @@ header {
         z-index: 1;
         top: 0px;
         left: 0px;
-        transition: 0.5s;
+        transition: 0.4s;
     }
 }
 
@@ -1148,7 +1148,7 @@ p {
 
 .weatherWidget {
     height: auto !important;
-    margin: 4px;
+    margin: 0px 4px 4px 4px !important;
     min-width: 250px !important;
     overflow: hidden !important;
 }
@@ -1168,11 +1168,11 @@ p {
 }
 
 #stops_modal {
-    transition: 0.5s;
+    transition: 0.4s;
 }
 
 #directions_modal {
-    transition: 0.5s;
+    transition: 0.4s;
 }
 
 @media screen and (orientation: landscape) and (max-height: 450px) {
