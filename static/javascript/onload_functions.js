@@ -4,21 +4,6 @@ $(document).ready(function () {
     $("#datepicker").hide();
 });
 
-// Register the service worker for the Progressive Web App
-// $(document).ready(function () {
-//     registerServiceWorker();
-// });
-
-// async function registerServiceWorker() {
-//     if ("serviceWorker" in navigator) {
-//         try {
-//             await navigator.serviceWorker.register("/service_worker.js");
-//         } catch (e) {
-//             console.log(`SW registration failed`);
-//         }
-//     }
-// }
-
 //==============================================================
 // Function to submit form data on button click
 $(document).ready(function () {
