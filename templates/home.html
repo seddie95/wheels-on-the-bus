@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 {% extends 'base.html' %} {% load static %}{% block head %} {% load i18n %}
 
     <!-- jQuerystylesheet url -->
@@ -26,20 +24,26 @@
 
 
 
-        <!--Cloud based javsacript-->
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&callback=initMap&v=quarterly" defer></script>-->
+    <!--Cloud based javsacript-->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&callback=initMap&v=quarterly" defer></script> -->
     <script src="https://code.jquery.com/jquery-1.12.4.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" crossorigin="anonymous"></script>
 
     <!--load google map according to language selector-->
     {% get_current_language as LANGUAGE_CODE %}
-    <script>
+    
+    <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&language={{ LANGUAGE_CODE }}&callback=initMap&v=quarterly' defer></script>
+
+    <!-- <script>
         var lang = "{{ LANGUAGE_CODE }}";
         // console.log("here for lang",lang);
         var map_script = document.createElement('script');
-        map_script.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&language=' + lang + '&callback=initMap&v=quarterly=');
+        map_script.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&language=' + lang + '&callback=initMap&v=quarterly');
+        map_script.setAttribute('defer', 'defer');
         document.head.appendChild(map_script);
-    </script>
+    </script> -->
+
+
 
 
     <!-- Flatpickr javascript -->
