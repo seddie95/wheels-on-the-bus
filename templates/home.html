@@ -1,5 +1,8 @@
 {% extends 'base.html' %} {% load static %}{% block head %} {% load i18n %}
 
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+
     <!-- jQuerystylesheet url -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" crossorigin="anonymous"/>
 
@@ -19,9 +22,6 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static '/css/style.css' %}"/>
-
-    <link rel="apple-touch-icon" href="{% static '/manifest/apple-touch-icon.png' %}">
-
 
 
     <!--Cloud based javsacript-->
@@ -43,7 +43,9 @@
         document.head.appendChild(map_script);
     </script> -->
 
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js" integrity="sha512-0bEtK0USNd96MnO4XhH8jhv3nyRF0eK87pJke6pkYf3cM0uDIhNJy9ltuzqgypoIFXw3JSuiy04tVk4AjpZdZw==" crossorigin="anonymous"></script> -->
 
+    <!-- <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script> -->
 
 
     <!-- Flatpickr javascript -->
@@ -116,7 +118,7 @@
                         <input
                             type="search"
                             name="source"
-                            class="autocomplete ui-autocomplete-input"
+                            class="autocomplete ui-autocomplete-input select"
                             placeholder ="{% trans 'From stop' %}"
                             autocomplete="off"
                             required=""
@@ -132,7 +134,7 @@
                         <input
                             type="search"
                             name="destination"
-                            class="autocomplete ui-autocomplete-input"
+                            class="autocomplete ui-autocomplete-input select"
                             placeholder="{% trans 'To stop' %}"
                             autocomplete="off"
                             required=""
@@ -173,7 +175,7 @@
         <!-- Routes tab content -->
         <div id="routes" role="tabpanel" tabindex="0" aria-labelledby="load_routes" hidden>
             <div id="route_search_background">
-                <input type="search" id="route_search" spellcheck="false" placeholder="{% trans 'Enter Route' %}" />
+                <input type="search" id="route_search" class="select" spellcheck="false" placeholder="{% trans 'Enter Route' %}" />
                 <button id="direction_button" class="button">{% trans "Inbound" %}</button>
             </div>
             <div id="route_background">

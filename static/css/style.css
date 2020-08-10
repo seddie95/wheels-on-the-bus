@@ -35,9 +35,25 @@
 /* The Google Monsterrat font is applied all text on the page */
 /* The sans-serif family is used as a fallback */
 /* Border-box box-sizing sets the dimensions of elements to include conent, padding and borders */
+/* Prevent text from being highlighted using the user-select selectors */
 * {
     font-family: "Montserrat", sans-serif;
     white-space: nowrap;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.select {
+    -webkit-touch-callout: auto;
+    -webkit-user-select: auto;
+    -khtml-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
 }
 
 *,
@@ -154,26 +170,6 @@ header {
     }
 }
 
-@media only screen and (max-width: 370px) {
-    header {
-        text-align: left;
-        padding-left: 80px;
-    }
-}
-
-@media only screen and (max-width: 320px) {
-    header {
-        text-align: left;
-        padding-left: 60px;
-    }
-}
-@media only screen and (max-width: 280px) {
-    header {
-        text-align: left;
-        padding-left: 40px;
-    }
-}
-
 .sidebar {
     background-color: white;
     overflow: hidden;
@@ -250,14 +246,14 @@ header {
     font-size: 32px;
     font-weight: bolder;
     margin: unset;
-    margin-left: 30px;
+    /* margin-left: 30px; */
     margin-top: 5px;
 }
 
 @media only screen and (max-width: 600px) {
     .brand_title {
-        margin-top: 3px;
-        font-size: 26px;
+        margin-top: 6px;
+        font-size: 22px;
     }
 }
 @media only screen and (max-width: 250px) {
@@ -451,7 +447,7 @@ button[role="tab"] {
     font-weight: bolder;
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 450px) {
     button[role="tab"] {
         font-size: 18px;
         margin: 0px 5px 0px 5px;
@@ -901,8 +897,8 @@ button[role="tab"] {
 
 @media only screen and (max-width: 600px) {
     .input_area {
-        padding-top: 5px;
-        padding-bottom: 5px;
+        padding-top: 7px;
+        padding-bottom: 7x;
     }
 }
 
@@ -1028,7 +1024,6 @@ div.flatpickr-calendar.hasTime.noCalendar.animate.showTimeInput.arrowTop.open {
     white-space: normal;
 }
 
-input[type="search"]::-webkit-search-decoration:hover,
 input[type="search"]::-webkit-search-cancel-button:hover {
     cursor: pointer;
 }
@@ -1065,9 +1060,13 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     font-weight: bolder;
     position: relative;
     left: 90px;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    margin: unset;
 }
 
-@media only screen and (max-width: 1500px) {
+/* @media only screen and (max-width: 1500px) {
     #languages_button {
         left: 80px;
     }
@@ -1076,7 +1075,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     #languages_button {
         left: 60px;
     }
-}
+} */
 
 @media only screen and (max-width: 600px) {
     #languages_button {
@@ -1107,7 +1106,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 #info a {
     padding: 8px 8px 8px 8px;
     font-size: 14px;
-    color: #818181;
+    color: white;
     transition: 0.3s;
     font-size: 16px;
     text-decoration: none;
@@ -1132,8 +1131,8 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 }
 
 #info img {
-    width: 80px;
-    height: 40px;
+    width: 100px;
+    height: 50px;
     position: relative;
     padding-bottom: 0px;
     margin-bottom: 0px;
@@ -1147,7 +1146,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 }
 
 #info a:hover {
-    color: #f1f1f1;
+    color: grey;
 }
 
 .info_sidebar img {
@@ -1280,7 +1279,6 @@ p {
 }
 
 /* Prevent iOS devices from changing border radius of form fields */
-
 input {
     -webkit-appearance: none;
     border-radius: 0;

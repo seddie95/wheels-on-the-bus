@@ -1,5 +1,5 @@
-const cacheName = "news-v1";
-const staticAssets = ["/static/manifest/android-icon-192x192-dunplab-manifest-9808.png"];
+const cacheName = "static-cache";
+const staticAssets = ["/templates/base.html", "/templates/home.html", "/static/css/style.css", "/static/images"];
 
 self.addEventListener("install", async (e) => {
     const cache = await caches.open(cacheName);
