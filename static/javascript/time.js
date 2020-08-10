@@ -6,6 +6,7 @@ $(document).ready(function () {
         time_24hr: true,
         dateFormat: "H:i",
         defaultDate: new Date(),
+        disableMobile: "true",
     });
 });
 
@@ -15,5 +16,6 @@ $(document).ready(function () {
         defaultDate: "today",
         minDate: "today",
         maxDate: new Date().fp_incr(5),
+        disableMobile: "true",
     });
 });

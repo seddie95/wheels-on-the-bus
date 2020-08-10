@@ -390,14 +390,19 @@ function geoLocation() {
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infowindow.setPosition(pos);
-        infowindow.setContent(browserHasGeolocation ? "Error: Geolocation has failed." : "Error: Your browser does not support Geolocation sercices.");
-        infowindow.open(map);
-        setTimeout(function () {
-            infowindow.close();
-        }, 3000);
-        setTimeout(function () {
-            infowindow.setContent("");
-        }, 3000);
+        var bodyWidth = document.body.clientWidth;
+        if (bodyWidth > 600) {
+            infowindow.setContent(browserHasGeolocation ? "Error: Geolocation has failed." : "Error: Your browser does not support Geolocation sercices.");
+            infowindow.open(map);
+            setTimeout(function () {
+                infowindow.close();
+            }, 3000);
+            setTimeout(function () {
+                infowindow.setContent("");
+            }, 3000);
+        } else {
+            alert(browserHasGeolocation ? "Error: Geolocation has failed." : "Error: Your browser does not support Geolocation sercices.");
+        }
     }
 }
 

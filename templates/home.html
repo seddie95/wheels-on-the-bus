@@ -1,6 +1,7 @@
-<!DOCTYPE html>
-
 {% extends 'base.html' %} {% load static %}{% block head %} {% load i18n %}
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
 
     <!-- jQuerystylesheet url -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" crossorigin="anonymous"/>
@@ -22,23 +23,29 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static '/css/style.css' %}"/>
 
-    <!-- PWA manifest file -->
-    <link rel="manifest" href="{% static '/manifest/manifest.json' %}"/>
 
-        <!--Cloud based javsacript-->
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&callback=initMap&v=quarterly" defer></script>-->
+    <!--Cloud based javsacript-->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&callback=initMap&v=quarterly" defer></script> -->
     <script src="https://code.jquery.com/jquery-1.12.4.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" crossorigin="anonymous"></script>
 
     <!--load google map according to language selector-->
     {% get_current_language as LANGUAGE_CODE %}
-    <script>
+    
+    <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&language={{ LANGUAGE_CODE }}&callback=initMap&v=quarterly' defer></script>
+
+    <!-- <script>
         var lang = "{{ LANGUAGE_CODE }}";
         // console.log("here for lang",lang);
         var map_script = document.createElement('script');
-        map_script.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&language=' + lang + '&callback=initMap&v=quarterly=');
+        map_script.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&language=' + lang + '&callback=initMap&v=quarterly');
+        map_script.setAttribute('defer', 'defer');
         document.head.appendChild(map_script);
-    </script>
+    </script> -->
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js" integrity="sha512-0bEtK0USNd96MnO4XhH8jhv3nyRF0eK87pJke6pkYf3cM0uDIhNJy9ltuzqgypoIFXw3JSuiy04tVk4AjpZdZw==" crossorigin="anonymous"></script> -->
+
+    <!-- <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script> -->
 
 
     <!-- Flatpickr javascript -->
@@ -81,6 +88,7 @@
 
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
+    <div id="sidebar_content" class="sidebar_content">
     <!-- Tabs -->
 
     <div role="tablist" id="tabs" class="tabs">
@@ -106,33 +114,31 @@
             <div id="input_area" class="input_area">
                 <form spellcheck="false" id="form" class="form">
                     {% csrf_token %}
-                    <div class="buttonIn">
+                    <div class="location_input">
                         <input
                             type="search"
                             name="source"
-                            class="autocomplete ui-autocomplete-input"
+                            class="autocomplete ui-autocomplete-input select"
                             placeholder ="{% trans 'From stop' %}"
                             autocomplete="off"
                             required=""
                             id="id_source"
-                            style="padding-left: 38px; margin-bottom: -30px;border:none;"
                             aria-label="Search starting stop."
                         />
                         <button class="voice" id="btn1" aria-label="Search starting stop by voice">
-                            <i class="far fas fa-microphone fa-lg"></i>
+                            <i class="far fas fa-microphone fa-lg" ></i>
                         </button>
 
                     </div>
-                    <div class="buttonIn">
+                    <div class="location_input">
                         <input
                             type="search"
                             name="destination"
-                            class="autocomplete ui-autocomplete-input"
+                            class="autocomplete ui-autocomplete-input select"
                             placeholder="{% trans 'To stop' %}"
                             autocomplete="off"
                             required=""
                             id="id_destination"
-                            style="padding-left: 38px; margin-bottom: -30px;border:none;"
                             aria-label="Search destination stop."
 
                         />
@@ -146,7 +152,6 @@
                     </button>
                     <input type="text" name="time" id="timepicker" class="flatpickr-input" readonly="readonly" style="display: none;" />
                     <input type="text" name="date" id="datepicker" autocomplete="off" readonly="readonly" class="flatpickr-input" style="display: none;" />
-                    <!-- <input type="hidden" name="date" value="2020/07/23" id="id_date" /> -->
                 </form>
 
                 <div id="button_group" class="button_group">
@@ -170,7 +175,7 @@
         <!-- Routes tab content -->
         <div id="routes" role="tabpanel" tabindex="0" aria-labelledby="load_routes" hidden>
             <div id="route_search_background">
-                <input type="search" id="route_search" spellcheck="false" placeholder="{% trans 'Enter Route' %}" />
+                <input type="search" id="route_search" class="select" spellcheck="false" placeholder="{% trans 'Enter Route' %}" />
                 <button id="direction_button" class="button">{% trans "Inbound" %}</button>
             </div>
             <div id="route_background">
@@ -201,17 +206,28 @@
                 <!--Tourist info-->
                 <div class="footer">
                     <ul>
-                        <li><p>A Tourist? <span style="font-size: 14px;">Check below</span></p></li>
-                        <li><a rel="preconnect"
+                        <li>
+                            <p>A Tourist? 
+                        </p>
+                        </li>
+                        <li style="margin-bottom: 15px;"><a
                                 href="https://ireland.com/what-is-available/attractions-built-heritage/museums-and-attractions/articles/dublin-city-top-nine-attractions/"
-                                target="_blank">Dublin Popular Attractions</a></li>
-                        <l1><a rel="preconnect" href="https://www.dublinbus.ie/" target="_blank"><img src="/static/images/dublinbus.png" alt="DublinBusIcon" /></a></l1>
-                        <l1><a rel="preconnect" href="https://www.leapcard.ie/Home/index.html" target="_blank"><img src="/static/images/leapCard.jpg" alt="LeapCardIcon" /></a></l1>
+                                target="_blank"
+                                >Dublin's Popular Attractions</a>
+                        </li>
+
+                        <l1
+                            ><a href="https://www.dublinbus.ie/" target="_blank"><img src="/static/images/dublinbus.png" alt="DublinBusIcon" /></a
+                        ></l1>
+                        <l1
+                            ><a href="https://www.leapcard.ie/Home/index.html" target="_blank"><img src="/static/images/leapCard.jpg" alt="LeapCardIcon" /></a
+                        ></l1>
                     </ul>
                 </div>
              </div>
         </div>
     </div>
+</div>
 </div>
 
 

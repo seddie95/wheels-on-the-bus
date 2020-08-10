@@ -1,11 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% load i18n %}
+    {% load i18n %} {% load pwa %} {% load static %}
     <head>
-        {% load static %}
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Favicon -->
         <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon" />
+
+        <link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png" />
+
+        <!-- PWA manifest file -->
+        <link rel="manifest" href="/static/manifest.json" />
+
+        <!-- Meta tags for mobile functionality -->
+        <meta charset="UTF-8" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="Wheels" />
+        <meta name="apple-mobile-web-app-title" content="Wheels" />
+        <meta name="theme-color" content="#ffffff;" />
+        <meta name="msapplication-navbutton-color" content="#fffff;" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="msapplication-starturl" content="/" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        {% progressive_web_app_meta %}
+
+        <link
+            href="/static/images/ios_splashscreens/iphone5_splash.png"
+            media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image"
+        />
+        <link
+            href="/static/images/ios_splashscreens/iphone6_splash.png"
+            media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image"
+        />
+        <link
+            href="/static/images/ios_splashscreens/iphoneplus_splash.png"
+            media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"
+            rel="apple-touch-startup-image"
+        />
+        <link
+            href="/static/images/ios_splashscreens/iphonex_splash.png"
+            media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+            rel="apple-touch-startup-image"
+        />
+        <link
+            href="/static/images/ios_splashscreens/iphonexr_splash.png"
+            media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image"
+        />
+        <link
+            href="/static/images/ios_splashscreens/iphonxsmax_splash.png"
+            media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
+            rel="apple-touch-startup-image"
+        />
+        <link
+            href="/static/images/ios_splashscreens/ipad_splash.png"
+            media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image"
+        />
+        <link
+            href="/static/images/ios_splashscreens/ipadpro1_splash.png"
+            media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image"
+        />
+        <link
+            href="/static/images/ios_splashscreens/ipadpro3_splash.png"
+            media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image"
+        />
+        <link
+            href="/static/images/ios_splashscreens/ipadpro2_splash.png"
+            media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image"
+        />
 
         <title aria-hidden="true">Wheels</title>
 

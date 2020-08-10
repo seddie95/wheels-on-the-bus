@@ -35,9 +35,25 @@
 /* The Google Monsterrat font is applied all text on the page */
 /* The sans-serif family is used as a fallback */
 /* Border-box box-sizing sets the dimensions of elements to include conent, padding and borders */
+/* Prevent text from being highlighted using the user-select selectors */
 * {
     font-family: "Montserrat", sans-serif;
     white-space: nowrap;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.select {
+    -webkit-touch-callout: auto;
+    -webkit-user-select: auto;
+    -khtml-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
 }
 
 *,
@@ -121,7 +137,7 @@ header {
 
 @media only screen and (max-width: 600px) {
     body {
-        grid-template-rows: 50px auto;
+        grid-template-rows: 40px auto;
         grid-template-columns: minmax(270px, auto);
         grid-template-areas:
             "header"
@@ -145,14 +161,12 @@ header {
     height: 50px;
     text-align: center;
     background-color: #212f3c;
-    /* border-bottom: 3px solid grey; */
     color: white;
 }
 
-@media only screen and (max-width: 370px) {
+@media only screen and (max-width: 600px) {
     header {
-        text-align: left;
-        padding-left: 25px;
+        height: 40px;
     }
 }
 
@@ -168,12 +182,12 @@ header {
 
     .sidebar {
         height: 100%;
-        margin-top: 50px;
+        margin-top: 40px;
         position: fixed;
         z-index: 1;
         top: 0px;
         left: 0px;
-        transition: 0.5s;
+        transition: 0.4s;
     }
 }
 
@@ -189,7 +203,7 @@ header {
 /* 4.1 Buttons */
 
 .button_group {
-    margin-top: 15px;
+    margin-top: 5px;
     float: left;
 }
 
@@ -210,7 +224,7 @@ header {
     outline-style: none;
 }
 
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 320px) {
     .button {
         padding: 6px;
     }
@@ -232,13 +246,14 @@ header {
     font-size: 32px;
     font-weight: bolder;
     margin: unset;
-    margin-left: 30px;
+    /* margin-left: 30px; */
     margin-top: 5px;
 }
 
-@media only screen and (max-width: 280px) {
+@media only screen and (max-width: 600px) {
     .brand_title {
-        margin-left: 0px;
+        margin-top: 6px;
+        font-size: 22px;
     }
 }
 @media only screen and (max-width: 250px) {
@@ -258,7 +273,7 @@ header {
         display: inline-block;
         position: absolute;
         right: 15px;
-        top: 7px;
+        top: 2px;
     }
 }
 
@@ -267,7 +282,7 @@ header {
 }
 
 .toggle_button:hover .line {
-    width: 29px;
+    width: 23px;
 }
 
 #checkbox_label:focus {
@@ -275,7 +290,7 @@ header {
 }
 
 #checkbox_label:focus .line {
-    width: 29px;
+    width: 23px;
     background-color: white;
 }
 
@@ -287,7 +302,13 @@ header {
     margin-top: 6px;
     margin-bottom: 6px;
     display: block;
-    transition: all 0.4s;
+    transition: all 0.2s;
+}
+
+@media only screen and (max-width: 600px) {
+    .line {
+        height: 4px;
+    }
 }
 
 .line_1,
@@ -397,7 +418,6 @@ header {
     margin: 0px;
     padding: 0px 15px 0px 15px;
     height: 37px;
-    /* border-bottom: 3px solid grey; */
     background-color: #212f3c;
     color: white;
 }
@@ -427,7 +447,7 @@ button[role="tab"] {
     font-weight: bolder;
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 450px) {
     button[role="tab"] {
         font-size: 18px;
         margin: 0px 5px 0px 5px;
@@ -455,24 +475,20 @@ button[role="tab"] {
 .ui-autocomplete-input {
     margin: 10px 0px 0px 0px;
     width: calc(100% - 44px);
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
+    padding: 6px 12px;
+    font-size: 16px;
     line-height: 1.5;
     color: black;
     display: block;
     background-clip: padding-box;
     border: 1px solid black;
-    border-radius: 0.25rem;
+    border-radius: 4px;
 }
 
 @media only screen and (max-width: 320px) {
     .ui-autocomplete-input {
         width: calc(100% - 70px);
     }
-}
-
-#id_source {
-    margin-top: 0px;
 }
 
 .ui-menu .ui-menu-item-wrapper {
@@ -670,7 +686,6 @@ button[role="tab"] {
 
 #rail {
     border-bottom: solid 5px #5ea832;
-    border-bottom: solid 5px #5ea832;
 }
 
 /* ------------ */
@@ -808,6 +823,13 @@ button[role="tab"] {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+@media only screen and (max-width: 600px) {
+    .modal {
+        top: 40px;
+        height: calc(100% - 40px);
+    }
+}
+
 .modal_content {
     background-color: #fefefe;
     padding: 20px;
@@ -871,6 +893,13 @@ button[role="tab"] {
     padding: 15px;
     margin: 0px;
     min-width: fit-content;
+}
+
+@media only screen and (max-width: 600px) {
+    .input_area {
+        padding-top: 7px;
+        padding-bottom: 7x;
+    }
 }
 
 #switch_directions {
@@ -995,7 +1024,6 @@ div.flatpickr-calendar.hasTime.noCalendar.animate.showTimeInput.arrowTop.open {
     white-space: normal;
 }
 
-input[type="search"]::-webkit-search-decoration:hover,
 input[type="search"]::-webkit-search-cancel-button:hover {
     cursor: pointer;
 }
@@ -1009,8 +1037,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     background-color: white;
     border-right: 1px solid grey;
     cursor: pointer;
-    padding-left: 9px;
-    padding-right: 9px;
+    margin-right: 10px;
 }
 
 .fa-microphone {
@@ -1033,9 +1060,13 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     font-weight: bolder;
     position: relative;
     left: 90px;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    margin: unset;
 }
 
-@media only screen and (max-width: 1500px) {
+/* @media only screen and (max-width: 1500px) {
     #languages_button {
         left: 80px;
     }
@@ -1044,14 +1075,13 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     #languages_button {
         left: 60px;
     }
-}
+} */
 
 @media only screen and (max-width: 600px) {
     #languages_button {
         position: absolute;
-        right: 60px;
-        top: 15px;
-        left: unset;
+        left: 15px;
+        top: 8px;
         margin: unset;
     }
 }
@@ -1076,7 +1106,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 #info a {
     padding: 8px 8px 8px 8px;
     font-size: 14px;
-    color: #818181;
+    color: white;
     transition: 0.3s;
     font-size: 16px;
     text-decoration: none;
@@ -1101,8 +1131,8 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 }
 
 #info img {
-    width: 80px;
-    height: 40px;
+    width: 100px;
+    height: 50px;
     position: relative;
     padding-bottom: 0px;
     margin-bottom: 0px;
@@ -1116,7 +1146,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 }
 
 #info a:hover {
-    color: #f1f1f1;
+    color: grey;
 }
 
 .info_sidebar img {
@@ -1144,7 +1174,7 @@ p {
 
 .weatherWidget {
     height: auto !important;
-    margin: 4px;
+    margin: 0px 4px 4px 4px !important;
     min-width: 250px !important;
     overflow: hidden !important;
 }
@@ -1164,11 +1194,11 @@ p {
 }
 
 #stops_modal {
-    transition: 0.5s;
+    transition: 0.4s;
 }
 
 #directions_modal {
-    transition: 0.5s;
+    transition: 0.4s;
 }
 
 @media screen and (orientation: landscape) and (max-height: 450px) {
@@ -1215,7 +1245,7 @@ p {
     color: white;
     font-size: 18px;
 }
-#route_select:hover{
+#route_select:hover {
     background-color: lightseagreen;
 }
 
@@ -1246,4 +1276,40 @@ p {
     outline: none !important;
     border: 2px solid white;
     border-radius: 4px;
+}
+
+/* Prevent iOS devices from changing border radius of form fields */
+input {
+    -webkit-appearance: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#id_source {
+    margin-top: 0px;
+    padding-left: 38px;
+    margin-bottom: -30px;
+    border: none;
+}
+
+#id_destination {
+    padding-left: 38px;
+    margin-bottom: -30px;
+    border: none;
+}
+
+@supports (-webkit-touch-callout: none) {
+    #id_source {
+        padding-left: 45px;
+        margin-bottom: -30px;
+        border: none;
+    }
+
+    #id_destination {
+        padding-left: 45px;
+        margin-bottom: -30px;
+        border: none;
+    }
 }

@@ -30,13 +30,15 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
-    path('autocomplete_stop/', AutocompleteView.as_view(), name='autocomplete_stop'),
+    path('autocomplete_stop/', AutocompleteView.as_view(),
+         name='autocomplete_stop'),
     path('routes/', DisplayRoutesView.as_view(), name='routes'),
     path('stops/', StopsOnRoute.as_view(), name='stops'),
     path('predict/', PredictionView.as_view(), name='predict'),
     path('closest/', ClosestStopsView.as_view(), name='closest'),
     path('rtpi/', RTPIView.as_view(), name='rtpi'),
     path('404/', error_404_view, name='404'),
+    path('', include('pwa.urls')),
 ]
 urlpatterns += [
     re_path(r'^jsi18n/$',

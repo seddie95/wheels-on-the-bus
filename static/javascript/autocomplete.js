@@ -41,6 +41,7 @@ $(function autoFill() {
 
         select: function (event, ui) {
             $(event.target).text(ui.item.text);
+            $(".ui-autocomplete").hide();
         },
 
         // Append the output to div with an ID of form_output instead of the body
@@ -48,5 +49,8 @@ $(function autoFill() {
         position: { my: "left top", at: "left top", of: "#form_output" },
 
         // Place other options here if required
+        close: function () {
+            $(".ui-autocomplete").show();
+        },
     });
 });
