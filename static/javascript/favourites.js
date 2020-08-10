@@ -129,8 +129,8 @@ function load_local_storage(item) {
         // create string to hold unordered list html
         let parsed_list = title + "<ul>";
 
-        // loop through the favourites and add them to the unordered list
-        for (let i = 0; i < parsed_data.length; i++) {
+        // loop backwards through the favourites and add them to the unordered list
+        for (let i = parsed_data.length-1; i >= 0; i--){
             // Obtain the source & destination id + name
             let parsed_item = parsed_data[i];
 
