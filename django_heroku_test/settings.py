@@ -19,15 +19,16 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-PWA_SERVICE_WORKER_PATH = os.path.join(
-    BASE_DIR, 'static/javascript', 'service_worker.js')
+# PWA_SERVICE_WORKER_PATH = os.path.join(
+#     BASE_DIR, 'static/javascript', 'service_worker.js')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = os.getenv('SECRET_KEY')
-SECRET_KEY = 'q-)y@ly+3uhp+tb8r_=_l!pmx*8chkpzxv1bbarr)!k*lmw=q@'
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -91,9 +92,7 @@ DATABASES = {
         'HOST': 'dublin-bus-db.cyn6ycrg3wxh.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
         'USER': 'bus_admin',
-        'PASSWORD': 'Dublinbus123!', 'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        'PASSWORD': 'Dublinbus123!'
     }
 }
 
@@ -154,13 +153,13 @@ django_heroku.settings(locals())
 options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)
 
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django_bmemcached.memcached.BMemcached',
-#         'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
-#         'OPTIONS': {
-#             'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
-#             'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
-#         }
-#     }
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'django_bmemcached.memcached.BMemcached',
+        'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
+        'OPTIONS': {
+            'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
+            'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
+        }
+    }
+}
