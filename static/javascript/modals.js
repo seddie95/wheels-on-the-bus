@@ -1,7 +1,11 @@
-// function to display the directions modal
-function displayDirectionsModal(bus_data, index) {
+function displayDirectionsModal(bus_data, index, addresses) {
     try {
         let data = bus_data[index];
+        let start = addresses[0];
+        let end = addresses[1];
+
+        let total_time = 0;
+
 
         // Get the directions_modal
         var modal = document.getElementById("directions_modal");
@@ -13,8 +17,6 @@ function displayDirectionsModal(bus_data, index) {
         var side_bar = document.getElementById("sidebar");
         modal.style.width = side_bar.offsetWidth + "px";
         modal.style.display = "block";
-
-        modal.focus();
 
         // The modal is closed when the x button is clicked
         span.onclick = function () {
@@ -28,99 +30,91 @@ function displayDirectionsModal(bus_data, index) {
             }
         };
 
-        window.addEventListener("keydown", function (e) {
-            if (e.keyCode === 27) {
-                modal.style.display = "none";
-            }
-        });
-
-        let weather_icon = displayWeather(data[0].description);
+        let weather_icon = displayWeather(data[1].description);
 
         // Data is
-        var text = `<div id='weather_data' tabindex='0'>
+        var text = `<div id='weather_data'>
             <img id='weather_icon' src='${weather_icon}'>
             <span id='centered'>${data[0].temperature}°c</span>
             </div>`;
 
-        text += gettext("<h2 tabindex='0'>Steps:</h2>") + "<ul id='journey_info' tabindex='0'>";
+        text += gettext(`<h3>${start}:</h3>`) + "<ul id='journey_info'>";
 
         for (let i = 0; i < data.length; i++) {
-            let line_id = data[i].line_id;
-            let stop_id = data[i].departure_stop_id;
+            var travel_mode = data[i].travel_mode;
 
-            if (Number.isInteger(parseInt(stop_id))) {
-                let bus_times = [];
-                // Get the real time arrival times for the stops
+            if (travel_mode == 'WALKING') {
+                let duration = data[i].duration;
+                let distance = data[i].distance;
+                text += `<li><strong>Walk</strong><br> About ${distance} • ${duration}</li>`;
+            }
 
-                fetch(baseUrl + "rtpi/", {
-                    method: "POST",
-                    credentials: "include",
-                    body: JSON.stringify(stop_id),
-                    cache: "no-cache",
-                    headers: new Headers({
-                        "X-CSRFToken": getCsrf(),
-                        Accept: "application/json",
-                        "content-type": "application/json",
-                    }),
-                })
-                    .then(function (response) {
-                        return response.json();
-                    })
-                    .then(function (data) {
+            if (travel_mode == 'TRANSIT') {
+                let line_id = data[i].line_id;
+                let stop_id = data[i].departure_stop_id;
+
+                if (Number.isInteger(parseInt(stop_id))) {
+                    let bus_times = [];
+                    // Get the real time arrival times for the stops
+                    let url = `https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=${stop_id}`;
+
+                    $.get(url, function (data) {
                         let buses = data.results;
+
                         buses.forEach(function (bus) {
                             let route = bus.route;
+
                             if (route === line_id && bus_times.length < 3) {
                                 bus_times.push(" " + bus.duetime);
                             }
                         });
+
                         $(`#arrival_${stop_id}`).html(`<br><br>Leaves in: <strong>${bus_times.toString()} min</strong>`);
-                    })
-                    .catch(function (error) {
-                        console.error("Difficulty fetching real time arrival data:", error);
                     });
+                }
+
+                text +=
+                    "<li>" +
+                    gettext("<strong>Depart from:</strong> ") +
+                    "<br>" +
+                    data[i].start_name +
+                    "<br>" +
+                    "<br>" + "lineid: " +
+                    gettext(line_id) +
+                    "<br>" +
+                    "<br>" +
+                    gettext("Departs at: ") +
+                    getTime(data, i) +
+                    `<div id='arrival_${stop_id}'></div>` +
+                    "<br>" +
+                    gettext(" Arrives to: ") +
+                    "<br>" +
+                    data[i].end_name +
+                    "<br>" +
+                    "<br>" +
+                    gettext("Stops: ") +
+                    data[i].num_stops +
+                    " • " +
+                    data[i].travel_time +
+                    "mins <span id='arrow'>&#9660</span>" +
+                    "<div id='directions_stops_list'>";
+                let stop_list = "<ul>";
+
+                for (let j = 0; j < data[i].stops.length; j++) {
+                    stop_list += "<li>" + data[i].stops[j] + "</li>";
+                }
+
+                stop_list += "</ul>";
+                text += stop_list + "</div>" + "</li>";
             }
 
-            text +=
-                "<li>" +
-                gettext("Start from: ") +
-                "<br>" +
-                data[i].start_name +
-                "<br>" +
-                "<br>" +
-                gettext("Line ID: ") +
-                line_id +
-                "<br>" +
-                "<br>" +
-                gettext("Departs at: ") +
-                getTime(data, i) +
-                `<div id='arrival_${stop_id}'></div>` +
-                "<br>" +
-                gettext(" Arrives to: ") +
-                "<br>" +
-                data[i].end_name +
-                "<br>" +
-                "<br>" +
-                gettext("Stops: ") +
-                data[i].num_stops +
-                " • " +
-                data[i].travel_time +
-                "mins <span id='arrow'>&#9660</span>" +
-                "<div id='directions_stops_list'>";
-            let stop_list = "<ul>";
 
-            for (let j = 0; j < data[i].stops.length; j++) {
-                stop_list += "<li>" + data[i].stops[j] + "</li>";
-            }
-
-            stop_list += "</ul>";
-            text += stop_list + "</div>" + "</li>" + "<br>" + "<br>";
         }
-
-        text += "</ul>";
-        //        console.log(text);
+        text += "</ul>" + end;
+        //console.log(`total_time: ${total_time}`);
 
         $("#directions_list").html(text);
+
     } catch (error) {
         console.error("Difficulty fetching directions modal data:", error);
     }
