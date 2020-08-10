@@ -203,15 +203,15 @@ function fetch_data(myData) {
                                 // Set the icon and border colour based on agency
                                 switch (agency) {
                                     case "Luas":
-                                        icon = "/static/images/luas.png/";
+                                        icon = "/static/images/luas.png";
                                         border_id = "luas";
                                         break;
                                     case "Irish Rail":
-                                        icon = "/static/images/dart.svg/";
+                                        icon = "/static/images/dart.svg";
                                         border_id = "rail";
                                         break;
                                     default:
-                                        icon = "/static/images/bus.svg/";
+                                        icon = "/static/images/bus.svg";
                                         let lowercase_line_id = transit_details["line"]["short_name"];
                                         line_id = lowercase_line_id.toUpperCase();
                                 }
