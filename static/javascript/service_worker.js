@@ -1,5 +1,5 @@
 const cacheName = "static-cache";
-const staticAssets = ["/templates/base.html", "/templates/home.html", "/static/css/style.css", "/static/images"];
+const staticAssets = [""];
 
 self.addEventListener("install", async (e) => {
     const cache = await caches.open(cacheName);

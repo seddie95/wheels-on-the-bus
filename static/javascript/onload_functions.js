@@ -1,7 +1,38 @@
+//==============================================================
 // Hide the date and time forms by default
 $(document).ready(function () {
     $("#timepicker").hide();
     $("#datepicker").hide();
+});
+
+// $(document).ready(function () {
+// $("#sidebar").draggabilly({
+//     axis: "y",
+// });
+//     $("#stops_modal").draggabilly({});
+// });
+
+// $(document).ready(function () {
+//     $("#sidebar").draggable({
+//         axis: "y",
+//     });
+//     $("#stops_modal").draggable({
+//         axis: "y",
+//     });
+// });
+
+//==============================================================
+// Only show the speech search icons in browsers that support the Web Speech API
+$(document).ready(function () {
+    if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
+    } else {
+        document.getElementById("btn1").style.display = "none";
+        document.getElementById("btn2").style.display = "none";
+        document.getElementById("id_source").style.marginBottom = "0";
+        document.getElementById("id_source").style.paddingLeft = "10px";
+        document.getElementById("id_destination").style.marginBottom = "0";
+        document.getElementById("id_destination").style.paddingLeft = "10px";
+    }
 });
 
 //==============================================================

@@ -84,5 +84,4 @@ ipython_config.py
 web_app/cleaning_scripts/weather_api.py
 
 # Allow the PWA manifest folder to be added to GitHub
-!/web_app/static/manifest/
-
+!/static/manifest

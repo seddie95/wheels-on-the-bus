@@ -16,14 +16,13 @@ var directionsRenderer;
 //add infowindow
 var infowindow;
 
-
 // Creation of map
 function initMap() {
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
     infowindow = new google.maps.InfoWindow();
     map = new google.maps.Map(document.getElementById("map"), {
-        center: {lat: 53.349804, lng: -6.26031},
+        center: { lat: 53.349804, lng: -6.26031 },
         zoom: 12.0,
         mapTypeControl: false,
         fullscreenControl: false,
@@ -119,199 +118,192 @@ function fetch_data(myData) {
 
     // Pass request to google directions service
     directionsService.route(request, function (response, status) {
-            if (status == "OK") {
-                // array to store the bus times and locations
-                var travel_outer = [];
+        if (status == "OK") {
+            // array to store the bus times and locations
+            var travel_outer = [];
 
-                // String used to create list of stops
-                let route_option = `<ul id='routeList'>`;
-                const routes = response["routes"];
+            // String used to create list of stops
+            let route_option = `<ul id='routeList'>`;
+            const routes = response["routes"];
 
-                for (let i = 0; i < routes.length; i++) {
-                    try {
-                        var departure_name;
-                        let unnamed = true;
-                        var travel_inner = [];
-                        let leg = routes[i]["legs"][0];
-                        let leg_step = leg["steps"];
-                        let start_address = leg['start_address'];
-                        let end_address = leg['end_address'];
-                        var addresses = [start_address, end_address];
-                        let timestamp = new Date(leg["departure_time"]["value"]).getTime() / 1000;
+            for (let i = 0; i < routes.length; i++) {
+                try {
+                    var departure_name;
+                    let unnamed = true;
+                    var travel_inner = [];
+                    let leg = routes[i]["legs"][0];
+                    let leg_step = leg["steps"];
+                    let start_address = leg["start_address"];
+                    let end_address = leg["end_address"];
+                    var addresses = [start_address, end_address];
+                    let timestamp = new Date(leg["departure_time"]["value"]).getTime() / 1000;
 
-                        route_option += `<li><a href='#' id='routeIndex'>`;
-                        for (let j = 0; j < leg_step.length; j++) {
-                            // walking variables
-                            let duration = leg_step[j]['duration']['text'];
-                            let distance = leg_step[j]['distance']['text'];
-                            let travel_mode = leg_step[j]['travel_mode'];
+                    route_option += `<li><a href='#' id='routeIndex'>`;
+                    for (let j = 0; j < leg_step.length; j++) {
+                        // walking variables
+                        let duration = leg_step[j]["duration"]["text"];
+                        let distance = leg_step[j]["distance"]["text"];
+                        let travel_mode = leg_step[j]["travel_mode"];
 
-                            let travel_dict = {
+                        let travel_dict = {
+                            duration: duration,
+                            distance: distance,
+                            travel_mode: travel_mode,
+                            timestamp: timestamp,
+                        };
+
+                        // Add the travel times and durations for walking the travel array
+                        if (travel_mode === "WALKING") {
+                            travel_inner.push(travel_dict);
+                        }
+
+                        try {
+                            // Variables to store conditional data
+                            let line_id;
+                            let travel_time;
+                            let icon;
+                            let border_id;
+
+                            // Parsed google directions details
+                            let transit_details = leg_step[j]["transit"];
+                            let agency = transit_details["line"]["agencies"][0]["name"];
+                            let dept_stop_name = transit_details["departure_stop"]["name"];
+                            let num_stops = transit_details["num_stops"];
+                            let arr_stop_name = transit_details["arrival_stop"]["name"];
+                            let arr_stop_loc = transit_details["arrival_stop"]["location"];
+                            let dept_stop_loc = transit_details["departure_stop"]["location"];
+
+                            // obtain the date and time
+                            let departure_time = new Date(transit_details["departure_time"]["value"]).getTime() / 1000;
+
+                            // Set the travel time if not possible to model
+                            if (agency !== "Dublin Bus") {
+                                line_id = transit_details["line"]["name"];
+                                let arrival = new Date(transit_details["arrival_time"]["value"]).getTime() / 1000;
+                                travel_time = Math.round((arrival - departure_time) / 60);
+                            }
+
+                            // Set the icon and border colour based on agency
+                            switch (agency) {
+                                case "Luas":
+                                    icon = "/static/images/luas.png";
+                                    border_id = "luas";
+                                    break;
+                                case "Irish Rail":
+                                    icon = "/static/images/dart.svg";
+                                    border_id = "rail";
+                                    break;
+                                default:
+                                    icon = "/static/images/bus.svg";
+                                    let lowercase_line_id = transit_details["line"]["short_name"];
+                                    line_id = lowercase_line_id.toUpperCase();
+                            }
+
+                            // Set Dublin Area Rapid Transport to Dart
+                            if (line_id === "Dublin Area Rapid Transit") {
+                                line_id = "Dart";
+                            }
+
+                            // set the departure name to be the first stop name
+                            if (dept_stop_name && unnamed) {
+                                departure_name = dept_stop_name;
+                                unnamed = false;
+                            }
+
+                            // Create dictionary for each mode of transport on route
+                            let bus_dict = {
+                                travel_mode: travel_mode,
                                 duration: duration,
                                 distance: distance,
-                                travel_mode: travel_mode,
-                                timestamp: timestamp
-                            }
+                                line_id: line_id,
+                                agency: agency,
+                                timestamp: timestamp,
+                                departure_name: dept_stop_name,
+                                departure_location: dept_stop_loc,
+                                arrival_name: arr_stop_name,
+                                arrival_location: arr_stop_loc,
+                                num_stops: num_stops,
+                                travel_time: travel_time,
+                            };
 
-                            // Add the travel times and durations for walking the travel array
-                            if (travel_mode === 'WALKING') {
-                                travel_inner.push(travel_dict);
-                            }
+                            // Push the dictionaries to the travel_inner array
+                            travel_inner.push(bus_dict);
 
-                            try {
-                                // Variables to store conditional data
-                                let line_id;
-                                let travel_time;
-                                let icon;
-                                let border_id;
-
-
-                                // Parsed google directions details
-                                let transit_details = leg_step[j]["transit"];
-                                let agency = transit_details["line"]["agencies"][0]["name"];
-                                let dept_stop_name = transit_details["departure_stop"]["name"];
-                                let num_stops = transit_details["num_stops"];
-                                let arr_stop_name = transit_details["arrival_stop"]["name"];
-                                let arr_stop_loc = transit_details["arrival_stop"]["location"];
-                                let dept_stop_loc = transit_details["departure_stop"]["location"];
-
-                                // obtain the date and time
-                                let departure_time = new Date(transit_details["departure_time"]["value"]).getTime() / 1000;
-
-                                // Set the travel time if not possible to model
-                                if (agency !== "Dublin Bus") {
-                                    line_id = transit_details["line"]["name"];
-                                    let arrival = new Date(transit_details["arrival_time"]["value"]).getTime() / 1000;
-                                    travel_time = Math.round((arrival - departure_time) / 60);
-                                }
-
-                                // Set the icon and border colour based on agency
-                                switch (agency) {
-                                    case "Luas":
-                                        icon = "/static/images/luas.png";
-                                        border_id = "luas";
-                                        break;
-                                    case "Irish Rail":
-                                        icon = "/static/images/dart.svg";
-                                        border_id = "rail";
-                                        break;
-                                    default:
-                                        icon = "/static/images/bus.svg";
-                                        let lowercase_line_id = transit_details["line"]["short_name"];
-                                        line_id = lowercase_line_id.toUpperCase();
-                                }
-
-                                // Set Dublin Area Rapid Transport to Dart
-                                if (line_id === "Dublin Area Rapid Transit") {
-                                    line_id = "Dart";
-                                }
-
-                                // set the departure name to be the first stop name
-                                if (dept_stop_name && unnamed) {
-                                    departure_name = dept_stop_name;
-                                    unnamed = false;
-                                }
-
-                                // Create dictionary for each mode of transport on route
-                                let bus_dict = {
-                                    travel_mode: travel_mode,
-                                    duration: duration,
-                                    distance: distance,
-                                    line_id: line_id,
-                                    agency: agency,
-                                    timestamp: timestamp,
-                                    departure_name: dept_stop_name,
-                                    departure_location: dept_stop_loc,
-                                    arrival_name: arr_stop_name,
-                                    arrival_location: arr_stop_loc,
-                                    num_stops: num_stops,
-                                    travel_time: travel_time,
-                                };
-
-                                // Push the dictionaries to the travel_inner array
-                                travel_inner.push(bus_dict);
-
-                                //add routes icon and border colour
-                                route_option +=
-                                    `<span class="transport_container" id=${border_id}>
+                            //add routes icon and border colour
+                            route_option +=
+                                `<span class="transport_container" id=${border_id}>
                                 <img src=${icon} id='bus_icon' alt="transport mode icon"> ` +
-                                    line_id +
-                                    "</span>";
+                                line_id +
+                                "</span>";
 
-                                // Ignore any errors
-                            } catch (e) {
-                            }
-                        }
-                    } catch
-                        (e) {
+                            // Ignore any errors
+                        } catch (e) {}
                     }
-                    // Append the data required for the backend
-                    travel_outer.push(travel_inner);
+                } catch (e) {}
+                // Append the data required for the backend
+                travel_outer.push(travel_inner);
 
-                    // Add the Departure name
-                    route_option += `<br/>${departure_name}</a><span id="travel_time${i}"></span></li>`;
-                }
-
-                // Hide the form output div so that the route options div can be shown properly
-                $("#form_output").hide();
-
-                // Show the route options div so that the route option list can be inserted into the HTML
-                let route_options_div = $("#route_options");
-                route_options_div.show();
-                route_option += "</li>";
-
-                //Set the contents of the div to be equal to the route_options_div
-                route_options_div.html(route_option);
-
-                // Pass the directions to be Rendered the first option
-                directionsRenderer.setDirections(response);
-                directionsRenderer.setMap(map);
-
-                // Pass the google maps data to the server
-
-                //create url with form data
-                const URL = baseUrl + "predict/";
-
-                fetch(URL, {
-                    method: "POST",
-                    credentials: "include",
-                    body: JSON.stringify(travel_outer),
-                    cache: "no-cache",
-                    headers: new Headers({
-                        "X-CSRFToken": getCsrf(),
-                        Accept: "application/json",
-                        "content-type": "application/json",
-                    }),
-                })
-                    .then(function (response) {
-                        return response.json();
-                        // use the static data to create dictionary
-                    })
-                    .then(function (obj) {
-
-                        // The bus_data array and the index of the li clicked are passed
-                        $("#route_options li").click(function () {
-                            let index = $(this).index();
-
-                            // Change the route on the map
-                            changeRoute(index);
-
-                            // Display the modal for the route
-                            displayDirectionsModal(obj, index, addresses);
-                        });
-                    })
-
-                    // catch used to test if something went wrong when parsing or in the network
-                    .catch(function (error) {
-                        console.error("Difficulty fetching prediction data:", error);
-                    });
-            } else {
-                console.log("Error");
+                // Add the Departure name
+                route_option += `<br/>${departure_name}</a><span id="travel_time${i}"></span></li>`;
             }
-        }
-    );
-}
 
+            // Hide the form output div so that the route options div can be shown properly
+            $("#form_output").hide();
+
+            // Show the route options div so that the route option list can be inserted into the HTML
+            let route_options_div = $("#route_options");
+            route_options_div.show();
+            route_option += "</li>";
+
+            //Set the contents of the div to be equal to the route_options_div
+            route_options_div.html(route_option);
+
+            // Pass the directions to be Rendered the first option
+            directionsRenderer.setDirections(response);
+            directionsRenderer.setMap(map);
+
+            // Pass the google maps data to the server
+
+            //create url with form data
+            const URL = baseUrl + "predict/";
+
+            fetch(URL, {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify(travel_outer),
+                cache: "no-cache",
+                headers: new Headers({
+                    "X-CSRFToken": getCsrf(),
+                    Accept: "application/json",
+                    "content-type": "application/json",
+                }),
+            })
+                .then(function (response) {
+                    return response.json();
+                    // use the static data to create dictionary
+                })
+                .then(function (obj) {
+                    // The bus_data array and the index of the li clicked are passed
+                    $("#route_options li").click(function () {
+                        let index = $(this).index();
+
+                        // Change the route on the map
+                        changeRoute(index);
+
+                        // Display the modal for the route
+                        displayDirectionsModal(obj, index, addresses);
+                    });
+                })
+
+                // catch used to test if something went wrong when parsing or in the network
+                .catch(function (error) {
+                    console.error("Difficulty fetching prediction data:", error);
+                });
+        } else {
+            console.log("Error");
+        }
+    });
+}
 
 //Function to display the stops along the route on google maps
 //=================================================================================================
@@ -410,14 +402,19 @@ function geoLocation() {
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infowindow.setPosition(pos);
-        infowindow.setContent(browserHasGeolocation ? "Error: Geolocation has failed." : "Error: Your browser does not support Geolocation sercices.");
-        infowindow.open(map);
-        setTimeout(function () {
-            infowindow.close();
-        }, 3000);
-        setTimeout(function () {
-            infowindow.setContent("");
-        }, 3000);
+        var bodyWidth = document.body.clientWidth;
+        if (bodyWidth > 600) {
+            infowindow.setContent(browserHasGeolocation ? "Error: Geolocation has failed." : "Error: Your browser does not support Geolocation sercices.");
+            infowindow.open(map);
+            setTimeout(function () {
+                infowindow.close();
+            }, 3000);
+            setTimeout(function () {
+                infowindow.setContent("");
+            }, 3000);
+        } else {
+            alert(browserHasGeolocation ? "Error: Geolocation has failed." : "Error: Your browser does not support Geolocation sercices.");
+        }
     }
 }
 
