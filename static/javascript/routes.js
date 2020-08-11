@@ -1,6 +1,4 @@
 // Get the base URL
-const getUrl = window.location;
-const baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split("/")[1];
 
 // function to display all of the routes
 $(document).ready(function () {
