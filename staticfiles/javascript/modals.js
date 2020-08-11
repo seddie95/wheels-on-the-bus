@@ -4,9 +4,6 @@ function displayDirectionsModal(bus_data, index, addresses) {
         let start = addresses[0];
         let end = addresses[1];
 
-        let total_time = 0;
-
-
         // Get the directions_modal
         var modal = document.getElementById("directions_modal");
 
@@ -43,13 +40,13 @@ function displayDirectionsModal(bus_data, index, addresses) {
         for (let i = 0; i < data.length; i++) {
             var travel_mode = data[i].travel_mode;
 
-            if (travel_mode == 'WALKING') {
+            if (travel_mode === 'WALKING') {
                 let duration = data[i].duration;
                 let distance = data[i].distance;
                 text += `<li><strong>Walk</strong><br> About ${distance} • ${duration}</li>`;
             }
 
-            if (travel_mode == 'TRANSIT') {
+            if (travel_mode === 'TRANSIT') {
                 let line_id = data[i].line_id;
                 let stop_id = data[i].departure_stop_id;
 
@@ -107,11 +104,8 @@ function displayDirectionsModal(bus_data, index, addresses) {
                 stop_list += "</ul>";
                 text += stop_list + "</div>" + "</li>";
             }
-
-
         }
         text += "</ul>" + end;
-        //console.log(`total_time: ${total_time}`);
 
         $("#directions_list").html(text);
 
@@ -143,7 +137,7 @@ function displayStopsModal(obj, route_info) {
 
         // The modal is closed when the screen is clicked anywhere outside of the modal
         window.onclick = function (event) {
-            if (event.target == stops_modal) {
+            if (event.target === stops_modal) {
                 stops_modal.style.display = "none";
             }
         };
@@ -156,7 +150,7 @@ function displayStopsModal(obj, route_info) {
 
         let line_id = route_info["line_id"];
 
-        route_selected = `<li id='${line_id}'><span class="transport_container">
+         let route_selected = `<li id='${line_id}'><span class="transport_container">
         <img src='/static/images/bus.svg' id='bus_icon'>${line_id}</span>
         <span class="route_text"></span></li>`;
 
@@ -252,7 +246,7 @@ $(document).ready(function () {
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
-        if (event.target == languages_modal) {
+        if (event.target === languages_modal) {
             languages_modal.style.display = "none";
         }
     };

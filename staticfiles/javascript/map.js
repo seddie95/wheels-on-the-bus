@@ -16,10 +16,6 @@ var directionsRenderer;
 //add infowindow
 var infowindow;
 
-// function to get csrf
-function getCsrf() {
-    return $("input[name='csrfmiddlewaretoken']").val();
-}
 
 // Creation of map
 function initMap() {
@@ -27,7 +23,7 @@ function initMap() {
     directionsRenderer = new google.maps.DirectionsRenderer();
     infowindow = new google.maps.InfoWindow();
     map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 53.349804, lng: -6.26031 },
+        center: {lat: 53.349804, lng: -6.26031},
         zoom: 12.0,
         mapTypeControl: false,
         fullscreenControl: false,
@@ -68,8 +64,6 @@ function changeRoute(i) {
 }
 
 //=================================================================================================
-
-// Post Form data to backend and retrieve response
 
 // Post Form data to backend and retrieve response
 function fetch_data(myData) {
@@ -127,10 +121,7 @@ function fetch_data(myData) {
     directionsService.route(request, function (response, status) {
             if (status == "OK") {
                 // array to store the bus times and locations
-                let bus_data = [];
                 var travel_outer = [];
-
-                console.log(response);
 
                 // String used to create list of stops
                 let route_option = `<ul id='routeList'>`;
@@ -143,22 +134,17 @@ function fetch_data(myData) {
                         var travel_inner = [];
                         let leg = routes[i]["legs"][0];
                         let leg_step = leg["steps"];
-                        var bus_inner = [];
-                        var start_address = leg['start_address'];
-                        var end_address = leg['end_address'];
+                        let start_address = leg['start_address'];
+                        let end_address = leg['end_address'];
                         var addresses = [start_address, end_address];
-                        route_option += `<li><a href='#' id='routeIndex'>`;
-
                         let timestamp = new Date(leg["departure_time"]["value"]).getTime() / 1000;
 
-
+                        route_option += `<li><a href='#' id='routeIndex'>`;
                         for (let j = 0; j < leg_step.length; j++) {
                             // walking variables
-
                             let duration = leg_step[j]['duration']['text'];
                             let distance = leg_step[j]['distance']['text'];
                             let travel_mode = leg_step[j]['travel_mode'];
-
 
                             let travel_dict = {
                                 duration: duration,
@@ -168,10 +154,9 @@ function fetch_data(myData) {
                             }
 
                             // Add the travel times and durations for walking the travel array
-                            if (travel_mode == 'WALKING') {
+                            if (travel_mode === 'WALKING') {
                                 travel_inner.push(travel_dict);
                             }
-
 
                             try {
                                 // Variables to store conditional data
@@ -243,14 +228,13 @@ function fetch_data(myData) {
                                     travel_time: travel_time,
                                 };
 
-                                // Push the dictionaries to the bus_data array
-                                bus_inner.push(bus_dict);
+                                // Push the dictionaries to the travel_inner array
                                 travel_inner.push(bus_dict);
 
                                 //add routes icon and border colour
                                 route_option +=
                                     `<span class="transport_container" id=${border_id}>
-                                <img src=${icon} id='bus_icon'> ` +
+                                <img src=${icon} id='bus_icon' alt="transport mode icon"> ` +
                                     line_id +
                                     "</span>";
 
@@ -262,25 +246,22 @@ function fetch_data(myData) {
                         (e) {
                     }
                     // Append the data required for the backend
-                    bus_data.push(bus_inner);
                     travel_outer.push(travel_inner);
 
                     // Add the Departure name
                     route_option += `<br/>${departure_name}</a><span id="travel_time${i}"></span></li>`;
                 }
 
-                //console.log(travel_outer);
-
                 // Hide the form output div so that the route options div can be shown properly
                 $("#form_output").hide();
 
                 // Show the route options div so that the route option list can be inserted into the HTML
-                $("#route_options").show();
-
+                let route_options_div = $("#route_options");
+                route_options_div.show();
                 route_option += "</li>";
 
-                //Set the contents of the div to be equal to the route_options
-                $("#route_options").html(route_option);
+                //Set the contents of the div to be equal to the route_options_div
+                route_options_div.html(route_option);
 
                 // Pass the directions to be Rendered the first option
                 directionsRenderer.setDirections(response);
@@ -294,7 +275,6 @@ function fetch_data(myData) {
                 fetch(URL, {
                     method: "POST",
                     credentials: "include",
-                    // body: JSON.stringify(bus_data),
                     body: JSON.stringify(travel_outer),
                     cache: "no-cache",
                     headers: new Headers({
@@ -316,7 +296,6 @@ function fetch_data(myData) {
                             // Change the route on the map
                             changeRoute(index);
 
-
                             // Display the modal for the route
                             displayDirectionsModal(obj, index, addresses);
                         });
@@ -325,7 +304,6 @@ function fetch_data(myData) {
                     // catch used to test if something went wrong when parsing or in the network
                     .catch(function (error) {
                         console.error("Difficulty fetching prediction data:", error);
-                        //alert("Difficulty retrieving prediction, please try again later. ");
                     });
             } else {
                 console.log("Error");

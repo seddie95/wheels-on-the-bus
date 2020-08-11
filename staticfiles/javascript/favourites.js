@@ -5,7 +5,10 @@ $(document).ready(function () {
         // are properly selected from the autocomplete lists
         // Alert the user and return from the function if there
         // are no locations to avoid the favourites array being corrupted with unusable data
-        if ($("#id_source").text() == "" || $("#id_destination").text() == "") {
+        let source = $("#id_source");
+        let destination = $("#id_destination");
+
+        if (source.text() === "" || destination.text() === "") {
             alert("Please select valid source and destination stops.");
             return;
         }
@@ -13,24 +16,19 @@ $(document).ready(function () {
         // empty list to store all of the favourites
         let favourites = [];
 
-        // get current date and time
-        let today = new Date();
-        let time = today.getHours() + ":" + today.getMinutes();
-        let month = today.getMonth() + 1;
-
-        if (month < 10) {
-            month = "0" + month;
-        }
-        let date = today.getDate() + "/" + month + "/" + today.getFullYear();
+        // Get current date and time
+        let currentDate = getDate();
+        let date = currentDate.date;
+        let time = currentDate.time;
 
         // Add values to dictionary if not empty
-        if ($("#id_source").val() !== "" && $("#id_destination").val() !== "") {
+        if (source.val() !== "" && destination.val() !== "") {
             // Create favourite dictionary
             let favourite = {
-                source_name: $("#id_source").val(),
-                source_location: $("#id_source").text(),
-                destination_name: $("#id_destination").val(),
-                destination_location: $("#id_destination").text(),
+                source_name: source.val(),
+                source_location: source.text(),
+                destination_name: destination.val(),
+                destination_location: destination.text(),
                 date: date,
                 time: time,
             };
@@ -76,12 +74,13 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#load_favourites").click(function () {
         let favourites = load_local_storage("favourites");
+        let favourites_list = $("#favourites_list");
 
         if (favourites) {
-            $("#favourites_list").html(favourites);
+            favourites_list.html(favourites);
         } else {
-            $("#favourites_list").html(gettext("You have no favourites saved!"));
-            $("#favourites_list").css({ padding: "20px 0px 0px 20px" });
+            favourites_list.html(gettext("You have no favourites saved!"));
+            favourites_list.css({padding: "20px 0px 0px 20px"});
         }
     });
 });
@@ -89,12 +88,13 @@ $(document).ready(function () {
 // Load the users recent routes
 $(document).ready(function () {
     let history = load_local_storage("history");
+    let recent = $("#recent");
 
     if (history) {
-        $("#recent").html(history);
+        recent.html(history);
     } else {
-        $("#recent").html(gettext("You have no recent searches!"));
-        $("#recent").css({ padding: "20px 0px 0px 20px" });
+        recent.html(gettext("You have no recent searches!"));
+        recent.css({padding: "20px 0px 0px 20px"});
     }
 });
 
@@ -102,26 +102,16 @@ $(document).ready(function () {
 // Function to load the contents of local storage
 function load_local_storage(item) {
     let title;
-    if (item == "history") {
+    if (item === "history") {
         title = "<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>";
-    } else if (item == "favourites") {
+    } else if (item === "favourites") {
         title = "";
     }
 
-    // Obtain the current date to add to all of the local storage entries
-    var now = new Date();
-
-    // padStart is used to make sure that day and month is always returned as two digits
-    var day = String(now.getDate()).padStart(2, "0");
-    var month = String(now.getMonth() + 1).padStart(2, "0");
-    var year = now.getFullYear();
-
-    date = year + "-" + month + "-" + day;
-
-    var minutes = String(now.getMinutes()).padStart(2, "0");
-    var hours = String(now.getHours()).padStart(2, "0");
-
-    var time = hours + ":" + minutes;
+    // Get current date and time
+    let currentDate = getDate();
+    let date = currentDate.date;
+    let time = currentDate.time;
 
     let parsed_data = JSON.parse(localStorage.getItem(item));
 
@@ -130,7 +120,7 @@ function load_local_storage(item) {
         let parsed_list = title + "<ul>";
 
         // loop backwards through the favourites and add them to the unordered list
-        for (let i = parsed_data.length-1; i >= 0; i--){
+        for (let i = parsed_data.length - 1; i >= 0; i--) {
             // Obtain the source & destination id + name
             let parsed_item = parsed_data[i];
 
@@ -175,9 +165,22 @@ function load_local_storage(item) {
                 destination_id_only +
                 "</a></li>";
         }
-
         // close off the list
         parsed_list += "</ul>";
         return parsed_list;
     }
+}
+// Obtain the current date to add to all of the local storage entries
+function getDate() {
+    let now = new Date();
+    // padStart is used to make sure that day and month is always returned as two digits
+    let day = String(now.getDate()).padStart(2, "0");
+    let month = String(now.getMonth() + 1).padStart(2, "0");
+    let year = now.getFullYear();
+    let date = year + "-" + month + "-" + day;
+    let minutes = String(now.getMinutes()).padStart(2, "0");
+    let hours = String(now.getHours()).padStart(2, "0");
+    let time = hours + ":" + minutes;
+
+    return {date: date, time: time};
 }
