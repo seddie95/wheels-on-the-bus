@@ -27,7 +27,6 @@ PWA_SERVICE_WORKER_PATH = os.path.join(
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-# SECRET_KEY = 'e0b$ctix9_cmn%+1rr&m-m9$8uh^him424$q)a(r4t^7b@lae0'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!

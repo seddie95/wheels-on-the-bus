@@ -249,7 +249,7 @@ function fetch_data(myData) {
                     travel_outer.push(travel_inner);
 
                     // Add the Departure name
-                    route_option += `<br/>${departure_name}</a><span id="travel_time${i}"></span></li>`;
+                    route_option += `<br/>${departure_name}</a></li>`;
                 }
 
                 // Hide the form output div so that the route options div can be shown properly
