@@ -30,9 +30,10 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['wheels-on-the-bus.herokuapp.com']
+
 
 # Application definition
 
@@ -147,12 +148,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
-
-options = DATABASES['default'].get('OPTIONS', {})
-options.pop('sslmode', None)
+#
+# options = DATABASES['default'].get('OPTIONS', {})
+# options.pop('sslmode', None)
 
 CACHES = {
     'default': {
