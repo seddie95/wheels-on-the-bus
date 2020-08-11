@@ -37,6 +37,7 @@ urlpatterns = [
     path('closest/', ClosestStopsView.as_view(), name='closest'),
     path('rtpi/', RTPIView.as_view(), name='rtpi'),
     path('404/', error_404_view, name='404'),
+    path('', include('pwa.urls')),
 ]
 urlpatterns += [
     re_path(r'^jsi18n/$',
