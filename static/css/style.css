@@ -722,7 +722,7 @@ button[role="tab"] {
 
 .directions_list li:before {
     content: "";
-    border-left: solid 3px skyblue;
+    border-left: solid 3px #1f567c;
     height: 100%;
     position: absolute;
     top: 0;
@@ -736,7 +736,7 @@ button[role="tab"] {
 
 .directions_list li:after {
     background-color: #fff;
-    border: 2px solid skyblue;
+    border: 2px solid #1f567c;
     border-radius: 50%;
     content: "";
     height: 10px;
@@ -801,7 +801,7 @@ button[role="tab"] {
 }
 
 .stops_list li:after {
-    background-color: #fff;
+    background-color: #ffffff;
     border: 2px solid #1f567c;
     border-radius: 50%;
     content: "";
@@ -1339,4 +1339,39 @@ input {
 
 #languages_close_button {
     margin: 10px 35px 10px 10px;
+}
+
+#directions_list h3 {
+    white-space: normal;
+    margin: 0px;
+    padding: 15px 20px 15px 20px;
+}
+
+#directions_list h3:last-child {
+    padding-bottom: 40px;
+}
+
+#directions_list > li:last-child {
+    height: 0px;
+    padding: 0px;
+}
+
+#weather_data {
+    padding: 10px 20px 0px 20px;
+}
+
+#journey_info > li:last-child {
+    height: 0px;
+    padding: 0px;
+}
+
+#journey_info > li:last-child::after {
+    top: 0px;
+}
+#journey_info > li:last-child::before {
+    height: calc(100% - 9px);
+}
+
+#journey_info {
+    margin: 0px;
 }
