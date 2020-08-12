@@ -123,7 +123,12 @@ function fetch_data(myData) {
             var travel_outer = [];
 
             // String used to create list of stops
-            let route_option = `<ul id='routeList'>`;
+
+            title = "<h2 tabindex = '0' aria-label='Search Results List. Select a list item for full details.'>Search Results</h2>";
+
+            let route_option = title;
+
+            route_option += `<ul id='routeList'>`;
             const routes = response["routes"];
 
             for (let i = 0; i < routes.length; i++) {
