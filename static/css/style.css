@@ -1375,3 +1375,38 @@ input {
 #journey_info {
     margin: 0px;
 }
+
+#info > div > div.footer > ul > li:nth-child(2) {
+    margin-bottom: 15px;
+}
+
+.loader {
+    display: none;
+    margin: 40px auto auto auto;
+    border: 6px solid rgb(230, 224, 224);
+    border-radius: 50%;
+    border-top: 6px solid goldenrod;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+/* For the loader on Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

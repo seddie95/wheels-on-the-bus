@@ -66,6 +66,9 @@ $(document).ready(function () {
             localStorage.setItem("history", JSON.stringify(history));
         }
         // Pass the bus_routes to the fetch_data function
+
+        $("#route_options").hide();
+
         fetch_data(myData);
     });
 });

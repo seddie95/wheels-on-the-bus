@@ -250,19 +250,26 @@ function fetch_data(myData) {
             // Hide the form output div so that the route options div can be shown properly
             $("#form_output").hide();
 
-            // Show the route options div so that the route option list can be inserted into the HTML
-            let route_options_div = $("#route_options");
-            route_options_div.show();
-            route_option += "</li>";
+            // // Show the route options div so that the route option list can be inserted into the HTML
+            // let route_options_div = $("#route_options");
+            // route_options_div.show();
+            // route_option += "</li>";
 
-            //Set the contents of the div to be equal to the route_options_div
-            route_options_div.html(route_option);
+            // //Set the contents of the div to be equal to the route_options_div
+            // route_options_div.html(route_option);
 
-            // Pass the directions to be Rendered the first option
-            directionsRenderer.setDirections(response);
-            directionsRenderer.setMap(map);
+            // // Pass the directions to be Rendered the first option
+            // directionsRenderer.setDirections(response);
+            // directionsRenderer.setMap(map);
 
             // Pass the google maps data to the server
+
+            // document.getElementById("route_options").innerHTML = "<h1>hello</h1>";
+            // var hello = document.getElementById("route_options");
+            // console.log(hello);
+
+            // Show the loader before the fetch call is made
+            $("#search_tab_loader").show();
 
             //create url with form data
             const URL = baseUrl + "predict/";
@@ -282,7 +289,22 @@ function fetch_data(myData) {
                     return response.json();
                     // use the static data to create dictionary
                 })
+
                 .then(function (obj) {
+                    // Hide the loader before the results are displayed
+                    $("#search_tab_loader").hide();
+
+                    // Show the route options div so that the route option list can be inserted into the HTML
+                    let route_options_div = $("#route_options");
+                    route_options_div.show();
+                    route_option += "</li>";
+
+                    //Set the contents of the div to be equal to the route_options_div
+                    route_options_div.html(route_option);
+
+                    // Pass the directions to be Rendered the first option
+                    directionsRenderer.setDirections(response);
+                    directionsRenderer.setMap(map);
                     // The bus_data array and the index of the li clicked are passed
                     $("#route_options li").click(function () {
                         let index = $(this).index();

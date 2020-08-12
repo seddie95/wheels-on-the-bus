@@ -54,6 +54,7 @@ function loadSearchTab(parsed_dict) {
     document.getElementById("id_destination").value = parsed_dict.destination_name;
     document.getElementById("id_destination").innerText = parsed_dict.destination_location;
 
+    $("#route_options").hide();
     $("#scroll_container").hide();
 
     parent.querySelectorAll('[aria-selected="true"]').forEach((t) => t.setAttribute("aria-selected", false));
