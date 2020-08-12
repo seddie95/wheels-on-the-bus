@@ -107,11 +107,11 @@ $(document).ready(function () {
 
 //==============================================================
 // function to refresh the page when user clicks on search
-$(document).ready(function () {
-    $("#search_routes").click(function () {
-        location.reload();
-    });
-});
+// $(document).ready(function () {
+//     $("#search_routes").click(function () {
+//         location.reload();
+//     });
+// });
 
 //==============================================================
 // Execute plan route by clicking Enter button

@@ -80,7 +80,7 @@ $(document).ready(function () {
             favourites_list.html(favourites);
         } else {
             favourites_list.html(gettext("You have no favourites saved!"));
-            favourites_list.css({padding: "20px 0px 0px 20px"});
+            favourites_list.css({ padding: "20px 0px 0px 20px" });
         }
     });
 });
@@ -94,8 +94,38 @@ $(document).ready(function () {
         recent.html(history);
     } else {
         recent.html(gettext("You have no recent searches!"));
-        recent.css({padding: "20px 0px 0px 20px"});
+        recent.css({ padding: "20px 0px 0px 20px" });
     }
+});
+
+//=======================================================================================
+// Load the users recent if focus is returned to the input fields
+$(document).ready(function () {
+    $("#id_source").focus(function () {
+        let history = load_local_storage("history");
+
+        if (history) {
+            $("#recent").html(history);
+        } else {
+            $("#recent").html(gettext("You have no recent searches!"));
+            $("#recent").css({ padding: "20px 0px 0px 20px" });
+        }
+        // }
+    });
+});
+
+$(document).ready(function () {
+    $("#id_destination").focus(function () {
+        let history = load_local_storage("history");
+
+        if (history) {
+            $("#recent").html(history);
+        } else {
+            $("#recent").html(gettext("You have no recent searches!"));
+            $("#recent").css({ padding: "20px 0px 0px 20px" });
+        }
+        // }
+    });
 });
 
 //==============================================================================
@@ -182,5 +212,5 @@ function getDate() {
     let hours = String(now.getHours()).padStart(2, "0");
     let time = hours + ":" + minutes;
 
-    return {date: date, time: time};
+    return { date: date, time: time };
 }

@@ -6,34 +6,40 @@ $(function autoFill() {
     $(".autocomplete").autocomplete({
         source: function (request, response) {
             // Hide the recent searches which are contained in the scroll container
-            $("#scroll_container").hide();
-            $("#route_options").hide();
+            if (request.term.length > 0) {
+                $("#scroll_container").hide();
+                $("#route_options").hide();
 
-            // Show the output of the autocomplete search in the form output which is hidden by default
-            $("#form_output").show();
+                // Show the output of the autocomplete search in the form output which is hidden by default
+                $("#form_output").show();
 
-            // Retrieve data from the database
-            $.ajax({
-                url: baseUrl + "autocomplete_stop/",
-                data: {
-                    term: request.term,
-                },
-                success: function (data) {
-                    response(
-                        $.map(data, function (value) {
-                            return {
-                                label: value.stop_name,
-                                value: value.stop_name,
-                                text: value.coordinates,
-                            };
-                        })
-                    );
-                    // console.log(data);
-                },
-            });
+                // Retrieve data from the database
+                $.ajax({
+                    url: baseUrl + "autocomplete_stop/",
+                    data: {
+                        term: request.term,
+                    },
+                    success: function (data) {
+                        response(
+                            $.map(data, function (value) {
+                                return {
+                                    label: value.stop_name,
+                                    value: value.stop_name,
+                                    text: value.coordinates,
+                                };
+                            })
+                        );
+                    },
+                });
+            } else {
+                $(".ui-autocomplete").hide();
+                $("#form_output").hide();
+                $("#route_options").hide();
+                $("#scroll_container").show();
+            }
         },
 
-        minLength: 2,
+        minLength: 0,
 
         focus: function (event, ui) {
             return false;
@@ -48,9 +54,10 @@ $(function autoFill() {
         appendTo: "#form_output",
         position: { my: "left top", at: "left top", of: "#form_output" },
 
-        // Place other options here if required
         close: function () {
             $(".ui-autocomplete").show();
+
+            // Place other options here if required
         },
     });
 });
