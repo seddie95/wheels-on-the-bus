@@ -123,10 +123,10 @@ $(document).ready(function () {
         if (history) {
             $("#recent").html(history);
         } else {
-            $("#recent").html(gettext("You have no recent searches!"));
-            $("#recent").css({ padding: "20px 0px 0px 20px" });
+            let title = "<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>";
+            title += "<p tabindex = '0'>You have no recent searches!</p>";
+            recent.html(title);
         }
-        // }
     });
 });
 

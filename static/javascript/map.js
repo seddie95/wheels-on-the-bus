@@ -141,9 +141,16 @@ function fetch_data(myData) {
                     let start_address = leg["start_address"];
                     let end_address = leg["end_address"];
                     var addresses = [start_address, end_address];
-                    let timestamp = new Date(leg["departure_time"]["value"]).getTime() / 1000;
+                    var timestamp;
+                    if (!("departure_time" in leg)) {
+                        continue;
+                    } else {
+                        timestamp = new Date(leg["departure_time"]["value"]).getTime() / 1000;
+                    }
 
+                    // console.log(timestamp);
                     route_option += `<li><a href='#' id='routeIndex'>`;
+
                     for (let j = 0; j < leg_step.length; j++) {
                         // walking variables
                         let duration = leg_step[j]["duration"]["text"];
@@ -189,6 +196,7 @@ function fetch_data(myData) {
                             }
 
                             // Set the icon and border colour based on agency
+
                             switch (agency) {
                                 case "Luas":
                                     icon = "/static/images/luas.png";
@@ -325,6 +333,8 @@ function fetch_data(myData) {
                 // catch used to test if something went wrong when parsing or in the network
                 .catch(function (error) {
                     console.error("Difficulty fetching prediction data:", error);
+                    alert("Error: Difficulty fetching prediction data.");
+                    $("#search_tab_loader").hide();
                 });
         } else {
             console.log("Error");
