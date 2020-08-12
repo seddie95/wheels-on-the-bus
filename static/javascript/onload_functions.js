@@ -5,22 +5,6 @@ $(document).ready(function () {
     $("#datepicker").hide();
 });
 
-// $(document).ready(function () {
-// $("#sidebar").draggabilly({
-//     axis: "y",
-// });
-//     $("#stops_modal").draggabilly({});
-// });
-
-// $(document).ready(function () {
-//     $("#sidebar").draggable({
-//         axis: "y",
-//     });
-//     $("#stops_modal").draggable({
-//         axis: "y",
-//     });
-// });
-
 //==============================================================
 // Only show the speech search icons in browsers that support the Web Speech API
 $(document).ready(function () {
