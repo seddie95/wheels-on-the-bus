@@ -5,6 +5,12 @@ $(document).ready(function () {
     $("#datepicker").hide();
 });
 
+$(document).ready(function () {
+    document.ontouchmove = function (e) {
+        e.preventDefault();
+    };
+});
+
 //==============================================================
 // Only show the speech search icons in browsers that support the Web Speech API
 $(document).ready(function () {

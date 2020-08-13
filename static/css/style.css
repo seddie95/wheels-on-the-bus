@@ -162,11 +162,16 @@ header {
     text-align: center;
     background-color: #212f3c;
     color: white;
+    position: sticky;
+    top: 0;
 }
 
 @media only screen and (max-width: 600px) {
     header {
         height: 40px;
+        position: fixed;
+        top: 0;
+        width: 100%;
     }
 }
 
@@ -274,6 +279,7 @@ header {
         position: absolute;
         right: 15px;
         top: 2px;
+        z-index: 10;
     }
 }
 .toggle_button {
@@ -664,14 +670,14 @@ button[role="tab"] {
 #route_search {
     margin: 10px 0px 0px 0px;
     width: calc(100% - 44px);
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
+    padding: 6px 12px;
+    font-size: 16px;
     line-height: 1.5;
     color: black;
     display: block;
     background-clip: padding-box;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: 4px;
     min-width: 100px;
     border: 1px solid #dddddd;
     outline: none;
@@ -961,7 +967,7 @@ button[role="tab"] {
 @media only screen and (max-width: 600px) {
     .input_area {
         padding-top: 7px;
-        padding-bottom: 7x;
+        /* padding-bottom: 7x; */
     }
 }
 
@@ -1178,6 +1184,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     position: static;
     bottom: 0px;
     margin-left: 0px;
+    margin-bottom: 100px;
     padding: 5px;
 }
 

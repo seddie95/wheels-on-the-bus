@@ -9,7 +9,11 @@ $(document).ready(function () {
         let destination = $("#id_destination");
 
         if (source.text() === "" || destination.text() === "") {
+            document.getElementById("favourites").setAttribute("aria-label", "Please select valid source and destination stops.");
             alert("Please select valid source and destination stops.");
+            setTimeout(function () {
+                document.getElementById("favourites").removeAttribute("aria-label");
+            }, 2000);
             return;
         }
 
@@ -42,9 +46,11 @@ $(document).ready(function () {
                 Array.prototype.inArray = function (comparer) {
                     for (let i = 0; i < this.length; i++) {
                         if (comparer(this[i])) {
+                            alert("Search already added to favourites.");
+                            document.getElementById("favourites").setAttribute("aria-label", "Search already added to favourites.");
                             setTimeout(function () {
-                                alert("Search already added to favourites.");
-                            }, 200);
+                                document.getElementById("favourites").removeAttribute("aria-label");
+                            }, 2000);
                             return true;
                         }
                     }
@@ -58,7 +64,12 @@ $(document).ready(function () {
 
                         $("#heart").css("color", "red");
                         $("#heart").css("transition", "0.3s");
-                        $("#heart").css("transform", "scale(1.5)");
+                        $("#heart").css("transform", "scale(1.4)");
+
+                        document.getElementById("favourites").setAttribute("aria-label", "Search added to favourites.");
+                        setTimeout(function () {
+                            document.getElementById("favourites").removeAttribute("aria-label");
+                        }, 6000);
 
                         setTimeout(function () {
                             $("#heart").css("color", "grey");
@@ -82,7 +93,12 @@ $(document).ready(function () {
 
                 $("#heart").css("color", "red");
                 $("#heart").css("transition", "0.3s");
-                $("#heart").css("transform", "scale(1.5)");
+                $("#heart").css("transform", "scale(1.4)");
+
+                document.getElementById("favourites").setAttribute("aria-label", "Search added to favourites.");
+                setTimeout(function () {
+                    document.getElementById("favourites").removeAttribute("aria-label");
+                }, 2000);
 
                 setTimeout(function () {
                     $("#heart").css("color", "grey");

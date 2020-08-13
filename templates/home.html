@@ -111,7 +111,7 @@
         <!-- Tab content -->
         <div class="tab_content">
             <!-- Search tab content -->
-            <div id="search" role="tabpanel" tabindex="0" aria-labelledby="search_routes">
+            <div id="search" role="tabpanel" aria-labelledby="search_routes">
                 <div id="input_area" class="input_area">
                     <form spellcheck="false" id="form" class="form">
                         {% csrf_token %}
@@ -160,7 +160,7 @@
             </div>
 
             <!-- Routes tab content -->
-            <div id="routes" role="tabpanel" tabindex="0" aria-labelledby="load_routes" hidden>
+            <div id="routes" role="tabpanel" aria-labelledby="load_routes" hidden>
                 <div id="route_search_background">
                     <input type="search" id="route_search" class="select" spellcheck="false" placeholder="{% trans 'Enter Route' %}" />
                     <button id="direction_button" class="button">{% trans "Inbound" %}</button>
@@ -172,12 +172,12 @@
             </div>
 
             <!-- Favourites tab content -->
-            <div id="favs" role="tabpanel" tabindex="0" aria-labelledby="load_favourites" hidden>
+            <div id="favs" role="tabpanel"  aria-labelledby="load_favourites" hidden>
                 <div id="favourites_list" class="list_group"></div>
             </div>
 
             <!-- Information tab content -->
-            <div id="info" role="tabpanel" tabindex="0" aria-labelledby="load_information" hidden>
+            <div id="info" role="tabpanel"  aria-labelledby="load_information" hidden>
                 <div>
 
                     <!--Weather Information-->

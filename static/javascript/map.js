@@ -28,6 +28,7 @@ function initMap() {
         fullscreenControl: false,
         zoomControl: true,
         controlSize: 25,
+        gestureHandling: "greedy",
     });
 }
 
@@ -319,14 +320,17 @@ function fetch_data(myData) {
                     directionsRenderer.setDirections(response);
                     directionsRenderer.setMap(map);
                     // The bus_data array and the index of the li clicked are passed
-                    $("#route_options li").click(function () {
-                        let index = $(this).index();
+                    var enterKeyCode = 13;
+                    $(document).on("click keyup", "#route_options li", function (event) {
+                        if (event.type == "click" || event.keyCode == enterKeyCode) {
+                            let index = $(this).index();
 
-                        // Change the route on the map
-                        changeRoute(index);
+                            // Change the route on the map
+                            changeRoute(index);
 
-                        // Display the modal for the route
-                        displayDirectionsModal(obj, index, addresses);
+                            // Display the modal for the route
+                            displayDirectionsModal(obj, index, addresses);
+                        }
                     });
                 })
 
