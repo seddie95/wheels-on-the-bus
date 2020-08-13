@@ -281,6 +281,19 @@ function fetch_data(myData) {
             // var hello = document.getElementById("route_options");
             // console.log(hello);
 
+            // $('id_sourece').keypress(function(e) {
+            //     e.preventDefault();
+            // });
+
+            // Do not allow new inputs while a search is being performed
+            // The input fields are blurred out
+            $("#id_source").focus(function (e) {
+                $(this).blur();
+            });
+            $("#id_destination").focus(function (e) {
+                $(this).blur();
+            });
+
             // Show the loader before the fetch call is made
             $("#search_tab_loader").show();
 
@@ -315,6 +328,14 @@ function fetch_data(myData) {
                     //Set the contents of the div to be equal to the route_options_div
                     route_options_div.html(route_option);
 
+                    // Allow the input fields to be refocused.
+                    $("#id_destination").focus(function (e) {
+                        $(this).focus();
+                    });
+                    $("#id_source").focus(function (e) {
+                        $(this).focus();
+                    });
+
                     // Pass the directions to be Rendered the first option
                     directionsRenderer.setDirections(response);
                     directionsRenderer.setMap(map);
@@ -338,6 +359,14 @@ function fetch_data(myData) {
                     console.error("Difficulty fetching prediction data:", error);
                     alert("Error: Difficulty fetching prediction data.");
                     $("#search_tab_loader").hide();
+
+                    // Allow the input fields to be refocused.
+                    $("#id_destination").focus(function (e) {
+                        $(this).focus();
+                    });
+                    $("#id_source").focus(function (e) {
+                        $(this).focus();
+                    });
                 });
         } else {
             console.log("Error");

@@ -7,11 +7,11 @@ $(document).ready(function () {
     var m = today.getMinutes();
 
     // Call the check 0 function in case there are 0s in the number
-    h = checkZero(h);
-    m = checkZero(m);
+    h = checkForZero(h);
+    m = checkForZero(m);
     document.getElementById("timepicker").value = h + ":" + m;
 
-    function checkZero(i) {
+    function checkForZero(i) {
         var length = i.toString().length;
         if (i < 10 && length < 2) {
             i = "0" + i;
