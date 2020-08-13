@@ -15,6 +15,7 @@ $(document).ready(function () {
             deletePolylines();
         }
 
+        // Check to see if a cached version of the routes exist
         let parsed_data;
         try {
             parsed_data = JSON.parse(localStorage.getItem('routes'));
@@ -45,7 +46,6 @@ $(document).ready(function () {
                     console.error("Difficulty fetching routes data:", error);
                 });
         }
-
     });
 });
 
@@ -76,6 +76,7 @@ $(document).on("click keyup", "#route_click li", function (event) {
             direction: directionId,
         };
 
+        // Check if cached version of the stops along the route exist
         let Line_direction = `${line_id}${directionId}`;
         let parsed_data;
         try {
@@ -87,9 +88,7 @@ $(document).on("click keyup", "#route_click li", function (event) {
 
         if (parsed_data) {
             displayStops(parsed_data, route_info)
-            console.log('Adding Cached stops')
-        }
-        else {
+        } else {
             const csrf = $("input[name='csrfmiddlewaretoken']").val();
             const URL = baseUrl + "stops/";
 
@@ -110,13 +109,10 @@ $(document).on("click keyup", "#route_click li", function (event) {
                     // use the static data to create dictionary
                 })
                 .then(function (obj) {
-                    // display the markers on the map
-
                     // add the returned json response to local storage for future usage
                     localStorage.setItem(Line_direction, JSON.stringify(obj));
 
                     displayStops(obj, route_info)
-                    console.log('First time adding stops')
                 })
 
                 // catch used to test if something went wrong when parsing or in the network
@@ -124,8 +120,6 @@ $(document).on("click keyup", "#route_click li", function (event) {
                     console.error("Difficulty fetching stops data:", error);
                 });
         }
-
-
     }
 });
 
