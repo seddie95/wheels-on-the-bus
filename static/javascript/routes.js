@@ -15,36 +15,37 @@ $(document).ready(function () {
             deletePolylines();
         }
 
-        //create url with form data
-        const URL = baseUrl + "routes/";
+        let parsed_data;
+        try {
+            parsed_data = JSON.parse(localStorage.getItem('routes'));
 
-        fetch(URL)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (obj) {
-                let routes_data = obj;
+        } catch (e) {
+            console.log(e);
+        }
 
-                //create an unordered list in html
-                let routes_list = "<ul id='route_click'>";
+        if (parsed_data) {
+            displayRouteList(parsed_data)
+        } else {
+            //create url with form data
+            const URL = baseUrl + "routes/";
 
-                // Display the routes in html list
-                for (let i = 0; i < routes_data.length; i++) {
-                    let head = routes_data[i]["headsign"].split(" - ");
-                    let route_id = routes_data[i]["route_id"];
-                    let start = head[0];
-                    let end = head[1];
+            fetch(URL)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (obj) {
+                    // add the returned json response to local storage for future usage
+                    localStorage.setItem("routes", JSON.stringify(obj));
 
-                    // Add the route info to route_list
-                    routes_list += `<li tabindex='0' id='${route_id}' data-dialog='stops_modal'><span class="transport_container">
-                    <img src='/static/images/bus.svg' id='bus_icon'>${route_id}</span><div class="line_wrap"><span class="route_text_start">${start} - </span><span class="route_text_end">${end}</span><div/></li>`;
-                }
-                routes_list += `</ul>`;
-                $("#routes_list").html(routes_list);
-            })
-            .catch(function (error) {
-                console.error("Difficulty fetching routes data:", error);
-            });
+                    // display the routes in a list
+                    displayRouteList(obj)
+
+                })
+                .catch(function (error) {
+                    console.error("Difficulty fetching routes data:", error);
+                });
+        }
+
     });
 });
 
@@ -75,51 +76,56 @@ $(document).on("click keyup", "#route_click li", function (event) {
             direction: directionId,
         };
 
-        //    console.log("route_info: ",route_info);
+        let Line_direction = `${line_id}${directionId}`;
+        let parsed_data;
+        try {
+            parsed_data = JSON.parse(localStorage.getItem(Line_direction));
 
-        const csrf = $("input[name='csrfmiddlewaretoken']").val();
-        const URL = baseUrl + "stops/";
+        } catch (e) {
+            console.log(e);
+        }
 
-        //Pass the data to the server
-        fetch(URL, {
-            method: "POST",
-            credentials: "include",
-            body: JSON.stringify(route_info),
-            cache: "no-cache",
-            headers: new Headers({
-                "X-CSRFToken": csrf,
-                Accept: "application/json",
-                "content-type": "application/json",
-            }),
-        })
-            .then(function (response) {
-                return response.json();
-                // use the static data to create dictionary
+        if (parsed_data) {
+            displayStops(parsed_data, route_info)
+            console.log('Adding Cached stops')
+        }
+        else {
+            const csrf = $("input[name='csrfmiddlewaretoken']").val();
+            const URL = baseUrl + "stops/";
+
+            //Pass the data to the server
+            fetch(URL, {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify(route_info),
+                cache: "no-cache",
+                headers: new Headers({
+                    "X-CSRFToken": csrf,
+                    Accept: "application/json",
+                    "content-type": "application/json",
+                }),
             })
-            .then(function (obj) {
-                // display the markers on the map
-                obj.forEach(displayMarkers);
+                .then(function (response) {
+                    return response.json();
+                    // use the static data to create dictionary
+                })
+                .then(function (obj) {
+                    // display the markers on the map
 
-                // Display route on map
-                displayRoutes(obj);
+                    // add the returned json response to local storage for future usage
+                    localStorage.setItem(Line_direction, JSON.stringify(obj));
 
-                // Zoom to the markers
-                zoomMarkers();
+                    displayStops(obj, route_info)
+                    console.log('First time adding stops')
+                })
 
-                // display the object in a modal
-                displayStopsModal(obj, route_info);
-
-                // Display the infowindow by clicking on the list item
-                $("#stops_list li").click(function () {
-                    let index = $(this).index();
-                    new google.maps.event.trigger(markers[index], "click");
+                // catch used to test if something went wrong when parsing or in the network
+                .catch(function (error) {
+                    console.error("Difficulty fetching stops data:", error);
                 });
-            })
+        }
 
-            // catch used to test if something went wrong when parsing or in the network
-            .catch(function (error) {
-                console.error("Difficulty fetching stops data:", error);
-            });
+
     }
 });
 
@@ -175,3 +181,48 @@ $(document).ready(function () {
         }
     });
 });
+
+
+function displayRouteList(routes_data) {
+    //create an unordered list in html
+    let routes_list = "<ul id='route_click'>";
+
+    // Display the routes in html list
+    for (let i = 0; i < routes_data.length; i++) {
+        let head = routes_data[i]["headsign"].split(" - ");
+        let route_id = routes_data[i]["route_id"];
+        let start = head[0];
+        let end = head[1];
+
+        // Add the route info to route_list
+        routes_list += `<li tabindex='0' id='${route_id}' data-dialog='stops_modal'><span class="transport_container">
+                    <img src='/static/images/bus.svg' id='bus_icon'>${route_id}
+                    </span><div class="line_wrap">
+                    <span class="route_text_start">${start} - </span>
+                    <span class="route_text_end">${end}</span><div/></li>`;
+    }
+    routes_list += `</ul>`;
+    $("#routes_list").html(routes_list);
+}
+
+
+function displayStops(obj, route_info) {
+
+    obj.forEach(displayMarkers);
+
+    // Display route on map
+    displayRoutes(obj);
+
+    // Zoom to the markers
+    zoomMarkers();
+
+    // display the object in a modal
+    displayStopsModal(obj, route_info);
+
+    // Display the infowindow by clicking on the list item
+    $("#stops_list li").click(function () {
+        let index = $(this).index();
+        new google.maps.event.trigger(markers[index], "click");
+    });
+}
+
