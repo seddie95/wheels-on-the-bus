@@ -27,13 +27,13 @@ PWA_SERVICE_WORKER_PATH = os.path.join(
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = os.getenv('SECRET_KEY')
-SECRET_KEY = '38reujfnewjofnjkl;'
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ALLOWED_HOSTS = ['wheels-on-the-bus.herokuapp.com']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['wheels-on-the-bus.herokuapp.com']
+#ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -156,13 +156,13 @@ django_heroku.settings(locals())
 options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)
 
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django_bmemcached.memcached.BMemcached',
-#         'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
-#         'OPTIONS': {
-#             'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
-#             'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
-#         }
-#     }
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'django_bmemcached.memcached.BMemcached',
+        'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
+        'OPTIONS': {
+            'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
+            'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
+        }
+    }
+}
