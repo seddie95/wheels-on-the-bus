@@ -63,6 +63,7 @@
 <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
 
 <!--Local javascript files-->
+<script src="{% static '/javascript/mobile_viewport.js' %}"></script>
 <script src="{% static '/javascript/map.js' %}"></script>
 <script src="{% static '/javascript/onload_functions.js' %}"></script>
 <script src="{% static '/javascript/modals.js' %}"></script>
@@ -238,7 +239,7 @@
 <!-- Stops modal -->
 <div id="stops_modal" class="modal" tabindex="0">
     <div id="stops_modal_content" class="modal_content" role="dialog" aria-label="Stops" tabindex="0">
-        <button id="directions_close_buttons" class="close button nohover" aria-label="Close dialog">&times;</button>
+        <button id="directions_close_buttons" class="close button" aria-label="Close dialog">&times;</button>
         <div id="route_selected" class="route_selected"></div>
         <div id="stops_list" class="stops_list"></div>
     </div>
@@ -251,7 +252,7 @@
 <!-- Languages modal -->
 <div id="languages_modal" class="modal">
     <div class="modal_content">
-        <button id="languages_close_button" class="close button nohover">&times;</button>
+        <button id="languages_close_button" class="close button">&times;</button>
 
         <!-- Language selector-->
         <form action="{% url 'set_language' %}" method="post">{% csrf_token %}

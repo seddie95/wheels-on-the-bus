@@ -15,7 +15,10 @@ function displayDirectionsModal(bus_data, index, addresses) {
         modal.style.width = side_bar.offsetWidth + "px";
         modal.style.display = "block";
 
-        modal.focus();
+        // Set a short timeout function to ensure that the modal is displayed before it is focused on.
+        setTimeout(function () {
+            modal.focus();
+        }, 300);
 
         // The modal is closed when the x button is clicked
         span.onclick = function () {

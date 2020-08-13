@@ -28,6 +28,11 @@
 
 */
 
+/* #template {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+} */
+
 /* ---------------- */
 /* 1. Global styles */
 /* ---------------- */
@@ -103,6 +108,8 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    min-height: -webkit-fill-available;
     width: 100vw;
     overflow: hidden;
     display: grid;
@@ -474,6 +481,7 @@ button[role="tab"] {
 [role="tabpanel"]:not([hidden]) {
     display: flex;
     flex-direction: column;
+    height: calc(100vh - (50px + 37px));
     height: calc(100vh - (50px + 37px));
 }
 
@@ -863,14 +871,14 @@ button[role="tab"] {
     background-color: transparent;
     color: black;
     float: right;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     padding: 0px 6px 0px 6px;
     margin: 20px;
 }
 
 .close:hover {
-    background-color: white;
+    background-color: white !important;
 }
 
 .close:focus {

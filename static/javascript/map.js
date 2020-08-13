@@ -328,7 +328,7 @@ function fetch_data(myData) {
                     //Set the contents of the div to be equal to the route_options_div
                     route_options_div.html(route_option);
 
-                    // Allow the input fields to be refocused.
+                    // Allow the input fields to be refocused
                     $("#id_destination").focus(function (e) {
                         $(this).focus();
                     });
