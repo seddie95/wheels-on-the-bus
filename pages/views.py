@@ -1,12 +1,13 @@
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, get_object_or_404
-from .models import BusStops, BusLocations, Weather, Routes, Traffic
-from .predictionInfo import get_predict_info
-from .bus_check import bus_check
-from django.views.generic import View
 import json
-import urllib.parse
+
 import requests
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.views.generic import View
+
+from .bus_check import bus_check
+from .models import BusStops, BusLocations, Weather, Routes
+from .predictionInfo import get_predict_info
 
 
 # Raw SQL Queries
@@ -181,10 +182,7 @@ def get_series_of_stops(departure, line_id, num_stops, direction):
 # Class Based View
 class HomeView(View):
     def get(self, request):
-        # form = RawRouteForm()
-        # context = {'form': form}
         return render(request, "home.html")
-        # return render(request, "home.html", context)
 
 
 class RTPIView(View):
@@ -241,19 +239,12 @@ class StopsOnRoute(View):
 
 class AutocompleteView(View):
     def get(self, request):
-
         term = request.GET.get('term')
         queryset = ""
 
-        # Query column that contains full stop text and limit search results to 50
+        # Query column that contains full stop text and limit search results to 15
         queryset = BusStops.objects.filter(
-            stoptext__icontains=term)[:50]
-
-        # if request.GET.get('term').isalpha():
-        #   queryset = BusStops.objects.filter( stopname__icontains=term) | BusStops.objects.filter(stopid__contains=term)
-
-        # elif request.GET.get('term').isnumeric():
-        #     queryset = BusStops.objects.filter(stopid__contains=term)
+            stoptext__icontains=term)[:15]
 
         stop_names = list()
 
@@ -279,7 +270,6 @@ class ClosestStopsView(View):
         closest_stops = get_closest_stops(latitude, longitude)
 
         return JsonResponse(closest_stops, safe=False)
-
 
 
 class PredictionView(View):
@@ -343,7 +333,6 @@ class PredictionView(View):
                         "departure_timestamp": timestamp,
                         "weather_description": weather['description'],
                         "temperature": int(round(weather['temp'])),
-                        "travel_mode": journeys[j]['travel_mode']
                     }
 
                     # check if pickle file associated with line_id
@@ -410,6 +399,8 @@ class PredictionView(View):
                     prediction_data.append(journey_inner)
 
         return JsonResponse(prediction_data, safe=False)
+
+
 # Error handling web-pages
 
 
