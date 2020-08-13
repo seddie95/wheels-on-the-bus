@@ -1,20 +1,12 @@
 {% extends 'base.html' %} {% load static %}{% block head %} {% load i18n %}
 
 
-
 <!-- Flatpickr stylesheet url -->
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" /> -->
-
-
-
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.5.7/dist/flatpickr.min.css" /> -->
 
 
 <!-- jQuerystylesheet url -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" crossorigin="anonymous" />
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/themes/default.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/themes/default.date.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/themes/default.time.css">
 
 <!-- Fontawesome stylesheet url -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
@@ -33,12 +25,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" crossorigin="anonymous"></script>
 
 <!-- Flatpickr javascript url -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.5.7/dist/flatpickr.min.js"></script> -->
 
-
-<script src="https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/picker.js"></script>
-<script src=https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/picker.date.js></script>
-<script src="https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/picker.time.js"></script>
 
 <!--load google map according to language selector-->
 {% get_current_language as LANGUAGE_CODE %}
@@ -147,8 +135,17 @@
                             <i class="far fas fa-long-arrow-alt-down fa-lg"></i>
                             <i class="far fas fa-long-arrow-alt-up fa-lg"></i>
                         </button>
-                        <input type="text" name="time" id="timepicker" class="flatpickr-input" readonly="readonly" style="display: none;" />
-                        <input type="text" name="date" id="datepicker" autocomplete="off" readonly="readonly" class="flatpickr-input" style="display: none;" />
+          
+                        <input type="time" name="time" id="timepicker" class="" style="display: none;" />
+                        <input type="date" name="date" id="datepicker" class="data" style="display: none;" />
+                        <script type="text/javascript">
+                            window.onload= function() {
+                                document.querySelector('#datepicker').value=(new Date()).toISOString().substr(0,10);
+                            }
+                        </script>
+
+                        <!-- <input type="text" name="time" id="timepicker" class="flatpickr-input" style="display: none;" /> -->
+                        <!-- <input type="text" name="date" id="datepicker" autocomplete="off" readonly="readonly" class="flatpickr-input" style="display: none;" /> -->
                     </form>
 
                     <div id="button_group" class="button_group">

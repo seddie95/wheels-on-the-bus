@@ -538,7 +538,7 @@ function displayMarkers(stops) {
                 for (let i = 0; i < buses.length && i < 5; i++) {
                     let bus = buses[i];
 
-                    bus_list += `<li><span class="transport_container">
+                    bus_list += `<li ><span class="transport_container">
                                 <img src='/static/images/bus.svg' id='bus_icon'> 
                                 ${bus.route}</span>
                                 ${bus.destination}<span id="arrival_time">${bus.duetime}`;
@@ -559,11 +559,11 @@ function displayMarkers(stops) {
 
                 if (window.innerWidth > 600) {
                     infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
-                    <h2>${title}</h2> ${bus_list}</div>
+                    <h2 style='padding-right: 12px;'>${title}</h2> ${bus_list}</div>
                     <a id="walk" href="#" >Get walking route </a>`);
                 } else if (window.innerWidth <= 600) {
                     infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
-                    <h4>${title}</h4> ${bus_list}</div>
+                    <h4  style='padding-right: 8px; 'margin-bottom: 8px;'>${title}</h4> ${bus_list}</div>
                     <a id="walk" href="#" >Get walking route </a>`);
                 }
 

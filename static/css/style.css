@@ -364,7 +364,6 @@ header {
 
 .list_group li {
     position: relative;
-    padding: 10px 10px 0px 20px;
     min-height: 50px;
     display: flex;
     align-items: center;
@@ -375,6 +374,13 @@ header {
 
 .list_group li:hover {
     background-color: #e0dfdc;
+}
+.list_group li:focus {
+    outline: webkit-focus-ring-color auto 1px;
+}
+
+.list_group li:last-child {
+    margin-bottom: 80px;
 }
 
 .list_group a:after {
@@ -391,6 +397,7 @@ header {
     color: black;
     text-decoration: none;
     width: 100%;
+    padding: 10px 10px 0px 20px;
 }
 
 #route_options {
@@ -505,6 +512,7 @@ button[role="tab"] {
 .ui-menu .ui-menu-item-wrapper {
     padding: 10px 10px 0px 20px;
     min-height: 50px;
+    color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -516,8 +524,14 @@ button[role="tab"] {
 }
 .ui-menu .ui-state-active {
     border: none !important;
+    background-color: transparent !important;
+    outline: 2px solid black !important;
+    outline: webkit-focus-ring-color auto 1px !important;
+}
+.ui-menu .ui-state-active:hover {
+    border: none !important;
     background-color: #e0dfdc !important;
-    color: black;
+    outline: none !important;
 }
 
 /* 8.3 Autocomplete selection boxes */
@@ -559,12 +573,12 @@ button[role="tab"] {
 #timepicker {
     margin-top: 8px;
     margin-right: 10px;
-    width: 120px;
+    /* width: 120px; */
+    font-size: 14px;
     height: 30px;
     border-radius: 5px;
     display: inline-block;
     padding: 6px 12px;
-    font-size: 16px;
     line-height: 1.5;
     color: black;
     background-clip: padding-box;
@@ -586,13 +600,14 @@ button[role="tab"] {
 /* 8.6 Datepicker */
 
 #datepicker {
-    width: 120px;
+    width: 150px;
+    font-size: 14px;
+    margin: 130px;
     height: 30px;
     border-radius: 5px;
     margin: 0px 0px 0px 0px;
     display: inline-block;
     padding: 6px 12px;
-    font-size: 16px;
     line-height: 1.5;
     color: black;
     background-clip: padding-box;
@@ -659,7 +674,7 @@ button[role="tab"] {
     height: calc(100vh - 198px);
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-bottom: 20px;
+    padding-bottom: 80px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -707,7 +722,6 @@ button[role="tab"] {
 
 .directions_list li {
     box-sizing: border-box;
-    cursor: pointer;
     display: table;
     height: 55px;
     outline: 0;
@@ -717,10 +731,7 @@ button[role="tab"] {
     text-align: left;
     white-space: normal;
     width: 100%;
-}
-
-.directions_list li:hover {
-    background-color: #e0dfdc;
+    outline: none;
 }
 
 .directions_list li:before {
@@ -1267,7 +1278,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 
 #route_select:focus {
     outline: none !important;
-    /* border: 2px solid white; */
+    border: 2px solid white;
     /* border-radius: 4px; */
 }
 
@@ -1363,6 +1374,7 @@ input {
     white-space: normal;
     margin: 0px;
     padding: 15px 20px 15px 20px;
+    outline: none;
 }
 
 #directions_list h3:last-child {
@@ -1376,6 +1388,7 @@ input {
 
 #weather_data {
     padding: 10px 20px 0px 20px;
+    outline: none;
 }
 
 #journey_info > li:last-child {
@@ -1392,6 +1405,7 @@ input {
 
 #journey_info {
     margin: 0px;
+    outline: none;
 }
 
 #info > div > div.footer > ul > li:nth-child(2) {
@@ -1434,6 +1448,10 @@ input {
     padding: 20px 0px 0px 20px;
 }
 
+#recent > ul > li:nth-child(1) > a {
+    margin-top: 5px;
+}
+
 .fa-language:hover {
     color: grey;
 }
@@ -1450,11 +1468,20 @@ input {
     color: grey;
 }
 
+#favourites_list {
+    height: calc(100vh - 87px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-bottom: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    #favourites_list {
+        height: calc(100vh - 77px);
+    }
+}
+
 #favourites_list > p {
     margin: 0px;
     padding: 20px 0px 0px 20px;
-}
-
-.picker__frame {
-    margin-left: 30px;
 }
