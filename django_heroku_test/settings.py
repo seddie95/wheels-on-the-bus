@@ -10,11 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import os
-from django.utils.translation import gettext_lazy as _
-import django_heroku
 import json
+import os
+
 import dj_database_url
+import django_heroku
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,16 +27,13 @@ PWA_SERVICE_WORKER_PATH = os.path.join(
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
-
-
+#SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = '38reujfnewjofnjkl;'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-#ALLOWED_HOSTS = ['wheels-on-the-bus.herokuapp.com']
+# ALLOWED_HOSTS = ['wheels-on-the-bus.herokuapp.com']
 ALLOWED_HOSTS = ['*']
-
-
 
 # Application definition
 
@@ -53,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,7 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'django_heroku_test.urls'
@@ -150,20 +149,20 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 django_heroku.settings(locals())
 #
 options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_bmemcached.memcached.BMemcached',
-        'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
-        'OPTIONS': {
-            'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
-            'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
-        }
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_bmemcached.memcached.BMemcached',
+#         'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
+#         'OPTIONS': {
+#             'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
+#             'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
+#         }
+#     }
+# }
