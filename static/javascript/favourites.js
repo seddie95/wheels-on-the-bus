@@ -41,25 +41,58 @@ $(document).ready(function () {
                 // Add item to favourites if it is unique
                 Array.prototype.inArray = function (comparer) {
                     for (let i = 0; i < this.length; i++) {
-                        if (comparer(this[i])) return true;
+                        if (comparer(this[i])) {
+                            setTimeout(function () {
+                                alert("Search already added to favourites.");
+                            }, 200);
+                            return true;
+                        }
                     }
+
                     return false;
                 };
 
                 Array.prototype.pushIfNotExist = function (element, comparer) {
                     if (!this.inArray(comparer)) {
                         this.push(element);
+
+                        $("#heart").css("color", "red");
+                        $("#heart").css("transition", "0.3s");
+                        $("#heart").css("transform", "scale(1.5)");
+
+                        setTimeout(function () {
+                            $("#heart").css("color", "grey");
+                            $("#heart").css("transition", "0.3s");
+                            $("#heart").css("transform", "scale(1.0)");
+                        }, 2000);
+
+                        setTimeout(function () {
+                            $("#heart").removeAttr("style");
+                        }, 2100);
                     }
                 };
 
                 local_favourites.pushIfNotExist(favourite, function (e) {
                     return e.source_name === favourite.source_name && e.destination_name === favourite.destination_name;
                 });
-
                 localStorage.setItem("favourites", JSON.stringify(local_favourites));
             } else {
                 favourites.push(favourite);
                 localStorage.setItem("favourites", JSON.stringify(favourites));
+
+                $("#heart").css("color", "red");
+                $("#heart").css("transition", "0.3s");
+                $("#heart").css("transform", "scale(1.5)");
+
+                setTimeout(function () {
+                    $("#heart").css("color", "grey");
+                    $("#heart").css("transition", "0.3s");
+                    $("#heart").css("transform", "scale(1.0)");
+                }, 2000);
+
+                setTimeout(function () {
+                    $("#heart").removeAttr("style");
+                }, 2100);
             }
 
             // Alert user to fill in form
@@ -79,8 +112,8 @@ $(document).ready(function () {
         if (favourites) {
             favourites_list.html(favourites);
         } else {
-            favourites_list.html(gettext("You have no favourites saved!"));
-            favourites_list.css({ padding: "20px 0px 0px 20px" });
+            let message = "<p tabindex = '0'>You have no favourites saved!</p>";
+            favourites_list.html(message);
         }
     });
 });
@@ -119,6 +152,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#id_destination").focus(function () {
         let history = load_local_storage("history");
+        let recent = $("#recent");
 
         if (history) {
             $("#recent").html(history);
