@@ -53,21 +53,37 @@ function displayDirectionsModal(bus_data, index, addresses) {
                 if (Number.isInteger(parseInt(stop_id))) {
                     let bus_times = [];
                     // Get the real time arrival times for the stops
-                    let url = `https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=${stop_id}`;
+                    fetch(baseUrl + "rtpi/", {
+                        method: "POST",
+                        credentials: "include",
+                        body: JSON.stringify(stop_id),
+                        cache: "no-cache",
+                        headers: new Headers({
+                            "X-CSRFToken": getCsrf(),
+                            Accept: "application/json",
+                            "content-type": "application/json",
+                        }),
+                    })
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (obj) {
+                            let buses = obj.results;
 
-                    $.get(url, function (data) {
-                        let buses = data.results;
+                            buses.forEach(function (bus) {
+                                let route = bus.route;
 
-                        buses.forEach(function (bus) {
-                            let route = bus.route;
+                                if (route === line_id && bus_times.length < 3) {
+                                    bus_times.push(" " + bus.duetime);
+                                }
+                            });
 
-                            if (route === line_id && bus_times.length < 3) {
-                                bus_times.push(" " + bus.duetime);
-                            }
+                            $(`#arrival_${stop_id}`).html(`<br><br>Leaves in: <strong>${bus_times.toString()} min</strong>`);
+
+                        })
+                        .catch(function (error) {
+                            console.error("Difficulty fetching real time arrival data:", error);
                         });
-
-                        $(`#arrival_${stop_id}`).html(`<br><br>Leaves in: <strong>${bus_times.toString()} min</strong>`);
-                    });
                 }
 
                 text +=
@@ -109,7 +125,8 @@ function displayDirectionsModal(bus_data, index, addresses) {
 
         $("#directions_list").html(text);
 
-    } catch (error) {
+    } catch
+        (error) {
         console.error("Difficulty fetching directions modal data:", error);
     }
 }
@@ -150,7 +167,7 @@ function displayStopsModal(obj, route_info) {
 
         let line_id = route_info["line_id"];
 
-         let route_selected = `<li id='${line_id}'><span class="transport_container">
+        let route_selected = `<li id='${line_id}'><span class="transport_container">
         <img src='/static/images/bus.svg' id='bus_icon'>${line_id}</span>
         <span class="route_text"></span></li>`;
 
