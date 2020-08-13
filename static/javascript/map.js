@@ -28,7 +28,6 @@ function initMap() {
         fullscreenControl: false,
         zoomControl: true,
         controlSize: 25,
-        gestureHandling: "greedy",
     });
 }
 
@@ -532,7 +531,7 @@ function displayMarkers(stops) {
             })
             .then(function (data) {
                 let buses = data.results;
-                let bus_list = `<ul class='info_window_list'>`;
+                let bus_list = `<ul class='info_window_list' style="padding-inline-start: 0px;">`;
                 // parse the bus data and add it to a ul
 
                 // Get the first 5 buses from the RTPI data
@@ -557,9 +556,16 @@ function displayMarkers(stops) {
                 bus_list += "</ul>";
 
                 // Set the content including the RTPI data
-                infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
+
+                if (window.innerWidth > 600) {
+                    infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
                     <h2>${title}</h2> ${bus_list}</div>
                     <a id="walk" href="#" >Get walking route </a>`);
+                } else if (window.innerWidth <= 600) {
+                    infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
+                    <h4>${title}</h4> ${bus_list}</div>
+                    <a id="walk" href="#" >Get walking route </a>`);
+                }
 
                 //display walking route to selected stop
                 $("#walk").click(function (event) {

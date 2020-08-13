@@ -1,10 +1,20 @@
 {% extends 'base.html' %} {% load static %}{% block head %} {% load i18n %}
 
+
+
+<!-- Flatpickr stylesheet url -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" /> -->
+
+
+
+
+
 <!-- jQuerystylesheet url -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" crossorigin="anonymous" />
 
-<!-- Flatpickr stylesheet url -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/themes/default.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/themes/default.date.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/themes/default.time.css">
 
 <!-- Fontawesome stylesheet url -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
@@ -23,7 +33,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" crossorigin="anonymous"></script>
 
 <!-- Flatpickr javascript url -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/picker.js"></script>
+<script src=https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/picker.date.js></script>
+<script src="https://cdn.jsdelivr.net/npm/pickadate@3.6.4/lib/compressed/picker.time.js"></script>
 
 <!--load google map according to language selector-->
 {% get_current_language as LANGUAGE_CODE %}
@@ -210,16 +225,17 @@
 
 <!-- Directions modal -->
 <div id="directions_modal" class="modal" tabindex="0">
-    <div class="modal_content" role="dialog" aria-label="Directions" tabindex="0">
+    <div id="directions_modal_content" class="modal_content" role="dialog" aria-label="Directions" tabindex="0">
         <button class="close button" aria-label="Close dialog">&times;</button>
         <div id="directions_list" class="directions_list"></div>
     </div>
 </div>
+</div>
 
 <!-- Stops modal -->
 <div id="stops_modal" class="modal" tabindex="0">
-    <div class="modal_content" role="dialog" aria-label="Stops" tabindex="0">
-        <button id="directions_close_buttons" class="close button" aria-label="Close dialog">&times;</button>
+    <div id="stops_modal_content" class="modal_content" role="dialog" aria-label="Stops" tabindex="0">
+        <button id="directions_close_buttons" class="close button nohover" aria-label="Close dialog">&times;</button>
         <div id="route_selected" class="route_selected"></div>
         <div id="stops_list" class="stops_list"></div>
     </div>
@@ -232,7 +248,7 @@
 <!-- Languages modal -->
 <div id="languages_modal" class="modal">
     <div class="modal_content">
-        <button id="languages_close_button" class="close button">&times;</button>
+        <button id="languages_close_button" class="close button nohover">&times;</button>
 
         <!-- Language selector-->
         <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
