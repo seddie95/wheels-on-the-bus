@@ -36,6 +36,12 @@
 /* The sans-serif family is used as a fallback */
 /* Border-box box-sizing sets the dimensions of elements to include conent, padding and borders */
 /* Prevent text from being highlighted using the user-select selectors */
+
+html,
+body {
+    overscroll-behavior: none;
+}
+
 * {
     font-family: "Montserrat", sans-serif;
     white-space: nowrap;
@@ -121,7 +127,7 @@ header {
     grid-area: sidebar;
 }
 
-.map {
+.map_overlay {
     grid-area: map;
 }
 
@@ -149,7 +155,7 @@ header {
         grid-area: header;
     }
 
-    .map {
+    .map_overlay {
         grid-area: map;
     }
 }
@@ -197,9 +203,17 @@ header {
     }
 }
 
+#map_overlay {
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    /* pointer-events: none; */
+}
+
 .map {
     height: 100%;
     width: 100%;
+    /* touch-action: none; */
 }
 
 /* ------------- */
@@ -245,6 +259,10 @@ header {
 /* 5. Header */
 /* ----------*/
 
+header {
+    z-index: 10;
+}
+
 /* 5.1. Brand title */
 
 .brand_title {
@@ -252,7 +270,6 @@ header {
     font-size: 32px;
     font-weight: bolder;
     margin: unset;
-    /* margin-left: 30px; */
     margin-top: 5px;
 }
 
@@ -386,10 +403,6 @@ header {
     /* outline: webkit-focus-ring-color auto 1px; */
     outline: none;
     background-color: #e0dfdc;
-}
-
-.list_group li:last-child {
-    margin-bottom: 80px;
 }
 
 .list_group a:after {
@@ -702,7 +715,6 @@ button[role="tab"] {
     height: calc(100vh - 198px);
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-bottom: 80px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -1178,7 +1190,6 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     position: static;
     bottom: 0px;
     margin-left: 0px;
-    margin-bottom: 100px;
     padding: 5px;
 }
 
@@ -1519,7 +1530,6 @@ input {
     height: calc(100vh - 87px);
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-bottom: 30px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -1534,6 +1544,14 @@ input {
     padding: 20px 0px 0px 20px;
 }
 
-#map iframe {
-    pointer-events: none;
+#id_source:disabled {
+    box-shadow: 0 0 0px 1000px white inset !important;
+    background-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+#id_destination:disabled {
+    box-shadow: 0 0 0px 1000px white inset !important;
+    background-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }

@@ -8,33 +8,20 @@ $(document).ready(function () {
             var element = document.getElementById("sidebar");
             var positionInfo = element.getBoundingClientRect();
             var sideBarWidth = positionInfo.width;
-            var width = sideBarWidth + "px";
             if (sideBarWidth == 0) {
                 document.getElementById("sidebar_content").style.width = document.body.clientWidth + "px";
-                document.getElementById("directions_modal_content").style.minWidth = document.body.clientWidth + "px";
-                document.getElementById("stops_modal_content").style.minWidth = document.body.clientWidth + "px";
-                setTimeout(function () {
-                    document.getElementById("sidebar_content").style.width = "100%";
-                    document.getElementById("directions_modal_content").style.minWidth = "100%";
-                    document.getElementById("stops_modal_content").style.minWidth = "100%";
-                }, 400);
+                document.getElementById("directions_modal_content").style.width = document.body.clientWidth + "px";
+                document.getElementById("stops_modal_content").style.width = document.body.clientWidth + "px";
 
                 document.getElementById("sidebar").style.width = "100%";
                 document.getElementById("stops_modal").style.width = "100%";
                 document.getElementById("directions_modal").style.width = "100%";
                 document.getElementById("checkbox_label").setAttribute("aria-label", "Close sidebar");
             } else {
-                document.getElementById("sidebar_content").style.width = width;
-                document.getElementById("directions_modal_content").style.width = width;
-                document.getElementById("stops_modal_content").style.width = width;
-
-                setTimeout(function () {
-                    document.getElementById("sidebar_content").style.width = "100%";
-                    document.getElementById("directions_modal_content").style.width = "100%";
-                    document.getElementById("stops_modal_content").style.width = "100%";
-                }, 400);
-
-                document.getElementById("sidebar").removeAttribute("style");
+                document.getElementById("sidebar_content").style.width = document.body.clientWidth + "px";
+                document.getElementById("directions_modal_content").style.width = document.body.clientWidth + "px";
+                document.getElementById("stops_modal_content").style.width = document.body.clientWidth + "px";
+                document.getElementById("sidebar").style.width = "0px";
                 document.getElementById("stops_modal").style.width = "0px";
                 document.getElementById("directions_modal").style.width = "0px";
                 document.getElementById("checkbox").checked = false;
@@ -46,4 +33,14 @@ $(document).ready(function () {
             }, 500);
         }
     });
+});
+
+$(document).ready(function () {
+    if (document.getElementById("sidebar_content").style.width != "100%") {
+        window.addEventListener("resize", function () {
+            document.getElementById("sidebar_content").style.width = "100%";
+            document.getElementById("directions_modal_content").style.width = "100%";
+            document.getElementById("stops_modal_content").style.width = "100%";
+        });
+    }
 });

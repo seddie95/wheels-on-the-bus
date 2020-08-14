@@ -286,15 +286,9 @@ function fetch_data(myData) {
             // });
 
             // Do not allow new inputs while a search is being performed
-            // The input fields are blurred out
-            $("#id_source").focus(function (e) {
-                $(this).blur();
-                passiveEvent = true;
-            });
-            $("#id_destination").focus(function (e) {
-                $(this).blur();
-                passiveEvent = true;
-            });
+            // The input fields are disabled
+            $("#id_source").prop("disabled", true);
+            $("#id_destination").prop("disabled", true);
 
             // Show the loader before the fetch call is made
             $("#search_tab_loader").show();
@@ -330,13 +324,9 @@ function fetch_data(myData) {
                     //Set the contents of the div to be equal to the route_options_div
                     route_options_div.html(route_option);
 
-                    // Allow the input fields to be refocused
-                    $("#id_destination").focus(function (e) {
-                        $(this).focus();
-                    });
-                    $("#id_source").focus(function (e) {
-                        $(this).focus();
-                    });
+                    // Allow the input fields to be re-enabled
+                    $("#id_source").prop("disabled", false);
+                    $("#id_destination").prop("disabled", false);
 
                     // Pass the directions to be Rendered the first option
                     directionsRenderer.setDirections(response);
@@ -362,13 +352,9 @@ function fetch_data(myData) {
                     alert("Error: Difficulty fetching prediction data.");
                     $("#search_tab_loader").hide();
 
-                    // Allow the input fields to be refocused.
-                    $("#id_destination").focus(function (e) {
-                        $(this).focus();
-                    });
-                    $("#id_source").focus(function (e) {
-                        $(this).focus();
-                    });
+                    // Allow the input fields to be re-enabled
+                    $("#id_source").prop("disabled", false);
+                    $("#id_destination").prop("disabled", false);
                 });
         } else {
             console.log("Error");
@@ -591,11 +577,11 @@ function displayMarkers(stops) {
                 if (window.innerWidth > 600) {
                     infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
                     <h2 style='padding-right: 12px;'>${title}</h2> ${bus_list}</div>
-                    <a id="walk" href="#" >Get walking route </a>`);
+                    <a id="walk" href="#" style='padding-right: 12px >Get walking route </a>`);
                 } else if (window.innerWidth <= 600) {
                     infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
-                    <h4  style='padding-right: 8px; 'margin-bottom: 8px;'>${title}</h4> ${bus_list}</div>
-                    <a id="walk" href="#" >Get walking route </a>`);
+                    <h4  style='padding-right: 12px; 'margin-bottom: 8px;'>${title}</h4> ${bus_list}</div>
+                    <a id="walk" href="#" style='padding-right: 12px;>Get walking route </a>`);
                 }
 
                 //display walking route to selected stop
@@ -603,12 +589,12 @@ function displayMarkers(stops) {
                     event.preventDefault();
                     calculateAndDisplayRoute(pos, marker);
                 });
+
+                infowindow.open(map, marker);
             })
             .catch(function (error) {
                 console.error("Difficulty fetching real time arrival data:", error);
             });
-
-        infowindow.open(map, marker);
     });
 }
 

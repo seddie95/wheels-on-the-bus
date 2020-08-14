@@ -89,7 +89,7 @@ function displayDirectionsModal(bus_data, index, addresses) {
                                 }
                             });
 
-                            $(`#arrival_${stop_id}`).html(`<br><br>Leaves in: <strong>${bus_times.toString()} min</strong>`);
+                            $(`#arrival_${stop_id}`).html(`<br>Leaves in: <strong>${bus_times.toString()} min</strong>`);
                         })
                         .catch(function (error) {
                             console.error("Difficulty fetching real time arrival data:", error);
@@ -120,7 +120,7 @@ function displayDirectionsModal(bus_data, index, addresses) {
                     data[i].num_stops +
                     " • " +
                     data[i].travel_time +
-                    "mins <span id='arrow'>&#9660</span>" +
+                    " mins <span id='arrow'>&#9660</span>" +
                     "<div id='directions_stops_list'>";
                 let stop_list = "<ul>";
 
