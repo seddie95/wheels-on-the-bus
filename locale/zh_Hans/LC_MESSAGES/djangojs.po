@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-27 11:01+0100\n"
+"POT-Creation-Date: 2020-08-14 13:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,57 +18,464 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: .\web_app\static\javascript\favourites.js:60
-msgid "Please Select source and destination ."
+#: .\static\javascript\favourites.js:116
+#: .\staticfiles\javascript\favourites.04a85a2cbfdb.js:69
+#: .\staticfiles\javascript\favourites.0f59efdaacf9.js:69
+#: .\staticfiles\javascript\favourites.b4408a5ba7f1.js:67
+#: .\staticfiles\javascript\favourites.e4fd0b678780.js:69
+#: .\staticfiles\javascript\favourites.js:67
+#, fuzzy
+#| msgid "Please Select source and destination ."
+msgid "Please select source and destination."
 msgstr "请选择出发地和目的地。"
 
-#: .\web_app\static\javascript\favourites.js:71
-msgid "You have no favourites saved!"
-msgstr "你还未收藏任何站点！"
+#: .\static\javascript\favourites.js:131
+#, fuzzy
+#| msgid "You have no recent searches!"
+msgid "<p tabindex = '0'>You have no favourites saved!</p>"
+msgstr "<p tabindex = '0'>你最近未进行过搜索！</p>"
 
-#: .\web_app\static\javascript\favourites.js:78
-msgid "You have no recent searches!"
-msgstr "你最近未进行过搜索！"
+#: .\static\javascript\favourites.js:161 .\static\javascript\favourites.js:176
+#: .\static\javascript\favourites.js:188
+msgid ""
+"<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to "
+"search'>Recent Searches</h2>"
+msgstr ""
+"<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to "
+"search'>近期搜索</h2>"
 
-#: .\web_app\static\javascript\favourites.js:86
-msgid "<h3>Recent Searches</h3>"
-msgstr "<h3>近期搜索</h3>"
+#: .\static\javascript\favourites.js:162 .\static\javascript\favourites.js:177
+#, fuzzy
+#| msgid "You have no recent searches!"
+msgid "<p tabindex = '0'>You have no recent searches!</p>"
+msgstr "<p tabindex = '0'>你最近未进行过搜索！</p>"
 
-#: .\web_app\static\javascript\favourites.js:125
-#: .\web_app\static\javascript\favourites.js:131
-msgid "Stop "
+#: .\static\javascript\favourites.js:240 .\static\javascript\favourites.js:246
+#: .\staticfiles\javascript\favourites.04a85a2cbfdb.js:168
+#: .\staticfiles\javascript\favourites.04a85a2cbfdb.js:174
+#: .\staticfiles\javascript\favourites.0f59efdaacf9.js:168
+#: .\staticfiles\javascript\favourites.0f59efdaacf9.js:174
+#: .\staticfiles\javascript\favourites.b4408a5ba7f1.js:158
+#: .\staticfiles\javascript\favourites.b4408a5ba7f1.js:164
+#: .\staticfiles\javascript\favourites.e4fd0b678780.js:168
+#: .\staticfiles\javascript\favourites.e4fd0b678780.js:174
+#: .\staticfiles\javascript\favourites.js:158
+#: .\staticfiles\javascript\favourites.js:164
+#, fuzzy
+#| msgid "Stop "
+msgid "stop "
 msgstr "站点"
 
-#: .\web_app\static\javascript\modals.js:36
-msgid "<h2>Steps:</h2>"
-msgstr "<h2>过程:</h2>"
+#: .\static\javascript\map.js:127
+msgid "<h2 tabindex = '0' aria-label='Search Results List. Select a list item for full details.'>Search Results</h2>"
+msgstr "<h2 tabindex = '0' aria-label='Search Results List. Select a list item for full details.'>搜索结果</h2>"
 
-#: .\web_app\static\javascript\modals.js:66
-msgid "Start from: "
-msgstr "始于："
+#: .\static\javascript\modals.js:57
+msgid "<li><strong>Walk</strong><br> About "
+msgstr "<li><strong>步行</strong><br> 预计 "
 
-#: .\web_app\static\javascript\modals.js:71
-msgid "Line ID: "
-msgstr "线路标识"
+#: .\static\javascript\modals.js:92
+msgid "<br><br>Leaves in: <strong>"
+msgstr "<br><br>预计到达: <strong>"
 
-#: .\web_app\static\javascript\modals.js:75
+#: .\static\javascript\modals.js:101
+#: .\staticfiles\javascript\modals.1873ae47e22e.js:78
+#: .\staticfiles\javascript\modals.8b4f6a26cc4e.js:75
+#: .\staticfiles\javascript\modals.js:75
+msgid "<strong>Depart from:</strong> "
+msgstr "<strong>离开：</strong> "
+
+#: .\static\javascript\modals.js:106
+msgid "lineid: "
+msgstr "线路标识："
+
+#: .\static\javascript\modals.js:110
+#: .\staticfiles\javascript\modals.1873ae47e22e.js:86
+#: .\staticfiles\javascript\modals.585912626aa8.js:87
+#: .\staticfiles\javascript\modals.8b4f6a26cc4e.js:83
+#: .\staticfiles\javascript\modals.d547e1c91f3a.js:95
+#: .\staticfiles\javascript\modals.js:83
 msgid "Departs at: "
 msgstr "离开："
 
-#: .\web_app\static\javascript\modals.js:79
+#: .\static\javascript\modals.js:114
+#: .\staticfiles\javascript\modals.1873ae47e22e.js:90
+#: .\staticfiles\javascript\modals.585912626aa8.js:91
+#: .\staticfiles\javascript\modals.8b4f6a26cc4e.js:87
+#: .\staticfiles\javascript\modals.d547e1c91f3a.js:99
+#: .\staticfiles\javascript\modals.js:87
 msgid " Arrives to: "
 msgstr "到达： "
 
-#: .\web_app\static\javascript\modals.js:84
+#: .\static\javascript\modals.js:119
+#: .\staticfiles\javascript\modals.1873ae47e22e.js:95
+#: .\staticfiles\javascript\modals.585912626aa8.js:96
+#: .\staticfiles\javascript\modals.8b4f6a26cc4e.js:92
+#: .\staticfiles\javascript\modals.d547e1c91f3a.js:104
+#: .\staticfiles\javascript\modals.js:92
 msgid "Stops: "
 msgstr "站点数："
 
-#: .\web_app\static\javascript\routes.js:140
-#: .\web_app\static\javascript\routes.js:146
+#: .\static\javascript\routes.js:149 .\static\javascript\routes.js:163
+#: .\staticfiles\javascript\routes.396a60f30443.js:149
+#: .\staticfiles\javascript\routes.396a60f30443.js:163
+#: .\staticfiles\javascript\routes.4e13d1df02cd.js:151
+#: .\staticfiles\javascript\routes.4e13d1df02cd.js:165
+#: .\staticfiles\javascript\routes.9fd6b4f6fd7a.js:147
+#: .\staticfiles\javascript\routes.9fd6b4f6fd7a.js:161
+#: .\staticfiles\javascript\routes.js:149
+#: .\staticfiles\javascript\routes.js:163
 msgid "Inbound"
 msgstr "驶入"
 
-#: .\web_app\static\javascript\routes.js:141
-#: .\web_app\static\javascript\routes.js:145
+#: .\static\javascript\routes.js:150
+#: .\staticfiles\javascript\routes.396a60f30443.js:150
+#: .\staticfiles\javascript\routes.4e13d1df02cd.js:152
+#: .\staticfiles\javascript\routes.9fd6b4f6fd7a.js:148
+#: .\staticfiles\javascript\routes.js:150
 msgid "Outbound"
 msgstr "驶出"
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:47
+#: .\staticfiles\admin\js\SelectFilter2.js:47
+#, javascript-format
+msgid "Available %s"
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:53
+#: .\staticfiles\admin\js\SelectFilter2.js:53
+#, javascript-format
+msgid ""
+"This is the list of available %s. You may choose some by selecting them in "
+"the box below and then clicking the \"Choose\" arrow between the two boxes."
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:69
+#: .\staticfiles\admin\js\SelectFilter2.js:69
+#, javascript-format
+msgid "Type into this box to filter down the list of available %s."
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:74
+#: .\staticfiles\admin\js\SelectFilter2.js:74
+msgid "Filter"
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:78
+#: .\staticfiles\admin\js\SelectFilter2.js:78
+msgid "Choose all"
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:78
+#: .\staticfiles\admin\js\SelectFilter2.js:78
+#, javascript-format
+msgid "Click to choose all %s at once."
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:84
+#: .\staticfiles\admin\js\SelectFilter2.js:84
+msgid "Choose"
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:86
+#: .\staticfiles\admin\js\SelectFilter2.js:86
+msgid "Remove"
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:92
+#: .\staticfiles\admin\js\SelectFilter2.js:92
+#, javascript-format
+msgid "Chosen %s"
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:98
+#: .\staticfiles\admin\js\SelectFilter2.js:98
+#, javascript-format
+msgid ""
+"This is the list of chosen %s. You may remove some by selecting them in the "
+"box below and then clicking the \"Remove\" arrow between the two boxes."
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:108
+#: .\staticfiles\admin\js\SelectFilter2.js:108
+msgid "Remove all"
+msgstr ""
+
+#: .\staticfiles\admin\js\SelectFilter2.c26733924aea.js:108
+#: .\staticfiles\admin\js\SelectFilter2.js:108
+#, javascript-format
+msgid "Click to remove all chosen %s at once."
+msgstr ""
+
+#: .\staticfiles\admin\js\actions.8d83e3af0fbd.js:48
+#: .\staticfiles\admin\js\actions.js:48
+#: .\staticfiles\admin\js\actions.min.5fa8cb0403f1.js:2
+#: .\staticfiles\admin\js\actions.min.js:2
+msgid "%(sel)s of %(cnt)s selected"
+msgid_plural "%(sel)s of %(cnt)s selected"
+msgstr[0] ""
+
+#: .\staticfiles\admin\js\actions.8d83e3af0fbd.js:117
+#: .\staticfiles\admin\js\actions.js:117
+#: .\staticfiles\admin\js\actions.min.5fa8cb0403f1.js:5
+#: .\staticfiles\admin\js\actions.min.js:5
+msgid ""
+"You have unsaved changes on individual editable fields. If you run an "
+"action, your unsaved changes will be lost."
+msgstr ""
+
+#: .\staticfiles\admin\js\actions.8d83e3af0fbd.js:129
+#: .\staticfiles\admin\js\actions.js:129
+#: .\staticfiles\admin\js\actions.min.5fa8cb0403f1.js:5
+#: .\staticfiles\admin\js\actions.min.js:5
+msgid ""
+"You have selected an action, but you haven't saved your changes to "
+"individual fields yet. Please click OK to save. You'll need to re-run the "
+"action."
+msgstr ""
+
+#: .\staticfiles\admin\js\actions.8d83e3af0fbd.js:131
+#: .\staticfiles\admin\js\actions.js:131
+#: .\staticfiles\admin\js\actions.min.5fa8cb0403f1.js:6
+#: .\staticfiles\admin\js\actions.min.js:6
+msgid ""
+"You have selected an action, and you haven't made any changes on individual "
+"fields. You're probably looking for the Go button rather than the Save "
+"button."
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:13
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:115
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:13
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:115
+msgid "Now"
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:14
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:14
+msgid "Midnight"
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:15
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:15
+msgid "6 a.m."
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:16
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:16
+msgid "Noon"
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:17
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:17
+msgid "6 p.m."
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:82
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:82
+#, javascript-format
+msgid "Note: You are %s hour ahead of server time."
+msgid_plural "Note: You are %s hours ahead of server time."
+msgstr[0] ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:90
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:90
+#, javascript-format
+msgid "Note: You are %s hour behind server time."
+msgid_plural "Note: You are %s hours behind server time."
+msgstr[0] ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:133
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:133
+msgid "Choose a Time"
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:163
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:163
+msgid "Choose a time"
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:180
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:340
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:180
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:340
+msgid "Cancel"
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:245
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:325
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:245
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:325
+msgid "Today"
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:262
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:262
+msgid "Choose a Date"
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:319
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:319
+msgid "Yesterday"
+msgstr ""
+
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.a9c6d180860b.js:331
+#: .\staticfiles\admin\js\admin\DateTimeShortcuts.js:331
+msgid "Tomorrow"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:12
+#: .\staticfiles\admin\js\calendar.js:12
+msgid "January"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:13
+#: .\staticfiles\admin\js\calendar.js:13
+msgid "February"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:14
+#: .\staticfiles\admin\js\calendar.js:14
+msgid "March"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:15
+#: .\staticfiles\admin\js\calendar.js:15
+msgid "April"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:16
+#: .\staticfiles\admin\js\calendar.js:16
+msgid "May"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:17
+#: .\staticfiles\admin\js\calendar.js:17
+msgid "June"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:18
+#: .\staticfiles\admin\js\calendar.js:18
+msgid "July"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:19
+#: .\staticfiles\admin\js\calendar.js:19
+msgid "August"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:20
+#: .\staticfiles\admin\js\calendar.js:20
+msgid "September"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:21
+#: .\staticfiles\admin\js\calendar.js:21
+msgid "October"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:22
+#: .\staticfiles\admin\js\calendar.js:22
+msgid "November"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:23
+#: .\staticfiles\admin\js\calendar.js:23
+msgid "December"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:26
+#: .\staticfiles\admin\js\calendar.js:26
+msgctxt "one letter Sunday"
+msgid "S"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:27
+#: .\staticfiles\admin\js\calendar.js:27
+msgctxt "one letter Monday"
+msgid "M"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:28
+#: .\staticfiles\admin\js\calendar.js:28
+msgctxt "one letter Tuesday"
+msgid "T"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:29
+#: .\staticfiles\admin\js\calendar.js:29
+msgctxt "one letter Wednesday"
+msgid "W"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:30
+#: .\staticfiles\admin\js\calendar.js:30
+msgctxt "one letter Thursday"
+msgid "T"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:31
+#: .\staticfiles\admin\js\calendar.js:31
+msgctxt "one letter Friday"
+msgid "F"
+msgstr ""
+
+#: .\staticfiles\admin\js\calendar.aae57adab5f6.js:32
+#: .\staticfiles\admin\js\calendar.js:32
+msgctxt "one letter Saturday"
+msgid "S"
+msgstr ""
+
+#: .\staticfiles\admin\js\collapse.c5b851e91226.js:27
+#: .\staticfiles\admin\js\collapse.c5b851e91226.js:45
+#: .\staticfiles\admin\js\collapse.js:27 .\staticfiles\admin\js\collapse.js:45
+#: .\staticfiles\admin\js\collapse.min.44dfdb427845.js:2
+#: .\staticfiles\admin\js\collapse.min.js:2
+msgid "Show"
+msgstr ""
+
+#: .\staticfiles\admin\js\collapse.c5b851e91226.js:41
+#: .\staticfiles\admin\js\collapse.js:41
+#: .\staticfiles\admin\js\collapse.min.44dfdb427845.js:2
+#: .\staticfiles\admin\js\collapse.min.js:2
+msgid "Hide"
+msgstr ""
+
+#: .\staticfiles\javascript\favourites.04a85a2cbfdb.js:83
+#: .\staticfiles\javascript\favourites.0f59efdaacf9.js:83
+#: .\staticfiles\javascript\favourites.b4408a5ba7f1.js:82
+#: .\staticfiles\javascript\favourites.e4fd0b678780.js:83
+#: .\staticfiles\javascript\favourites.js:82
+msgid "You have no favourites saved!"
+msgstr "你还未收藏任何站点！"
+
+#: .\staticfiles\javascript\favourites.04a85a2cbfdb.js:96
+#: .\staticfiles\javascript\favourites.0f59efdaacf9.js:96
+#: .\staticfiles\javascript\favourites.b4408a5ba7f1.js:96
+#: .\staticfiles\javascript\favourites.e4fd0b678780.js:96
+#: .\staticfiles\javascript\favourites.js:96
+msgid "You have no recent searches!"
+msgstr "你最近未进行过搜索！"
+
+#: .\staticfiles\javascript\modals.585912626aa8.js:37
+msgid "<h2>Steps:</h2>"
+msgstr "<h2>过程:</h2>"
+
+#: .\staticfiles\javascript\modals.585912626aa8.js:78
+#: .\staticfiles\javascript\modals.d547e1c91f3a.js:86
+msgid "Start from: "
+msgstr "始于："
+
+#: .\staticfiles\javascript\modals.585912626aa8.js:83
+#: .\staticfiles\javascript\modals.d547e1c91f3a.js:91
+msgid "Line ID: "
+msgstr "线路标识"
+
+#: .\staticfiles\javascript\modals.d547e1c91f3a.js:45
+#, fuzzy
+#| msgid "<h2>Steps:</h2>"
+msgid "<h2 tabindex='0'>Steps:</h2>"
+msgstr "<h2 tabindex='0'>过程:</h2>"
+
+#~ msgid "<h3>Recent Searches</h3>"
+#~ msgstr "<h3>近期搜索</h3>"

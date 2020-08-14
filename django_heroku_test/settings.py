@@ -10,11 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import json
-import os
-
 import dj_database_url
 import django_heroku
+import json
+import os
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,15 +26,15 @@ PWA_SERVICE_WORKER_PATH = os.path.join(
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = os.getenv('SECRET_KEY')
-SECRET_KEY = 'e0b$ctix9_cmn%+1rr&m-m9$8uh^him424$q)a(r4t^7b@lae0'
 
+# SECRET_KEY = os.getenv('SECRET_KEY')
+
+SECRET_KEY = 'e0b$ctix9_cmn%+1rr&m-m9$8uh^him424$q)a(r4t^7b@lae0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-
-#ALLOWED_HOSTS = ['wheels-on-the-bus.herokuapp.com']
+# ALLOWED_HOSTS = ['wheels-on-the-bus.herokuapp.com']
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -154,7 +153,7 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
-#
+
 options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)
 

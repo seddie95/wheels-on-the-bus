@@ -54,7 +54,7 @@ function displayDirectionsModal(bus_data, index, addresses) {
             if (travel_mode === "WALKING") {
                 let duration = data[i].duration;
                 let distance = data[i].distance;
-                text += `<li><strong>Walk</strong><br> About ${distance} • ${duration}</li>`;
+                text += gettext("<li><strong>Walk</strong><br> About ")+`${distance} • ${duration}</li>`;
             }
 
             if (travel_mode === "TRANSIT") {
@@ -89,7 +89,7 @@ function displayDirectionsModal(bus_data, index, addresses) {
                                 }
                             });
 
-                            $(`#arrival_${stop_id}`).html(`<br><br>Leaves in: <strong>${bus_times.toString()} min</strong>`);
+                            $(`#arrival_${stop_id}`).html(gettext("<br><br>Leaves in: <strong>")+`${bus_times.toString()} min</strong>`);
                         })
                         .catch(function (error) {
                             console.error("Difficulty fetching real time arrival data:", error);
@@ -103,7 +103,7 @@ function displayDirectionsModal(bus_data, index, addresses) {
                     data[i].start_name +
                     "<br>" +
                     "<br>" +
-                    "lineid: " +
+                    gettext("lineid: ") +
                     gettext(line_id) +
                     "<br>" +
                     "<br>" +
