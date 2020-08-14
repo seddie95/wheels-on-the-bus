@@ -3,6 +3,7 @@ $(document).ready(function () {
     window.weatherWidgetConfig.push({
         selector: ".weatherWidget",
         apiKey: "PUBLIC_WIDGET_KEY", //lots of usage? Sign up for your personal key
+        // Brian's API Key
         // apiKey: "FNZLWPQRU5WZ59F4QFRJ9SJ57", //lots of usage? Sign up for your personal key
         location: "Dublin, Ireland", //enter an addres
         unitGroup: "metric", //"us" or "metric"

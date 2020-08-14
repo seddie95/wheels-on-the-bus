@@ -28,11 +28,6 @@
 
 */
 
-/* #template {
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-} */
-
 /* ---------------- */
 /* 1. Global styles */
 /* ---------------- */
@@ -108,8 +103,6 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-    min-height: -webkit-fill-available;
     width: 100vw;
     overflow: hidden;
     display: grid;
@@ -144,6 +137,7 @@ header {
 
 @media only screen and (max-width: 600px) {
     body {
+        height: calc(var(--vh, 1vh) * 100);
         grid-template-rows: 40px auto;
         grid-template-columns: minmax(270px, auto);
         grid-template-areas:
@@ -482,12 +476,12 @@ button[role="tab"] {
     display: flex;
     flex-direction: column;
     height: calc(100vh - (50px + 37px));
-    height: calc(100vh - (50px + 37px));
 }
 
 @media only screen and (max-width: 600px) {
     [role="tabpanel"]:not([hidden]) {
         height: calc(100vh - (40px + 37px));
+        height: calc((var(--vh, 1vh) * 100) - (40px + 37px));
     }
 }
 
@@ -688,6 +682,7 @@ button[role="tab"] {
 @media only screen and (max-width: 600px) {
     #route_background {
         height: calc(100vh - 188px);
+        height: calc((var(--vh, 1vh) * 100) - 188px);
     }
 }
 
@@ -1234,7 +1229,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     transition: 0.4s;
 }
 
-@media screen and (orientation: landscape) and (max-height: 450px) {
+@media screen and (orientation: landscape) and (max-height: 450px) and (hover: none) and (any-pointer: coarse) {
     body {
         display: none;
     }
@@ -1486,10 +1481,15 @@ input {
 @media only screen and (max-width: 600px) {
     #favourites_list {
         height: calc(100vh - 77px);
+        height: calc((var(--vh, 1vh) * 100) - 77px);
     }
 }
 
 #favourites_list > p {
     margin: 0px;
     padding: 20px 0px 0px 20px;
+}
+
+#map iframe {
+    pointer-events: none;
 }
