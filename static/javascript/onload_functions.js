@@ -5,21 +5,11 @@ $(document).ready(function () {
     $("#datepicker").hide();
 });
 
-// $(document).ready(function () {
-// $("#sidebar").draggabilly({
-//     axis: "y",
-// });
-//     $("#stops_modal").draggabilly({});
-// });
-
-// $(document).ready(function () {
-//     $("#sidebar").draggable({
-//         axis: "y",
-//     });
-//     $("#stops_modal").draggable({
-//         axis: "y",
-//     });
-// });
+$(document).ready(function () {
+    document.ontouchmove = function (e) {
+        e.preventDefault();
+    };
+});
 
 //==============================================================
 // Only show the speech search icons in browsers that support the Web Speech API
@@ -51,6 +41,7 @@ $(document).ready(function () {
         // are properly selected from the autocomplete lists
         // Alert the user and return from the function if
         // there are no locations to avoid the history array being populated with unusable data
+
         if (myData.source_location == "" || myData.destination_location == "") {
             document.getElementById("route_select").setAttribute("aria-label", "Please select valid source and destination stops.");
             alert("Please select valid source and destination stops.");
@@ -67,7 +58,7 @@ $(document).ready(function () {
         let local_history = JSON.parse(localStorage.getItem("history"));
 
         if (local_history) {
-            if (local_history.length <= 10) {
+            if (local_history.length < 10) {
                 // Add the new route if history under 10
                 local_history.push(myData);
                 localStorage.setItem("history", JSON.stringify(local_history));
@@ -82,6 +73,9 @@ $(document).ready(function () {
             localStorage.setItem("history", JSON.stringify(history));
         }
         // Pass the bus_routes to the fetch_data function
+
+        $("#route_options").hide();
+
         fetch_data(myData);
     });
 });
@@ -123,11 +117,11 @@ $(document).ready(function () {
 
 //==============================================================
 // function to refresh the page when user clicks on search
-$(document).ready(function () {
-    $("#search_routes").click(function () {
-        location.reload();
-    });
-});
+// $(document).ready(function () {
+//     $("#search_routes").click(function () {
+//         location.reload();
+//     });
+// });
 
 //==============================================================
 // Execute plan route by clicking Enter button
@@ -149,6 +143,7 @@ function getFormData() {
     // are properly selected from the autocomplete lists
     // Alert the user and return from the function if
     // there are no locations to avoid the history array being populated with unusable data
+
     if ($("#id_source").text() == "" || $("#id_destination").text() == "") {
         document.getElementById("route_select").setAttribute("aria-label", "Please select valid source and destination stops.");
         alert("Please select valid source and destination stops.");

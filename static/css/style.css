@@ -137,6 +137,7 @@ header {
 
 @media only screen and (max-width: 600px) {
     body {
+        height: calc(var(--vh, 1vh) * 100);
         grid-template-rows: 40px auto;
         grid-template-columns: minmax(270px, auto);
         grid-template-areas:
@@ -162,11 +163,16 @@ header {
     text-align: center;
     background-color: #212f3c;
     color: white;
+    position: sticky;
+    top: 0;
 }
 
 @media only screen and (max-width: 600px) {
     header {
         height: 40px;
+        position: fixed;
+        top: 0;
+        width: 100%;
     }
 }
 
@@ -231,7 +237,7 @@ header {
 }
 
 .button:hover {
-    background: grey;
+    background: lightgrey;
     transition: all 0.1s linear;
 }
 
@@ -274,24 +280,11 @@ header {
         position: absolute;
         right: 15px;
         top: 2px;
+        z-index: 10;
     }
 }
-
 .toggle_button {
     cursor: pointer;
-}
-
-.toggle_button:hover .line {
-    width: 23px;
-}
-
-#checkbox_label:focus {
-    outline: none;
-}
-
-#checkbox_label:focus .line {
-    width: 23px;
-    background-color: white;
 }
 
 .line {
@@ -305,6 +298,20 @@ header {
     transition: all 0.2s;
 }
 
+.toggle_button:hover .line {
+    width: 23px;
+    background-color: grey;
+}
+
+#checkbox_label:focus {
+    outline: none;
+}
+
+#checkbox_label:focus .line {
+    width: 23px;
+    background-color: grey;
+}
+
 @media only screen and (max-width: 600px) {
     .line {
         height: 4px;
@@ -313,7 +320,7 @@ header {
 
 .line_1,
 .line_3 {
-    width: 20px;
+    width: 18px;
 }
 
 .label {
@@ -358,7 +365,6 @@ header {
 
 .list_group li {
     position: relative;
-    padding: 10px 10px 0px 20px;
     min-height: 50px;
     display: flex;
     align-items: center;
@@ -369,6 +375,13 @@ header {
 
 .list_group li:hover {
     background-color: #e0dfdc;
+}
+.list_group li:focus {
+    outline: webkit-focus-ring-color auto 1px;
+}
+
+.list_group li:last-child {
+    margin-bottom: 80px;
 }
 
 .list_group a:after {
@@ -385,6 +398,7 @@ header {
     color: black;
     text-decoration: none;
     width: 100%;
+    padding: 10px 10px 0px 20px;
 }
 
 #route_options {
@@ -464,6 +478,13 @@ button[role="tab"] {
     height: calc(100vh - (50px + 37px));
 }
 
+@media only screen and (max-width: 600px) {
+    [role="tabpanel"]:not([hidden]) {
+        height: calc(100vh - (40px + 37px));
+        height: calc((var(--vh, 1vh) * 100) - (40px + 37px));
+    }
+}
+
 /* ------------- */
 /* 8. Search tab */
 /* ------------- */
@@ -481,7 +502,6 @@ button[role="tab"] {
     color: black;
     display: block;
     background-clip: padding-box;
-    border: 1px solid black;
     border-radius: 4px;
 }
 
@@ -494,6 +514,7 @@ button[role="tab"] {
 .ui-menu .ui-menu-item-wrapper {
     padding: 10px 10px 0px 20px;
     min-height: 50px;
+    color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -505,6 +526,14 @@ button[role="tab"] {
 }
 .ui-menu .ui-state-active {
     border: none !important;
+    background-color: transparent !important;
+    outline: 2px solid black !important;
+    outline: webkit-focus-ring-color auto 1px !important;
+}
+.ui-menu .ui-state-active:hover {
+    border: none !important;
+    background-color: #e0dfdc !important;
+    outline: none !important;
 }
 
 /* 8.3 Autocomplete selection boxes */
@@ -546,76 +575,58 @@ button[role="tab"] {
 #timepicker {
     margin-top: 8px;
     margin-right: 10px;
-    width: 120px;
+    /* width: 120px; */
+    font-size: 14px;
     height: 30px;
     border-radius: 5px;
     display: inline-block;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
+    padding: 6px 12px;
     line-height: 1.5;
     color: black;
     background-clip: padding-box;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: 4px;
     white-space: nowrap;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
 }
 
-.ui-timepicker-container.ui-timepicker-standard {
-    z-index: 10 !important;
-    padding: 0px 0px 0px 0px;
-}
-
-.ui-timepicker,
-.ui-timepicker-viewport {
-    height: 240px !important;
+#timepicker:focus {
+    box-shadow: 0 0 10px 2px black;
 }
 
 /* 8.6 Datepicker */
 
 #datepicker {
-    margin-top: 8x;
-    width: 120px;
+    width: 150px;
+    font-size: 14px;
+    margin: 130px;
     height: 30px;
     border-radius: 5px;
     margin: 0px 0px 0px 0px;
     display: inline-block;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
+    padding: 6px 12px;
     line-height: 1.5;
     color: black;
     background-clip: padding-box;
     border: none;
-    border-radius: 0.25rem;
-    border-radius: 0.25rem;
+    border-radius: 4px;
+    border-radius: 4px;
     white-space: nowrap;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
 }
 
-.ui-datepicker {
-    font-size: 18px;
-}
-
-.ui-widget {
-    font-size: 16px;
-}
-
-#ui-datepicker-div {
-    position: absolute !important;
-    width: 100% !important;
-    max-width: 400px !important;
-    z-index: 3 !important;
-    left: 0 !important;
-    right: 0 !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-.ui-widget-content .ui-state-hover {
-    background-color: #e0dfdc;
-}
-
-.ui-widget-content .ui-state-active {
-    background-color: #e0dfdc;
-    color: black;
+#datepicker:focus {
+    box-shadow: 0 0 10px 2px black;
 }
 
 /* 8.7 Plan route button */
@@ -639,24 +650,40 @@ button[role="tab"] {
 #route_search {
     margin: 10px 0px 0px 0px;
     width: calc(100% - 44px);
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
+    padding: 6px 12px;
+    font-size: 16px;
     line-height: 1.5;
     color: black;
     display: block;
     background-clip: padding-box;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: 4px;
     min-width: 100px;
+    border: 1px solid #dddddd;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+}
+
+#route_search:focus {
+    box-shadow: 0 0 10px 2px black;
 }
 
 #route_background {
-    height: calc(100vh - 181px);
+    height: calc(100vh - 198px);
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-top: 5px;
-    border-top: 3px solid grey;
-    padding-bottom: 20px;
+    padding-bottom: 80px;
+}
+
+@media only screen and (max-width: 600px) {
+    #route_background {
+        height: calc(100vh - 188px);
+        height: calc((var(--vh, 1vh) * 100) - 188px);
+    }
 }
 
 #bus_icon {
@@ -698,7 +725,6 @@ button[role="tab"] {
 
 .directions_list li {
     box-sizing: border-box;
-    cursor: pointer;
     display: table;
     height: 55px;
     outline: 0;
@@ -708,15 +734,12 @@ button[role="tab"] {
     text-align: left;
     white-space: normal;
     width: 100%;
-}
-
-.directions_list li:hover {
-    background-color: #e0dfdc;
+    outline: none;
 }
 
 .directions_list li:before {
     content: "";
-    border-left: solid 3px skyblue;
+    border-left: solid 3px #1f567c;
     height: 100%;
     position: absolute;
     top: 0;
@@ -730,7 +753,7 @@ button[role="tab"] {
 
 .directions_list li:after {
     background-color: #fff;
-    border: 2px solid skyblue;
+    border: 2px solid #1f567c;
     border-radius: 50%;
     content: "";
     height: 10px;
@@ -741,7 +764,7 @@ button[role="tab"] {
 }
 
 .directions_list li:last-child:before {
-    height: calc(100% - 29px);
+    height: calc(100% - 32px);
 }
 
 /* --------------- */
@@ -767,7 +790,7 @@ button[role="tab"] {
     height: 55px;
     outline: 0;
     padding: 10px 20px;
-    padding-left: 35px;
+    padding-left: 40px;
     position: relative;
     text-align: left;
     width: 100%;
@@ -782,27 +805,27 @@ button[role="tab"] {
 
 .stops_list li:before {
     content: "";
-    border-left: solid 3px skyblue;
+    border-left: solid 3px #1f567c;
     height: 100%;
     position: absolute;
-    top: 0;
-    left: 17px;
+    top: -1px;
+    left: 23px;
 }
 
 .stops_list li:first-child:before {
     height: calc(100% - 25px);
-    top: 25px;
+    top: 24px;
 }
 
 .stops_list li:after {
-    background-color: #fff;
-    border: 2px solid skyblue;
+    background-color: #ffffff;
+    border: 2px solid #1f567c;
     border-radius: 50%;
     content: "";
     height: 10px;
     position: absolute;
-    top: 16px;
-    left: 13.5px;
+    top: 15px;
+    left: 19.5px;
     width: 10px;
 }
 
@@ -832,7 +855,6 @@ button[role="tab"] {
 
 .modal_content {
     background-color: #fefefe;
-    padding: 20px;
     width: 100%;
     height: 100%;
     overflow-y: auto;
@@ -841,17 +863,23 @@ button[role="tab"] {
 }
 
 .close {
-    color: #aaa;
+    background-color: transparent;
+    color: black;
     float: right;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
+    padding: 0px 6px 0px 6px;
+    margin: 20px;
 }
 
-.close:hover,
+.close:hover {
+    background-color: white !important;
+}
+
 .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+    outline: none !important;
+    border: 2px solid black;
+    border-radius: 4px;
 }
 
 /* --------------------------------------------------------------------- */
@@ -898,7 +926,7 @@ button[role="tab"] {
 @media only screen and (max-width: 600px) {
     .input_area {
         padding-top: 7px;
-        padding-bottom: 7x;
+        /* padding-bottom: 7x; */
     }
 }
 
@@ -908,6 +936,10 @@ button[role="tab"] {
     float: right;
     background-color: #1f567c;
     color: white;
+}
+
+#switch_directions:hover {
+    color: grey;
 }
 
 #switch_directions:focus {
@@ -995,6 +1027,10 @@ div.flatpickr-calendar.hasTime.noCalendar.animate.showTimeInput.arrowTop.open {
     margin-top: 5px !important;
 }
 
+.flatpickr-time.time24hr {
+    height: 43px;
+}
+
 .list_group h2 {
     background-color: #ecf0f1;
     color: black;
@@ -1066,17 +1102,6 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     margin: unset;
 }
 
-/* @media only screen and (max-width: 1500px) {
-    #languages_button {
-        left: 80px;
-    }
-}
-@media only screen and (max-width: 1350px) {
-    #languages_button {
-        left: 60px;
-    }
-} */
-
 @media only screen and (max-width: 600px) {
     #languages_button {
         position: absolute;
@@ -1088,6 +1113,8 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 #languages_modal {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 #languages_modal .modal_content {
     height: 203px;
@@ -1120,6 +1147,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     position: static;
     bottom: 0px;
     margin-left: 0px;
+    margin-bottom: 100px;
     padding: 5px;
 }
 
@@ -1164,7 +1192,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     transform: scale(1.05);
 }
 
-p {
+#info p {
     font-size: 18px;
     padding: 8px 8px 8px 8px;
     margin: 0px;
@@ -1201,14 +1229,14 @@ p {
     transition: 0.4s;
 }
 
-@media screen and (orientation: landscape) and (max-height: 450px) {
+@media screen and (orientation: landscape) and (max-height: 450px) and (hover: none) and (any-pointer: coarse) {
     body {
         display: none;
     }
 }
 
 #show_datetime {
-    background-color: #1f567c;
+    background-color: transparent;
     color: white;
 }
 
@@ -1219,7 +1247,7 @@ p {
 }
 
 #location_button {
-    background-color: #1f567c;
+    background-color: transparent;
     color: white;
 }
 
@@ -1230,7 +1258,7 @@ p {
 }
 
 #favourites {
-    background-color: #1f567c;
+    background-color: transparent;
     color: white;
 }
 
@@ -1241,9 +1269,11 @@ p {
 }
 
 #route_select {
-    background-color: #4285f4;
+    background-color: #156bfb;
     color: white;
     font-size: 18px;
+    font-weight: bold;
+    padding: 4px 12px 4px 12px;
 }
 #route_select:hover {
     background-color: lightseagreen;
@@ -1252,30 +1282,31 @@ p {
 #route_select:focus {
     outline: none !important;
     border: 2px solid white;
-    border-radius: 4px;
+    /* border-radius: 4px; */
 }
 
 .fa-heart {
     color: white;
 }
 
-.fa-heart:hover {
-    color: red;
-}
-
 #direction_button {
-    min-width: 100px;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    background-color: #1f567c;
+    min-width: 140px;
+    margin: 10px 0px 10px 0px;
+    padding: 4px 12px 4px 12px;
+    background-color: #156bfb;
     color: white;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #direction_button:focus {
     outline: none !important;
     border: 2px solid white;
     border-radius: 4px;
+}
+
+#direction_button:hover {
+    background-color: lightseagreen;
 }
 
 /* Prevent iOS devices from changing border radius of form fields */
@@ -1292,12 +1323,32 @@ input {
     padding-left: 38px;
     margin-bottom: -30px;
     border: none;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+}
+
+#id_source:focus {
+    box-shadow: 0 0 10px 2px black;
 }
 
 #id_destination {
     padding-left: 38px;
     margin-bottom: -30px;
     border: none;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+}
+
+#id_destination:focus {
+    box-shadow: 0 0 10px 2px black;
 }
 
 @supports (-webkit-touch-callout: none) {
@@ -1312,4 +1363,133 @@ input {
         margin-bottom: -30px;
         border: none;
     }
+}
+
+#sel_id {
+    margin: 20px;
+}
+
+#languages_close_button {
+    margin: 10px 35px 10px 10px;
+}
+
+#directions_list h3 {
+    white-space: normal;
+    margin: 0px;
+    padding: 15px 20px 15px 20px;
+    outline: none;
+}
+
+#directions_list h3:last-child {
+    padding-bottom: 40px;
+}
+
+#directions_list > li:last-child {
+    height: 0px;
+    padding: 0px;
+}
+
+#weather_data {
+    padding: 10px 20px 0px 20px;
+    outline: none;
+}
+
+#journey_info > li:last-child {
+    height: 0px;
+    padding: 0px;
+}
+
+#journey_info > li:last-child::after {
+    top: 0px;
+}
+#journey_info > li:last-child::before {
+    height: calc(100% - 9px);
+}
+
+#journey_info {
+    margin: 0px;
+    outline: none;
+}
+
+#info > div > div.footer > ul > li:nth-child(2) {
+    margin-bottom: 15px;
+}
+
+.loader {
+    display: none;
+    margin: 40px auto auto auto;
+    border: 6px solid rgb(230, 224, 224);
+    border-radius: 50%;
+    border-top: 6px solid #212f3c;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+/* For the loader on Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#recent > p {
+    margin: 0px;
+    padding: 20px 0px 0px 20px;
+}
+
+#recent > ul > li:nth-child(1) > a {
+    margin-top: 5px;
+}
+
+.fa-language:hover {
+    color: grey;
+}
+
+.fa-clock:hover {
+    color: grey;
+}
+
+.fa-compass:hover {
+    color: grey;
+}
+
+.fa-heart:hover {
+    color: grey;
+}
+
+#favourites_list {
+    height: calc(100vh - 87px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-bottom: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    #favourites_list {
+        height: calc(100vh - 77px);
+        height: calc((var(--vh, 1vh) * 100) - 77px);
+    }
+}
+
+#favourites_list > p {
+    margin: 0px;
+    padding: 20px 0px 0px 20px;
+}
+
+#map iframe {
+    pointer-events: none;
 }

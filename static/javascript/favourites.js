@@ -9,7 +9,11 @@ $(document).ready(function () {
         let destination = $("#id_destination");
 
         if (source.text() === "" || destination.text() === "") {
+            document.getElementById("favourites").setAttribute("aria-label", "Please select valid source and destination stops.");
             alert("Please select valid source and destination stops.");
+            setTimeout(function () {
+                document.getElementById("favourites").removeAttribute("aria-label");
+            }, 2000);
             return;
         }
 
@@ -41,25 +45,70 @@ $(document).ready(function () {
                 // Add item to favourites if it is unique
                 Array.prototype.inArray = function (comparer) {
                     for (let i = 0; i < this.length; i++) {
-                        if (comparer(this[i])) return true;
+                        if (comparer(this[i])) {
+                            alert("Search already added to favourites.");
+                            document.getElementById("favourites").setAttribute("aria-label", "Search already added to favourites.");
+                            setTimeout(function () {
+                                document.getElementById("favourites").removeAttribute("aria-label");
+                            }, 2000);
+                            return true;
+                        }
                     }
+
                     return false;
                 };
 
                 Array.prototype.pushIfNotExist = function (element, comparer) {
                     if (!this.inArray(comparer)) {
                         this.push(element);
+
+                        $("#heart").css("color", "red");
+                        $("#heart").css("transition", "0.3s");
+                        $("#heart").css("transform", "scale(1.4)");
+
+                        document.getElementById("favourites").setAttribute("aria-label", "Search added to favourites.");
+                        setTimeout(function () {
+                            document.getElementById("favourites").removeAttribute("aria-label");
+                        }, 6000);
+
+                        setTimeout(function () {
+                            $("#heart").css("color", "grey");
+                            $("#heart").css("transition", "0.3s");
+                            $("#heart").css("transform", "scale(1.0)");
+                        }, 2000);
+
+                        setTimeout(function () {
+                            $("#heart").removeAttr("style");
+                        }, 2100);
                     }
                 };
 
                 local_favourites.pushIfNotExist(favourite, function (e) {
                     return e.source_name === favourite.source_name && e.destination_name === favourite.destination_name;
                 });
-
                 localStorage.setItem("favourites", JSON.stringify(local_favourites));
             } else {
                 favourites.push(favourite);
                 localStorage.setItem("favourites", JSON.stringify(favourites));
+
+                $("#heart").css("color", "red");
+                $("#heart").css("transition", "0.3s");
+                $("#heart").css("transform", "scale(1.4)");
+
+                document.getElementById("favourites").setAttribute("aria-label", "Search added to favourites.");
+                setTimeout(function () {
+                    document.getElementById("favourites").removeAttribute("aria-label");
+                }, 2000);
+
+                setTimeout(function () {
+                    $("#heart").css("color", "grey");
+                    $("#heart").css("transition", "0.3s");
+                    $("#heart").css("transform", "scale(1.0)");
+                }, 2000);
+
+                setTimeout(function () {
+                    $("#heart").removeAttr("style");
+                }, 2100);
             }
 
             // Alert user to fill in form
@@ -79,8 +128,8 @@ $(document).ready(function () {
         if (favourites) {
             favourites_list.html(favourites);
         } else {
-            favourites_list.html(gettext("You have no favourites saved!"));
-            favourites_list.css({padding: "20px 0px 0px 20px"});
+            let message = "<p tabindex = '0'>You have no favourites saved!</p>";
+            favourites_list.html(message);
         }
     });
 });
@@ -93,9 +142,42 @@ $(document).ready(function () {
     if (history) {
         recent.html(history);
     } else {
-        recent.html(gettext("You have no recent searches!"));
-        recent.css({padding: "20px 0px 0px 20px"});
+        let title = "<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>";
+        title += "<p tabindex = '0'>You have no recent searches!</p>";
+        recent.html(title);
     }
+});
+
+//=======================================================================================
+// Load the users recent searches if focus is returned to the input fields
+$(document).ready(function () {
+    $("#id_source").focus(function () {
+        let history = load_local_storage("history");
+        let recent = $("#recent");
+
+        if (history) {
+            $("#recent").html(history);
+        } else {
+            let title = "<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>";
+            title += "<p tabindex = '0'>You have no recent searches!</p>";
+            recent.html(title);
+        }
+    });
+});
+
+$(document).ready(function () {
+    $("#id_destination").focus(function () {
+        let history = load_local_storage("history");
+        let recent = $("#recent");
+
+        if (history) {
+            $("#recent").html(history);
+        } else {
+            let title = "<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>";
+            title += "<p tabindex = '0'>You have no recent searches!</p>";
+            recent.html(title);
+        }
+    });
 });
 
 //==============================================================================
@@ -182,5 +264,5 @@ function getDate() {
     let hours = String(now.getHours()).padStart(2, "0");
     let time = hours + ":" + minutes;
 
-    return {date: date, time: time};
+    return { date: date, time: time };
 }

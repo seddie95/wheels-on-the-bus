@@ -123,7 +123,12 @@ function fetch_data(myData) {
             var travel_outer = [];
 
             // String used to create list of stops
-            let route_option = `<ul id='routeList'>`;
+
+            title = "<h2 tabindex = '0' aria-label='Search Results List. Select a list item for full details.'>Search Results</h2>";
+
+            let route_option = title;
+
+            route_option += `<ul id='routeList'>`;
             const routes = response["routes"];
 
             for (let i = 0; i < routes.length; i++) {
@@ -136,9 +141,16 @@ function fetch_data(myData) {
                     let start_address = leg["start_address"];
                     let end_address = leg["end_address"];
                     var addresses = [start_address, end_address];
-                    let timestamp = new Date(leg["departure_time"]["value"]).getTime() / 1000;
+                    var timestamp;
+                    if (!("departure_time" in leg)) {
+                        continue;
+                    } else {
+                        timestamp = new Date(leg["departure_time"]["value"]).getTime() / 1000;
+                    }
 
+                    // console.log(timestamp);
                     route_option += `<li><a href='#' id='routeIndex'>`;
+
                     for (let j = 0; j < leg_step.length; j++) {
                         // walking variables
                         let duration = leg_step[j]["duration"]["text"];
@@ -184,6 +196,7 @@ function fetch_data(myData) {
                             }
 
                             // Set the icon and border colour based on agency
+
                             switch (agency) {
                                 case "Luas":
                                     icon = "/static/images/luas.png";
@@ -250,19 +263,39 @@ function fetch_data(myData) {
             // Hide the form output div so that the route options div can be shown properly
             $("#form_output").hide();
 
-            // Show the route options div so that the route option list can be inserted into the HTML
-            let route_options_div = $("#route_options");
-            route_options_div.show();
-            route_option += "</li>";
+            // // Show the route options div so that the route option list can be inserted into the HTML
+            // let route_options_div = $("#route_options");
+            // route_options_div.show();
+            // route_option += "</li>";
 
-            //Set the contents of the div to be equal to the route_options_div
-            route_options_div.html(route_option);
+            // //Set the contents of the div to be equal to the route_options_div
+            // route_options_div.html(route_option);
 
-            // Pass the directions to be Rendered the first option
-            directionsRenderer.setDirections(response);
-            directionsRenderer.setMap(map);
+            // // Pass the directions to be Rendered the first option
+            // directionsRenderer.setDirections(response);
+            // directionsRenderer.setMap(map);
 
             // Pass the google maps data to the server
+
+            // document.getElementById("route_options").innerHTML = "<h1>hello</h1>";
+            // var hello = document.getElementById("route_options");
+            // console.log(hello);
+
+            // $('id_sourece').keypress(function(e) {
+            //     e.preventDefault();
+            // });
+
+            // Do not allow new inputs while a search is being performed
+            // The input fields are blurred out
+            $("#id_source").focus(function (e) {
+                $(this).blur();
+            });
+            $("#id_destination").focus(function (e) {
+                $(this).blur();
+            });
+
+            // Show the loader before the fetch call is made
+            $("#search_tab_loader").show();
 
             //create url with form data
             const URL = baseUrl + "predict/";
@@ -282,22 +315,58 @@ function fetch_data(myData) {
                     return response.json();
                     // use the static data to create dictionary
                 })
+
                 .then(function (obj) {
+                    // Hide the loader before the results are displayed
+                    $("#search_tab_loader").hide();
+
+                    // Show the route options div so that the route option list can be inserted into the HTML
+                    let route_options_div = $("#route_options");
+                    route_options_div.show();
+                    route_option += "</li>";
+
+                    //Set the contents of the div to be equal to the route_options_div
+                    route_options_div.html(route_option);
+
+                    // Allow the input fields to be refocused
+                    $("#id_destination").focus(function (e) {
+                        $(this).focus();
+                    });
+                    $("#id_source").focus(function (e) {
+                        $(this).focus();
+                    });
+
+                    // Pass the directions to be Rendered the first option
+                    directionsRenderer.setDirections(response);
+                    directionsRenderer.setMap(map);
                     // The bus_data array and the index of the li clicked are passed
-                    $("#route_options li").click(function () {
-                        let index = $(this).index();
+                    var enterKeyCode = 13;
+                    $(document).on("click keyup", "#route_options li", function (event) {
+                        if (event.type == "click" || event.keyCode == enterKeyCode) {
+                            let index = $(this).index();
 
-                        // Change the route on the map
-                        changeRoute(index);
+                            // Change the route on the map
+                            changeRoute(index);
 
-                        // Display the modal for the route
-                        displayDirectionsModal(obj, index, addresses);
+                            // Display the modal for the route
+                            displayDirectionsModal(obj, index, addresses);
+                        }
                     });
                 })
 
                 // catch used to test if something went wrong when parsing or in the network
                 .catch(function (error) {
                     console.error("Difficulty fetching prediction data:", error);
+                    alert("Error: Difficulty fetching prediction data.");
+                    $("#search_tab_loader").hide();
+
+                    // Allow the input fields to be refocused.
+                    $("#id_destination").focus(function (e) {
+                        $(this).focus();
+                    });
+                    $("#id_source").focus(function (e) {
+                        $(this).focus();
+                    });
                 });
         } else {
             console.log("Error");
@@ -491,14 +560,14 @@ function displayMarkers(stops) {
             })
             .then(function (data) {
                 let buses = data.results;
-                let bus_list = `<ul class='info_window_list'>`;
+                let bus_list = `<ul class='info_window_list' style="padding-inline-start: 0px;">`;
                 // parse the bus data and add it to a ul
 
                 // Get the first 5 buses from the RTPI data
                 for (let i = 0; i < buses.length && i < 5; i++) {
                     let bus = buses[i];
 
-                    bus_list += `<li><span class="transport_container">
+                    bus_list += `<li ><span class="transport_container">
                                 <img src='/static/images/bus.svg' id='bus_icon'> 
                                 ${bus.route}</span>
                                 ${bus.destination}<span id="arrival_time">${bus.duetime}`;
@@ -516,9 +585,16 @@ function displayMarkers(stops) {
                 bus_list += "</ul>";
 
                 // Set the content including the RTPI data
-                infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
-                    <h2>${title}</h2> ${bus_list}</div>
+
+                if (window.innerWidth > 600) {
+                    infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
+                    <h2 style='padding-right: 12px;'>${title}</h2> ${bus_list}</div>
                     <a id="walk" href="#" >Get walking route </a>`);
+                } else if (window.innerWidth <= 600) {
+                    infowindow.setContent(`<div class="infowindow" id="info_${stop_id}">
+                    <h4  style='padding-right: 8px; 'margin-bottom: 8px;'>${title}</h4> ${bus_list}</div>
+                    <a id="walk" href="#" >Get walking route </a>`);
+                }
 
                 //display walking route to selected stop
                 $("#walk").click(function (event) {

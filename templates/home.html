@@ -1,44 +1,46 @@
 {% extends 'base.html' %} {% load static %}{% block head %} {% load i18n %}
 
-    <!-- jQuerystylesheet url -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" crossorigin="anonymous"/>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
-
-    <!-- Fontawesome stylesheet url -->
-    <link
-            rel="stylesheet"
-            href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-            integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-            crossorigin="anonymous"
-    />
-
-    <!-- Google Fonts stylesheet url -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
-          crossorigin="anonymous"/>
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static '/css/style.css' %}"/>
-
-    <!-- PWA manifest file -->
-    <link rel="manifest" href="{% static '/manifest/manifest.json' %}"/>
-
-    <!--Cloud based javsacript-->
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&callback=initMap&v=quarterly" defer></script>-->
-    <script src="https://code.jquery.com/jquery-1.12.4.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" crossorigin="anonymous"></script>
-
-    <!--load google map according to language selector-->
-    {% get_current_language as LANGUAGE_CODE %}
+<!-- Flatpickr stylesheet url -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.5.7/dist/flatpickr.min.css" /> -->
 
 
-    <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&language={{ LANGUAGE_CODE }}&callback=initMap&v=quarterly' defer></script>
+<!-- jQuerystylesheet url -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" crossorigin="anonymous" />
+
+<!-- Fontawesome stylesheet url -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
+
+<!-- Google Fonts stylesheet url -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" crossorigin="anonymous" />
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{% static '/css/style.css' %}" />
+
+<!-- PWA manifest file -->
+<link rel="manifest" href="{% static '/manifest/manifest.json' %}" />
+
+<!-- jQuery javascript urls -->
+<script src="https://code.jquery.com/jquery-1.12.4.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" crossorigin="anonymous"></script>
+
+<!-- Flatpickr javascript url -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.5.7/dist/flatpickr.min.js"></script> -->
+
+
+<!--load google map according to language selector-->
+{% get_current_language as LANGUAGE_CODE %}
+<!-- <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&language={{ LANGUAGE_CODE }}&callback=initMap&v=quarterly' defer></script> -->
+
+
+<!-- Brian's Google Maps API Key -->
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyA17s2eS2rMOTgOQxn9LGPnlDXmQtTrtPs&language={{ LANGUAGE_CODE }}&callback=initMap&v=quarterly' defer ></script>
 
 
 
 
-    <script>
-        // var lang = "{{ LANGUAGE_CODE }}";
+<script>
+    // var lang = "{{ LANGUAGE_CODE }}";
         // console.log("here for lang",lang);
         // var map_script = document.createElement('script');
         // map_script.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCWB44JbOMcoIFA15MhD1Mxv2v7Q4_mZmg&language=' + lang + '&callback=initMap&v=quarterly=');
@@ -52,56 +54,54 @@
         function getCsrf() {
             return $("input[name='csrfmiddlewaretoken']").val();
         }
-    </script>
-    
+</script>
 
 
-    <!-- Flatpickr javascript -->
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- Flatpickr javascript -->
 
-    <!--internationaliztion javascript-->
-    <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
-    <!--Local javascript files-->
-    <script src="{% static '/javascript/map.js' %}"></script>
-    <script src="{% static '/javascript/onload_functions.js' %}"></script>
-    <script src="{% static '/javascript/modals.js' %}"></script>
-    <script src="{% static '/javascript/autocomplete.js' %}"></script>
-    <script src="{% static '/javascript/time.js' %}"></script>
-    <script src="{% static '/javascript/favourites.js' %}"></script>
-    <script src="{% static '/javascript/tabs.js' %}"></script>
-    <script src="{% static '/javascript/menu.js' %}"></script>
-    <script src="{% static '/javascript/routes.js' %}"></script>
-    <script src="{% static '/javascript/resize_transitions.js' %}"></script>
-    <script src="{% static '/javascript/information.js' %}"></script>
+<!--internationaliztion javascript-->
+<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+
+<!--Local javascript files-->
+<script src="{% static '/javascript/mobile_viewport.js' %}"></script>
+<script src="{% static '/javascript/map.js' %}"></script>
+<script src="{% static '/javascript/onload_functions.js' %}"></script>
+<script src="{% static '/javascript/modals.js' %}"></script>
+<script src="{% static '/javascript/autocomplete.js' %}"></script>
+<script src="{% static '/javascript/time.js' %}"></script>
+<script src="{% static '/javascript/favourites.js' %}"></script>
+<script src="{% static '/javascript/tabs.js' %}"></script>
+<script src="{% static '/javascript/menu.js' %}"></script>
+<script src="{% static '/javascript/routes.js' %}"></script>
+<script src="{% static '/javascript/resize_transitions.js' %}"></script>
+<script src="{% static '/javascript/information.js' %}"></script>
 
 {% endblock head %} {% block body %}
 
-    <header id="header">
-        <h1 class="brand_title">Wheels</h1>
-        <button id="languages_button" aria-label="Language Selector" aria-hidden="true" tabindex="-1"><i
-                class="far fas fas fa-language fa-lg"></i></button>
+<header id="header">
+    <h1 class="brand_title">Wheels</h1>
+    <button id="languages_button" class="icon_button" aria-label="Language Selector" aria-hidden="true" tabindex="-1"><i
+                class="far fas fa-language fa-lg"></i></button>
 
-        <nav id="sidebar_toggle" class="sidebar_toggle">
-            <input type="checkbox" id="checkbox" class="checkbox hidden"/>
-            <div class="click_toggle">
-                <label for="checkbox" id="checkbox_label" class="label" role="button" type="button" tabindex="0"
-                       aria-label="Open sidebar">
+    <nav id="sidebar_toggle" class="sidebar_toggle">
+        <input type="checkbox" id="checkbox" class="checkbox hidden" />
+        <div class="click_toggle">
+            <label for="checkbox" id="checkbox_label" class="label" role="button" type="button" tabindex="0" aria-label="Open sidebar">
                     <div class="toggle_button">
                         <div class="line line_1"></div>
                         <div class="line line_2"></div>
                         <div class="line line_3"></div>
                     </div>
                 </label>
-            </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        <div id="sidebar_content" class="sidebar_content">
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <div id="sidebar_content" class="sidebar_content">
 
         <!-- Tabs -->
-
         <div role="tablist" id="tabs" class="tabs">
             <button id="search_routes" class="tab" role="tab" aria-selected="true" aria-controls="search" tabindex="0">
                 {% trans "Search" %}
@@ -110,12 +110,10 @@
             <button id="load_routes" class="tab" role="tab" aria-selected="false" aria-controls="routes" tabindex="-1">
                 {% trans "Routes" %}
             </button>
-            <button id="load_favourites" class="tab" role="tab" aria-selected="false" aria-controls="favs"
-                    aria-label="Favourites" tabindex="-1">
+            <button id="load_favourites" class="tab" role="tab" aria-selected="false" aria-controls="favs" aria-label="Favourites" tabindex="-1">
                 {% trans "Favs" %}
             </button>
-            <button id="load_information" class="tab" role="tab" aria-selected="false" aria-controls="info"
-                    aria-label="Information" tabindex="-1">
+            <button id="load_information" class="tab" role="tab" aria-selected="false" aria-controls="info" aria-label="Information" tabindex="-1">
                 {% trans "Info" %}
             </button>
         </div>
@@ -123,54 +121,38 @@
         <!-- Tab content -->
         <div class="tab_content">
             <!-- Search tab content -->
-            <div id="search" role="tabpanel" tabindex="0" aria-labelledby="search_routes">
+            <div id="search" role="tabpanel" aria-labelledby="search_routes">
                 <div id="input_area" class="input_area">
                     <form spellcheck="false" id="form" class="form">
                         {% csrf_token %}
-                        <div class="buttonIn">
-                            <input
-                                    type="search"
-                                    name="source"
-                                    class="autocomplete ui-autocomplete-input"
-                                    placeholder="{% trans 'From stop' %}"
-                                    autocomplete="off"
-                                    required=""
-                                    id="id_source"
-                                    style="padding-left: 38px; margin-bottom: -30px;border:none;"
-                                    aria-label="Search starting stop."
-                            />
+                        <div class="location_input">
+                            <input type="search" name="source" class="autocomplete ui-autocomplete-input select" placeholder="{% trans 'From stop' %}" autocomplete="off" required="" id="id_source" aria-label="Search starting stop." />
                             <button class="voice" id="btn1" aria-label="Search starting stop by voice">
                                 <i class="far fas fa-microphone fa-lg"></i>
                             </button>
 
                         </div>
-                        <div class="buttonIn">
-                            <input
-                                    type="search"
-                                    name="destination"
-                                    class="autocomplete ui-autocomplete-input"
-                                    placeholder="{% trans 'To stop' %}"
-                                    autocomplete="off"
-                                    required=""
-                                    id="id_destination"
-                                    style="padding-left: 38px; margin-bottom: -30px;border:none;"
-                                    aria-label="Search destination stop."
-
-                            />
+                        <div class="location_input">
+                            <input type="search" name="destination" class="autocomplete ui-autocomplete-input select" placeholder="{% trans 'To stop' %}" autocomplete="off" required="" id="id_destination" aria-label="Search destination stop." />
                             <button class="voice" id="btn2" aria-label="Search destination stop by voice">
                                 <i class="far fas fa-microphone fa-lg"></i>
                             </button>
                         </div>
-                        <button id="switch_directions" class="button"
-                                aria-label="Switch starting stop, and destination stop">
+                        <button id="switch_directions" class="button" aria-label="Switch starting stop, and destination stop">
                             <i class="far fas fa-long-arrow-alt-down fa-lg"></i>
                             <i class="far fas fa-long-arrow-alt-up fa-lg"></i>
                         </button>
-                        <input type="text" name="time" id="timepicker" class="flatpickr-input" readonly="readonly"
-                               style="display: none;"/>
-                        <input type="text" name="date" id="datepicker" autocomplete="off" readonly="readonly"
-                               class="flatpickr-input" style="display: none;"/>
-                        <!-- <input type="hidden" name="date" value="2020/07/23" id="id_date" /> -->
+          
+                        <input type="time" name="time" id="timepicker" class="" style="display: none;" />
+                        <input type="date" name="date" id="datepicker" class="data" style="display: none;" />
+                        <script type="text/javascript">
+                            window.onload= function() {
+                                document.querySelector('#datepicker').value=(new Date()).toISOString().substr(0,10);
+                            }
+                        </script>
+
+                        <!-- <input type="text" name="time" id="timepicker" class="flatpickr-input" style="display: none;" /> -->
+                        <!-- <input type="text" name="date" id="datepicker" autocomplete="off" readonly="readonly" class="flatpickr-input" style="display: none;" /> -->
                     </form>
 
                     <div id="button_group" class="button_group">
@@ -178,12 +160,14 @@
                                 class="far fa-clock fa-lg"></i></button>
                         <button id="location_button" class="button" aria-label="Find stops near your current location.">
                             <i class="far far fa-compass fa-lg"></i></button>
-                        <button id="favourites" class="button" aria-label="Add current search to favourites."><i
+                        <button id="favourites" class="button" aria-label="Add current search to favourites."><i id="heart"
                                 class="far fas fa-heart fa-lg"></i></button>
                         <button type="submit" id="route_select" class="button">{% trans "Plan Route" %}</button>
                         <br/>
                     </div>
                 </div>
+                <div id = "search_tab_loader" class="loader"></div>
+
                 <div id="form_output"></div>
 
                 <div id="route_options" class="list_group">
@@ -195,9 +179,9 @@
             </div>
 
             <!-- Routes tab content -->
-            <div id="routes" role="tabpanel" tabindex="0" aria-labelledby="load_routes" hidden>
+            <div id="routes" role="tabpanel" aria-labelledby="load_routes" hidden>
                 <div id="route_search_background">
-                    <input type="search" id="route_search" spellcheck="false" placeholder="{% trans 'Enter Route' %}"/>
+                    <input type="search" id="route_search" class="select" spellcheck="false" placeholder="{% trans 'Enter Route' %}" />
                     <button id="direction_button" class="button">{% trans "Inbound" %}</button>
                 </div>
                 <div id="route_background">
@@ -207,13 +191,12 @@
             </div>
 
             <!-- Favourites tab content -->
-            <div id="favs" role="tabpanel" tabindex="0" aria-labelledby="load_favourites" hidden>
+            <div id="favs" role="tabpanel"  aria-labelledby="load_favourites" hidden>
                 <div id="favourites_list" class="list_group"></div>
             </div>
 
-
             <!-- Information tab content -->
-            <div id="info" role="tabpanel" tabindex="0" aria-labelledby="load_information" hidden>
+            <div id="info" role="tabpanel"  aria-labelledby="load_information" hidden>
                 <div>
 
                     <!--Weather Information-->
@@ -221,18 +204,16 @@
 
                     <!--Twitter Feed-->
                     <div>
-                        <a class="twitter-timeline" data-lang="en" data-height="300" data-theme="light" rel="preconnect"
-                           href="https://twitter.com/dublinbusnews?ref_src=twsrc%5Etfw">Tweets by dublinbusnews</a>
+                        <a class="twitter-timeline" data-lang="en" data-height="300" data-theme="light" rel="preconnect" href="https://twitter.com/dublinbusnews?ref_src=twsrc%5Etfw">Tweets by dublinbusnews</a>
                         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     </div>
-
                     <!--Tourist info-->
                     <div class="footer">
                         <ul>
-                            <li><p>A Tourist? <span style="font-size: 14px;">Check below</span></p></li>
-                            <li><a rel="preconnect"
-                                   href="https://ireland.com/what-is-available/attractions-built-heritage/museums-and-attractions/articles/dublin-city-top-nine-attractions/"
-                                   target="_blank">Dublin Popular Attractions</a></li>
+                            <li>
+                                <p>A Tourist?</p>
+                            </li>
+                            <li><a rel="preconnect" href="https://ireland.com/what-is-available/attractions-built-heritage/museums-and-attractions/articles/dublin-city-top-nine-attractions/" target="_blank">Dublin's Popular Attractions</a></li>
                             <l1><a rel="preconnect" href="https://www.dublinbus.ie/" target="_blank"><img
                                     src="/static/images/dublinbus.png" alt="DublinBusIcon"/></a></l1>
                             <l1><a rel="preconnect" href="https://www.leapcard.ie/Home/index.html" target="_blank"><img
@@ -243,38 +224,39 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- Directions modal -->
+<div id="directions_modal" class="modal" tabindex="0">
+    <div id="directions_modal_content" class="modal_content" role="dialog" aria-label="Directions" tabindex="0">
+        <button class="close button" aria-label="Close dialog">&times;</button>
+        <div id="directions_list" class="directions_list"></div>
     </div>
+</div>
+</div>
 
-
-    <!-- Directions modal -->
-    <div id="directions_modal" class="modal" tabindex="0">
-        <div class="modal_content" role="dialog" aria-label="Directions" tabindex="0">
-            <button class="close" aria-label="Close dialog">&times;</button>
-            <div id="directions_list" class="directions_list"></div>
-        </div>
+<!-- Stops modal -->
+<div id="stops_modal" class="modal" tabindex="0">
+    <div id="stops_modal_content" class="modal_content" role="dialog" aria-label="Stops" tabindex="0">
+        <button id="directions_close_buttons" class="close button" aria-label="Close dialog">&times;</button>
+        <div id="route_selected" class="route_selected"></div>
+        <div id="stops_list" class="stops_list"></div>
     </div>
+</div>
 
-    <!-- Stops modal -->
-    <div id="stops_modal" class="modal" tabindex="0">
-        <div class="modal_content" role="dialog" aria-label="Stops" tabindex="0">
-            <button class="close" aria-label="Close dialog">&times;</button>
-            <div id="route_selected" class="route_selected"></div>
-            <div id="stops_list" class="stops_list"></div>
-        </div>
-    </div>
-
-    <!-- Map -->
-    <div id="map" class="map"></div>
+<!-- Map -->
+<div id="map" class="map"></div>
 
 
-    <!-- Languages modal -->
-    <div id="languages_modal" class="modal">
+<!-- Languages modal -->
+<div id="languages_modal" class="modal">
     <div class="modal_content">
-        <span class="close">&times;</span>
+        <button id="languages_close_button" class="close button">&times;</button>
 
-        <!-- language selector-->
+        <!-- Language selector-->
         <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-            <input name="next" type="hidden" value="{{ redirect_to }}"/>
+            <input name="next" type="hidden" value="{{ redirect_to }}" />
             <select id="sel_id" name="language" onchange="this.form.submit();">
                 {% get_current_language as LANGUAGE_CODE %}
                 {% get_available_languages as LANGUAGES %}
@@ -290,5 +272,4 @@
         </form>
     </div>
 
-{% endblock body %}
-
+    {% endblock body %}

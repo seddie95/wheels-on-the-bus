@@ -15,6 +15,11 @@ function displayDirectionsModal(bus_data, index, addresses) {
         modal.style.width = side_bar.offsetWidth + "px";
         modal.style.display = "block";
 
+        // Set a short timeout function to ensure that the modal is displayed before it is focused on.
+        setTimeout(function () {
+            modal.focus();
+        }, 300);
+
         // The modal is closed when the x button is clicked
         span.onclick = function () {
             modal.style.display = "none";
@@ -27,26 +32,32 @@ function displayDirectionsModal(bus_data, index, addresses) {
             }
         };
 
+        window.addEventListener("keydown", function (e) {
+            if (e.keyCode === 27) {
+                modal.style.display = "none";
+            }
+        });
+
         let weather_icon = displayWeather(data[1].description);
 
         // Data is
-        var text = `<div id='weather_data'>
+        var text = `<div id='weather_data' tabindex = "0">
             <img id='weather_icon' src='${weather_icon}'>
             <span id='centered'>${data[0].temperature}°c</span>
             </div>`;
 
-        text += gettext(`<h3>${start}:</h3>`) + "<ul id='journey_info'>";
+        text += gettext(`<h3 tabindex = "0">${start}:</h3>`) + "<ul id='journey_info'tabindex = '0'>";
 
         for (let i = 0; i < data.length; i++) {
             var travel_mode = data[i].travel_mode;
 
-            if (travel_mode === 'WALKING') {
+            if (travel_mode === "WALKING") {
                 let duration = data[i].duration;
                 let distance = data[i].distance;
                 text += `<li><strong>Walk</strong><br> About ${distance} • ${duration}</li>`;
             }
 
-            if (travel_mode === 'TRANSIT') {
+            if (travel_mode === "TRANSIT") {
                 let line_id = data[i].line_id;
                 let stop_id = data[i].departure_stop_id;
 
@@ -79,7 +90,6 @@ function displayDirectionsModal(bus_data, index, addresses) {
                             });
 
                             $(`#arrival_${stop_id}`).html(`<br><br>Leaves in: <strong>${bus_times.toString()} min</strong>`);
-
                         })
                         .catch(function (error) {
                             console.error("Difficulty fetching real time arrival data:", error);
@@ -92,7 +102,8 @@ function displayDirectionsModal(bus_data, index, addresses) {
                     "<br>" +
                     data[i].start_name +
                     "<br>" +
-                    "<br>" + "lineid: " +
+                    "<br>" +
+                    "lineid: " +
                     gettext(line_id) +
                     "<br>" +
                     "<br>" +
@@ -121,12 +132,11 @@ function displayDirectionsModal(bus_data, index, addresses) {
                 text += stop_list + "</div>" + "</li>";
             }
         }
-        text += "</ul>" + end;
+        text += "<li>" + "</li>";
+        text += "</ul>" + "<h3 tabindex = '0'>" + end + "</h3>";
 
         $("#directions_list").html(text);
-
-    } catch
-        (error) {
+    } catch (error) {
         console.error("Difficulty fetching directions modal data:", error);
     }
 }
@@ -167,7 +177,7 @@ function displayStopsModal(obj, route_info) {
 
         let line_id = route_info["line_id"];
 
-        let route_selected = `<li id='${line_id}'><span class="transport_container">
+        let route_selected = `<li id='${line_id}' tabindex="0"><span class="transport_container">
         <img src='/static/images/bus.svg' id='bus_icon'>${line_id}</span>
         <span class="route_text"></span></li>`;
 
