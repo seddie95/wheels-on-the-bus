@@ -21,11 +21,16 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    document.getElementById("datepicker").value = new Date().toISOString().substr(0, 1);
-    datepicker.min = new Date().toISOString().split("T")[0];
-    test = new Date();
-    test.setDate(test.getDate() + 5);
-    datepicker.max = test.toISOString().split("T")[0];
+    let today = new Date().toISOString().substr(0, 10);
+    document.querySelector("#datepicker").value = today;
+
+    let min = today;
+    document.querySelector("#datepicker").min = min;
+
+    let get_max = new Date();
+    get_max.setDate(get_max.getDate() + 5);
+    let max = get_max.toISOString().substr(0, 10);
+    document.querySelector("#datepicker").max = max;
 });
 
 // Function to select the time

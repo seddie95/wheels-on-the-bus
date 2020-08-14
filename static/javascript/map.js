@@ -289,9 +289,11 @@ function fetch_data(myData) {
             // The input fields are blurred out
             $("#id_source").focus(function (e) {
                 $(this).blur();
+                passiveEvent = true;
             });
             $("#id_destination").focus(function (e) {
                 $(this).blur();
+                passiveEvent = true;
             });
 
             // Show the loader before the fetch call is made

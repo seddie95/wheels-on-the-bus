@@ -15,7 +15,6 @@ $(document).ready(function () {
             // Update the vh variable
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty("--vh", `${vh}px`);
-            console.log(vh);
         }, 250);
     });
 });
