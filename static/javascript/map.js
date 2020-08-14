@@ -124,7 +124,7 @@ function fetch_data(myData) {
 
             // String used to create list of stops
 
-            title = "<h2 tabindex = '0' aria-label='Search Results List. Select a list item for full details.'>Search Results</h2>";
+            title = gettext("<h2 tabindex = '0' aria-label='Search Results List. Select a list item for full details.'>Search Results</h2>");
 
             let route_option = title;
 

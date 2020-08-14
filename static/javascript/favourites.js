@@ -128,7 +128,7 @@ $(document).ready(function () {
         if (favourites) {
             favourites_list.html(favourites);
         } else {
-            let message = "<p tabindex = '0'>You have no favourites saved!</p>";
+            let message = gettext("<p tabindex = '0'>You have no favourites saved!</p>");
             favourites_list.html(message);
         }
     });
@@ -158,8 +158,8 @@ $(document).ready(function () {
         if (history) {
             $("#recent").html(history);
         } else {
-            let title = "<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>";
-            title += "<p tabindex = '0'>You have no recent searches!</p>";
+            let title = gettext("<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>");
+            title += gettext("<p tabindex = '0'>You have no recent searches!</p>");
             recent.html(title);
         }
     });
@@ -173,8 +173,8 @@ $(document).ready(function () {
         if (history) {
             $("#recent").html(history);
         } else {
-            let title = "<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>";
-            title += "<p tabindex = '0'>You have no recent searches!</p>";
+            let title = gettext("<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>");
+            title += gettext("<p tabindex = '0'>You have no recent searches!</p>");
             recent.html(title);
         }
     });
@@ -185,7 +185,7 @@ $(document).ready(function () {
 function load_local_storage(item) {
     let title;
     if (item === "history") {
-        title = "<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>";
+        title = gettext("<h2 tabindex = '0' aria-label='Recent Searches List. Select a list item to search'>Recent Searches</h2>");
     } else if (item === "favourites") {
         title = "";
     }
