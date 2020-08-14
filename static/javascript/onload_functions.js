@@ -232,3 +232,10 @@ $(document).ready(() => {
         }, 4000);
     });
 });
+
+//refresh page when click on wheels title
+$(document).ready(function () {
+    $('h1').click(function () {
+        window.location.reload();
+    })
+});

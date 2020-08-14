@@ -154,6 +154,13 @@ header {
     }
 }
 
+h1:hover{
+    color: #5b80b2;
+    cursor:pointer;
+}
+
+
+
 /* ---------------------------- */
 /* 3. Secondary layout elements */
 /* ---------------------------- */
@@ -658,6 +665,15 @@ button[role="tab"] {
 /* 8.7 Plan route button */
 
 /* 8.8 Route options */
+
+#arrow{
+    color: #5b80b2;
+}
+
+#arrow:hover{
+    cursor: pointer;
+    color: #1f567c ;
+}
 
 /* ------------- */
 /* 9. Routes tab */
