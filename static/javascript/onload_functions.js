@@ -19,6 +19,30 @@ $(document).ready(function () {
     }
 });
 
+$(document).ready(function () {
+    function preventPullToRefresh(element) {
+        var prevent = false;
+
+        document.querySelector(element).addEventListener("touchstart", function (e) {
+            if (e.touches.length !== 1) {
+                return;
+            }
+
+            var scrollY = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
+            prevent = scrollY === 0;
+        });
+
+        document.querySelector(element).addEventListener("touchmove", function (e) {
+            if (prevent) {
+                prevent = false;
+                e.preventDefault();
+            }
+        });
+    }
+
+    preventPullToRefresh("#map_overlay"); // pass #id or html tag into the method
+});
+
 //==============================================================
 // Function to submit form data on button click
 $(document).ready(function () {
@@ -35,6 +59,15 @@ $(document).ready(function () {
         // are properly selected from the autocomplete lists
         // Alert the user and return from the function if
         // there are no locations to avoid the history array being populated with unusable data
+
+        if (myData.source_name == myData.destination_name) {
+            document.getElementById("route_select").setAttribute("aria-label", "Source and destination stop must be different.");
+            alert("Source and destination stop must be different.");
+            setTimeout(function () {
+                document.getElementById("route_select").removeAttribute("aria-label");
+            }, 2000);
+            return;
+        }
 
         if (myData.source_location == "" || myData.destination_location == "") {
             document.getElementById("route_select").setAttribute("aria-label", "Please select valid source and destination stops.");
