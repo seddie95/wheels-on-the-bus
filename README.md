@@ -6,6 +6,14 @@ the journey will take using  LGBM Artificial  Neural network. This website has b
 for all users with no need for a sign-in thus protecting users information and ensuring simplicity in use. The "Wheels"
 website was designed with mobile and desktop users in mind.
 
+# Website appearance
+
+
+<p align="center">
+  <img width="800"  src="https://i.imgur.com/jNVKaNb.png">
+ 
+</p>
+
 
 ## Background
 This Project was conducted as part of the UCD Computer Science masters (conversion) programme as the summer research
@@ -18,8 +26,7 @@ The modelling component of the web application was achieved using the LGBM Artif
 powered by python and the Django web framework library. The front-end was produced in the most part using vanilla 
 javascript aided by jQuery.
 
-## Reasons for two repositories
-A second repository was created so that the applictaion could be deployed to heroku. The size of the initial repository even after compression was far too large for the 500mb  heroku slug limit. This resulted in the creation of a second repository that did not include any external files such as tests and data analysis.
+
 
 ## Deployment
 
