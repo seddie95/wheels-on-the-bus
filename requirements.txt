@@ -36,7 +36,7 @@ jupyter-console==6.1.0
 jupyter-core==4.6.3
 lightgbm==2.3.1
 MarkupSafe==1.1.1
-mistune==0.8.4
+mistune==2.0.3
 mysql-connector==2.2.9
 mysql-connector-python==8.0.18
 mysqlclient==1.4.6
